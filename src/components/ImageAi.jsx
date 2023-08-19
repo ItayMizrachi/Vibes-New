@@ -49,6 +49,7 @@ const ImageAi = ({setShowImgAi}) => {
     }
   };
 
+  //check
 
   return (
     <div   onClick={handleOverlayClick}  className="fixed z-50 inset-0 flex justify-center items-center bg-black bg-opacity-80">
