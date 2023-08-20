@@ -5,12 +5,10 @@ import { Link } from "react-router-dom";
 import DeleteComment from "./DeleteComment";
 
 const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
-  // State to manage whether each comment's delete component is shown or not
   const [showDeleteList, setShowDeleteList] = useState(
     new Array(commentsInfo.length).fill(false)
   );
 
-  // Function to toggle the showDelete state for a specific comment
   const toggleShowDelete = (index) => {
     const newShowDeleteList = [...showDeleteList];
     newShowDeleteList[index] = !newShowDeleteList[index];
@@ -20,29 +18,33 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
   return (
     <div>
       {commentsInfo.length > 0 && (
-        <div className="h-20 ml-10 overflow-y-scroll scrollbar-thumb-black scrollbar-thin">
+        <div className="ml-10">
           {commentsInfo.map((comment, index) => (
-            <div key={comment._id} className="flex items-center mb-3 space-x-2">
-              <Link to={"/" + comment.user.user_name}>
+            <div
+              key={comment._id}
+              className="flex flex-col md:flex-row items-start mb-3"
+            >
+              <Link
+                to={"/" + comment.user.user_name}
+                className="flex items-center space-x-2"
+              >
                 <img
-                  className="rounded-full h-7"
+                  className="rounded-full h-10 w-10"
                   src={comment.user.profilePic}
                   alt="profile pic"
                 />
+                <p className="text-sm font-bold">{comment.user.user_name}</p>
               </Link>
-              <p className="flex-1 text-sm">
-                <Link to={"/" + comment.user.user_name} className="font-bold">
-                  {comment.user.user_name}{" "}
-                </Link>
-                {comment.text}
-              </p>
-              <p className="pr-5 text-xs text-gray-500">
+              <div className="ml-0 md:ml-2 mt-2 md:max-w-md">
+                <p className="break-words">{comment.text}</p>
+              </div>
+              <div className="flex mt-3 items-center ml-auto pr-5 text-xs text-gray-500">
                 {moment(comment.date_created).fromNow()}
                 <DotsHorizontalIcon
                   onClick={() => toggleShowDelete(index)}
-                  className="w-3 h-3 ml-1 inline cursor-pointer hover:text-gray-600"
+                  className="w-3 h-3 ml-1 cursor-pointer hover:text-gray-600"
                 />
-              </p>
+              </div>
               {showDeleteList[index] && (
                 <DeleteComment
                   comment={comment}
@@ -53,7 +55,6 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
               )}
             </div>
           ))}
-          {/* <Intersector /> */}
         </div>
       )}
     </div>
