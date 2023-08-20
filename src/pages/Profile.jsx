@@ -6,6 +6,7 @@ import Post from "../components/Post";
 import UserNotFound from "../components/UserNotFound";
 import { MyContext } from "../context/myContext";
 import { URL, doApiGet } from "../services/apiService";
+import FollowersList from "../components/FollowersList";
 
 const Profile = () => {
   const [postsInfo, setPostsInfo] = useState([]);
@@ -16,6 +17,8 @@ const Profile = () => {
   const [userNotFound, setUserNotFound] = useState(false);
   const { userData, followUser, followFlag } = useContext(MyContext);
   const [isPop, setIsPop] = useState(false);
+  const [showFollowers, setShowFollowers] = useState(false);
+  const [showFollowing, setShowFollowing] = useState(false);
 
   const show = (type) => {
     if (type === "userPosts") {
@@ -64,10 +67,10 @@ const Profile = () => {
 
   const doApiUserInfo = async (user_name) => {
     try {
-      const url = URL + "/users/userInfo/" + user_name;
+      const url = URL + "/users/userInfo/pop/" + user_name;
       const data = await doApiGet(url);
       setUserInfo(data);
-      // console.log(data);
+      console.log(data);
     } catch (err) {
       console.log(err);
       setUserNotFound(true);
@@ -114,8 +117,8 @@ const Profile = () => {
                   className="p-2 my-2 text-white font-semibold bg-blue-500 rounded hover:bg-blue-600"
                   onClick={() => followUser(userInfo._id)}
                 >
-                  {userInfo.followers.find((follower_id) => {
-                    return follower_id === userData._id;
+                  {userInfo.followers.find((followers) => {
+                    return followers._id === userData._id;
                   })
                     ? "Unfollow"
                     : "Follow"}
@@ -131,18 +134,38 @@ const Profile = () => {
                   </span>
                   posts
                 </div>
-                <div className="mr-6">
+                <div
+                  onClick={() => setShowFollowers(true)}
+                  className="mr-6 cursor-pointer"
+                >
                   <span className="font-semibold">
                     {userInfo.followers?.length + " "}
                   </span>
                   followers
                 </div>
-                <div className="mr-6">
+                {showFollowers && (
+                  <FollowersList
+                    setShowFollowers={setShowFollowers}
+                    follow={userInfo.followers}
+                    title={"Followers"}
+                  />
+                )}
+                <div
+                  onClick={() => setShowFollowing(true)}
+                  className="mr-6 cursor-pointer"
+                >
                   <span className="font-semibold">
                     {userInfo.followings?.length + " "}
                   </span>
                   following
                 </div>
+                {showFollowing && (
+                  <FollowersList
+                    setShowFollowing={setShowFollowing}
+                    follow={userInfo.followings}
+                    title={"Following"}
+                  />
+                )}
               </div>
               <div className="mt-2 md:mt-4">
                 <div className="pt-2">

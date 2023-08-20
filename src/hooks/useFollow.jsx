@@ -37,6 +37,7 @@ export const useFollow = () => {
         if (!followFlag) {
           await createFollowNotification(otherUser_id, userData._id);
         } else deleteFollowNotification(otherUser_id, userData._id);
+        console.log("Successfully created");
       }
     } catch (error) {
       console.log(error);
