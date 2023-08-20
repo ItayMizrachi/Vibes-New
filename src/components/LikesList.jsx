@@ -22,18 +22,22 @@ const LikesList = ({ likes, setShowLikes }) => {
             className="w-5 h-5 cursor-pointer"
           />
         </div>
-        <ul className="max-h-[300px] overflow-x-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-black">
-          {likes.map((like, index) => (
-            <li
-              key={index}
-              className={`p-3 hover:bg-gray-200 ${
-                index === likes.length - 1 ? "rounded-b-lg" : ""
-              }`}
-            >
-              <Link to={"/" + like}>{like}</Link>
-            </li>
-          ))}
-        </ul>
+        {likes.length === 0 ? (
+          <p className="p-3 text-center">No likes on this post yet.</p>
+        ) : (
+          <ul className="max-h-[300px] overflow-x-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-black">
+            {likes.map((like, index) => (
+              <li
+                key={index}
+                className={`p-3 hover:bg-gray-200 ${
+                  index === likes.length - 1 ? "rounded-b-lg" : ""
+                }`}
+              >
+                <Link to={"/" + like}>{like}</Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
