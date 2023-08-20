@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import DeleteComment from "./DeleteComment";
 
-const Comments = ({ commentsInfo, deleteComment, Intersector ,user_id}) => {
+const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
   // State to manage whether each comment's delete component is shown or not
   const [showDeleteList, setShowDeleteList] = useState(
     new Array(commentsInfo.length).fill(false)
@@ -16,7 +16,7 @@ const Comments = ({ commentsInfo, deleteComment, Intersector ,user_id}) => {
     newShowDeleteList[index] = !newShowDeleteList[index];
     setShowDeleteList(newShowDeleteList);
   };
-   
+
   return (
     <div>
       {commentsInfo.length > 0 && (
@@ -31,19 +31,16 @@ const Comments = ({ commentsInfo, deleteComment, Intersector ,user_id}) => {
                 />
               </Link>
               <p className="flex-1 text-sm">
-                <Link
-                  to={"/" + comment.user.user_name}
-                  className="font-bold"
-                >
+                <Link to={"/" + comment.user.user_name} className="font-bold">
                   {comment.user.user_name}{" "}
                 </Link>
                 {comment.text}
               </p>
-              <p className="pr-5 text-xs">
-                {moment(comment.date_created).fromNow()}{" "}
+              <p className="pr-5 text-xs text-gray-500">
+                {moment(comment.date_created).fromNow()}
                 <DotsHorizontalIcon
                   onClick={() => toggleShowDelete(index)}
-                  className="w-3 h-3 inline cursor-pointer text-gray-500 hover:text-gray-600"
+                  className="w-3 h-3 ml-1 inline cursor-pointer hover:text-gray-600"
                 />
               </p>
               {showDeleteList[index] && (

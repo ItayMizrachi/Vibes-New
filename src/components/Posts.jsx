@@ -18,6 +18,7 @@ const Posts = () => {
           img_url={post.img_url}
           description={post.description}
           user_id={post.user?._id}
+          date_created={post.date_created}
         />
       ))}
       {/* <Intersector /> */}

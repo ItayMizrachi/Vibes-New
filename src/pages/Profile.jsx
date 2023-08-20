@@ -225,6 +225,7 @@ const Profile = () => {
                   profilePic={post.user?.profilePic}
                   img_url={post.img_url}
                   description={post.description}
+                  date_created={post.date_created}
                 />
               ))}
               {/* <Intersector /> */}

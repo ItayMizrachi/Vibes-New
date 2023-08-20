@@ -18,6 +18,7 @@ import AddComment2 from "./AddComment2";
 import Comments from "./Comments";
 import EditPost3 from "./EditPost3";
 import LikesList from "./LikesList";
+import moment from "moment";
 
 const Post = ({
   likes,
@@ -28,6 +29,7 @@ const Post = ({
   description,
   profilePic,
   user_id,
+  date_created,
 }) => {
   const [commentsInfo, setCommentsInfo] = useState([]);
   const [refresh, setRefresh] = useState(false);
@@ -287,10 +289,15 @@ const Post = ({
             {likesCount} likes
           </p>
           {showLikes && <LikesList setShowLikes={setShowLikes} likes={likes} />}
-          <Link to={"/" + user_name} className="mr-1 font-bold">
-            {user_name}
-          </Link>
-          {description}
+          <div className="flex justify-between">
+            <div className="flex">
+              <Link to={"/" + user_name} className="mr-1 font-bold">
+                {user_name}
+              </Link>
+              <p className="ml-2">{description}</p>
+            </div>
+            <p className="text-gray-500">{moment(date_created).fromNow()}</p>
+          </div>
         </div>
       </div>
 

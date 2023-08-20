@@ -34,6 +34,7 @@ const SinglePost2 = () => {
           user_id={post?.user?._id}
           likes={post.likes}
           likesLength={post.likes?.length}
+          date_created={post.date_created}
         />
       )}
     </div>
