@@ -70,7 +70,6 @@ const Profile = () => {
       const url = URL + "/users/userInfo/pop/" + user_name;
       const data = await doApiGet(url);
       setUserInfo(data);
-      console.log(data);
     } catch (err) {
       console.log(err);
       setUserNotFound(true);
