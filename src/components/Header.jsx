@@ -1,4 +1,5 @@
 import {
+  AcademicCapIcon,
   BellIcon,
   CameraIcon,
   ChatIcon,
@@ -108,6 +109,9 @@ const Header = () => {
                 <UserGroupIcon className="navBtn" />
               </Link> */}
               <Link to="chatbot">
+                <AcademicCapIcon className="navBtn" />
+              </Link>
+              <Link to="chat">
                 <ChatIcon className="navBtn" />
               </Link>
             
