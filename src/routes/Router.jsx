@@ -10,10 +10,10 @@ import UsersList from "../admin/UsersList";
 import BottomHeader from "../components/BottomHeader";
 import Emoji from "../components/Emoji";
 import Header from "../components/Header";
-import ImageAi from "../components/ImageAi";
 import SinglePost2 from "../components/SinglePost2";
 import Uploader from "../components/Uploader";
 import About from "../pages/About";
+import Chat from "../pages/Chat";
 import Chatbot from "../pages/Chatbot";
 import Home from "../pages/Home";
 import Page404 from "../pages/Page404";
@@ -41,7 +41,7 @@ const Router = () => {
                 <Route path="/singlepost/:post_id" element={<SinglePost2 />} />
                 <Route path="/emoji" element={<Emoji />} />
                 <Route path="/*" element={<Page404 />} />
-                <Route path="/img" element={<ImageAi />} />
+                <Route path="/chat" element={<Chat />} />
               </Routes>
               <BottomHeader />
             </>
