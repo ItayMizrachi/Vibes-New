@@ -52,7 +52,7 @@ const Recommanded = () => {
             <p className="text-gray-400 text-sm">{profile.name}</p>
             <p className="text-xs text-gray-400 whitespace-normal">
               {" "}
-              {profile.desc.length > 27
+              {profile?.desc?.length > 27
                 ? profile.desc.substring(0, 27) + ".."
                 : profile.desc}
             </p>
@@ -62,7 +62,7 @@ const Recommanded = () => {
             onClick={() => followUser(profile?._id)}
             className="text-sm font-semibold text-blue-400"
           >
-            {profile.followers.find((follower_id) => {
+            {(profile?.followers || []).find((follower_id) => {
               return follower_id === userData._id;
             })
               ? "Unfollow"
