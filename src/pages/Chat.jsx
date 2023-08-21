@@ -1,7 +1,13 @@
-import { ArrowCircleDownIcon, ChatIcon } from "@heroicons/react/outline";
+import {
+    ArrowCircleDownIcon,
+    ChatIcon,
+    SearchIcon,
+} from "@heroicons/react/outline";
 import { PaperAirplaneIcon } from "@heroicons/react/solid";
 import moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
+import InputEmojiWithRef from "react-input-emoji";
+import { Link } from "react-router-dom";
 import SearchChat from "../components/chat/SearchChat";
 import { MyContext } from "../context/myContext";
 import { URL, doApiGet, doApiMethod } from "../services/apiService";
@@ -12,6 +18,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
   const [activeChatId, setActiveChatId] = useState(null);
+  const [text, setText] = useState("");
 
   const doApiChats = async () => {
     try {
@@ -51,14 +58,14 @@ const Chat = () => {
       const body = {
         chat: chatId,
         sender: userData._id,
-        content: messageInput,
+        content: text,
       };
       const response = await doApiMethod(url, "POST", body);
 
       // Refresh messages
       doApiMesssages(chatId);
       // Clear message input
-      setMessageInput("");
+      setText("");
     } catch (error) {
       console.log(error);
     }
@@ -105,11 +112,15 @@ const Chat = () => {
           <div className="flex-1">
             <div>
               {/* new chat */}
-              <div className="p-2">
+              <div className="p-2 hidden md:inline-flex">
                 <SearchChat
                   startNewChat={startNewChat}
                   user_id={userData._id}
                 />
+              </div>
+              <div className="p-2 flex items-center justify-center chatRow py-5 md:hidden">
+                {/* Show the SearchIcon only on small screens */}
+                <SearchIcon className="w-5 h-5 text-center" />
               </div>
             </div>
             <div className="mt-3">
@@ -122,7 +133,7 @@ const Chat = () => {
                       className="justify-center chatRow"
                       onClick={() => doApiMesssages(item._id)} // Call doApiMessages with the chat ID when clicked
                     >
-                      <div className="flex-1 hidden truncate md:inline-flex">
+                      <div className="flex-1  truncate ">
                         {/* Check each participant's _id and display user_name and profilePic of the other participant */}
                         {item.participants &&
                           item.participants.map(
@@ -137,14 +148,14 @@ const Chat = () => {
                                     src={participant.profilePic}
                                     alt={`Profile pic of ${participant.user_name}`}
                                   />
-                                  <p className="font-semibold">
+                                  <p className="font-semibold hidden md:inline-flex">
                                     {participant.user_name}
                                   </p>
                                 </div>
                               )
                           )}
                       </div>
-                      <ChatIcon className="w-5 h-5" />
+                      <ChatIcon className="w-5 h-5 hidden md:inline-flex" />
                     </div>
                   ))}
                 </>
@@ -176,50 +187,57 @@ const Chat = () => {
               // mapping the messages
               messages.map((message) => (
                 <div
-                key={message._id}
-                className={`flex w-full mt-2 ${
-                  message.sender._id !== userData._id ? "justify-end" : ""
-                }`}
-              >
-                {message.sender._id !== userData._id && (
-                  <img
-                    className="w-10 h-10 rounded-full mr-2"
-                    src={message.sender.profilePic}
-                    alt={`Profile pic of ${message.sender.user_name}`}
-                  />
-                )}
-              
-                <div
-                  className={`flex flex-col max-w-xs ${
-                    message.sender._id === userData._id ? "ml-auto" : "mr-auto"
+                  key={message._id}
+                  className={`flex w-full mt-2 ${
+                    message.sender._id !== userData._id ? "justify-end" : ""
                   }`}
                 >
+                  {message.sender._id !== userData._id && (
+                    <Link to={"/" + message.sender.user_name}>
+                      <img
+                        className="w-10 h-10 rounded-full mr-2"
+                        src={message.sender.profilePic}
+                        alt={`Profile pic of ${message.sender.user_name}`}
+                      />
+                    </Link>
+                  )}
+
                   <div
-                    className={`${
+                    className={`flex flex-col max-w-xs ${
                       message.sender._id === userData._id
-                        ? "bg-[#378df0] p-3 text-white rounded-l-lg rounded-br-lg"
-                        : "bg-gray-100 p-3 rounded-r-lg rounded-bl-lg"
-                    } ml-2`}
+                        ? "ml-auto"
+                        : "mr-auto"
+                    }`}
                   >
-                    <p className="text-sm">{message.content}</p>
-                    <span
-                      className={`text-xs text-gray-500 leading-none mt-2 ${
-                          message.sender._id === userData._id ? "ml-auto text-gray-100" : "mr-auto"
+                    <div
+                      className={`${
+                        message.sender._id === userData._id
+                          ? "bg-[#378df0] p-3 text-white rounded-l-lg rounded-br-lg"
+                          : "bg-gray-100 p-3 rounded-r-lg rounded-bl-lg"
+                      } ml-2`}
+                    >
+                      <p className="text-sm">{message.content}</p>
+                      <span
+                        className={`text-xs text-gray-500 leading-none mt-2 ${
+                          message.sender._id === userData._id
+                            ? "ml-auto text-gray-100"
+                            : "mr-auto"
                         }`}
-                        >
-                      {moment(message.date_created).fromNow()}
-                    </span>
+                      >
+                        {moment(message.date_created).fromNow()}
+                      </span>
+                    </div>
                   </div>
+                  {message.sender._id === userData._id && (
+                    <Link to={"/" + message.sender.user_name}>
+                      <img
+                        className="w-10 h-10 rounded-full ml-3"
+                        src={message.sender.profilePic}
+                        alt={`Profile pic of ${message.sender.user_name}`}
+                      />
+                    </Link>
+                  )}
                 </div>
-                        {message.sender._id === userData._id && (
-                          <img
-                            className="w-10 h-10 rounded-full ml-3"
-                            src={message.sender.profilePic}
-                            alt={`Profile pic of ${message.sender.user_name}`}
-                          />
-                        )}
-              </div>
-              
               ))
             )}
           </div>
@@ -227,15 +245,28 @@ const Chat = () => {
           {/* chat input */}
           <div className="text-sm bg-[#f1eded] rounded-lg">
             <div className="flex p-5 space-x-5">
-              <input
+              {/* <input
                 className="flex-1 bg-transparent border-none outline-none focus:ring-transparent disabled:cursor-not-allowed disabled:text-gray-300 "
                 type="text"
-                placeholder="message.."
+                placeholder="Type a message"
                 value={messageInput}
                 onChange={(e) => setMessageInput(e.target.value)}
                 onKeyDown={onKeyboardClick}
                 disabled={!activeChatId} // Disable the input if there's no active chat
-              />
+              /> */}
+              <div className="search-cont send-message w-full">
+                <InputEmojiWithRef
+                  className="flex-1 bg-transparent border-none outline-none focus:ring-transparent disabled:cursor-not-allowed disabled:text-gray-300 "
+                  type="text"
+                  disabled={!activeChatId} // Disable the input if there's no active chat
+                  value={text}
+                  onChange={setText}
+                  cleanOnEnter
+                  onEnter={onSendMessage}
+                  placeholder="Type a message"
+                  //   onResize={innerWidth= "50px"}
+                />
+              </div>
               <button
                 className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed "
                 type="submit"

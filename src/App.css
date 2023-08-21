@@ -83,3 +83,10 @@ input .upload #file-upload-button{
     padding:8px;
     background: red ;
 }
+
+.react-input-emoji--container {
+    /* border-radius: 0px !important; */
+    background: none !important;
+    overflow: auto;
+    border: none !important;
+  }
