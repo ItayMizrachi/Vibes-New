@@ -37,8 +37,8 @@ const Noftlications = ({ setShowNoftlications,  setIsRead, }) => {
       <div className={`  transition-all transform duration-300 ease-in-out`}>
         <div className="max-2-xs h-[100vh] border-l-2 overflow-x-hidden min-w-[20rem] bg-white custom-scrollbar">
           <div className="flex flex-col h-[100vh] pt-0 p-2">
-            {/* Title */}
-            <div className="bg-white p-2 sticky top-0 z-50">
+            {/* Title */} 
+            <div className="bg-white p-2 fixed w-full pr-3 top-0 z-50">
               <div className="bg-white ">
                 <div
                   onClick={() => setShowNoftlications(false)}
