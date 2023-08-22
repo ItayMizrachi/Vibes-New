@@ -10,6 +10,7 @@ import UsersList from "../admin/UsersList";
 import BottomHeader from "../components/BottomHeader";
 import Emoji from "../components/Emoji";
 import Header from "../components/Header";
+import EditRegUser from "../components/EditRegUser";
 import ImageAi from "../components/ImageAi";
 import SinglePost2 from "../components/SinglePost2";
 import Uploader from "../components/Uploader";
@@ -35,6 +36,7 @@ const Router = () => {
                 <Route path="/about" element={<About />} />
                 <Route path="/signin" element={<SignIn />} />
                 <Route path="/signup" element={<SignUp />} />
+                <Route path="/edit_user" element={<EditRegUser />} />
                 <Route path="/:user_name" element={<Profile />} />
                 <Route path="/chatbot" element={<Chatbot />} />
                 <Route path="/addpost" element={<Uploader />} />
@@ -42,6 +44,7 @@ const Router = () => {
                 <Route path="/emoji" element={<Emoji />} />
                 <Route path="/*" element={<Page404 />} />
                 <Route path="/img" element={<ImageAi />} />
+
               </Routes>
               <BottomHeader />
             </>

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "../context/myContext";
 import { URL, doApiGet } from "../services/apiService";
+import { now } from "moment/moment";
 
 const Recommanded = () => {
   const [suggestions, setSuggestions] = useState([]);
@@ -9,20 +10,20 @@ const Recommanded = () => {
 
   useEffect(() => {
     doApiRandom5();
-
   }, [followFlag, userData]);
 
   const doApiRandom5 = async () => {
     console.log(userData)
     console.log(userData.followings)
-
     let url;
-    if (userData.followings && userData.followings.length > 0) {
-      url = URL + "/users/random5";
-    } else {
-      url = URL + "/users/random4";
-    }
     try {
+      if (userData && userData.followings.length === 0) {
+        url = URL + "/users/random4";
+      } else {
+        url = URL + "/users/random5";
+
+      }
+      console.log(url);
       const data = await doApiGet(url);
       setSuggestions(data);
       // console.log(data);
@@ -40,7 +41,7 @@ const Recommanded = () => {
 
       {suggestions.map((profile) => (
         <div
-          key={profile._id}
+          key={profile._id + Math.random()}
           className="flex items-center justify-between mt-3"
         >
           <Link to={"/" + profile.user_name}>

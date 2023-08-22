@@ -123,7 +123,7 @@ const Profile = () => {
             <div className="justify-center avatar md:col-span-1">
               <div>
                 <img
-                  className="mx-auto rounded-full w-36 h-36 md:mx-0"
+                  className="mx-auto rounded-full cursor-pointer w-36 h-36 md:mx-0"
                   src={userInfo.profilePic}
                   alt="profile pic"
                   onClick={openWindow}

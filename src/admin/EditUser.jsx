@@ -7,13 +7,14 @@ import { URL, doApiGet, doApiMethod } from "../services/apiService";
 const EditUser = () => {
   const params = useParams();
   const nav = useNavigate();
+  const [item, setItem] = useState({});
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const [item, setItem] = useState({});
 
   useEffect(() => {
     doApiInit();
@@ -33,6 +34,7 @@ const EditUser = () => {
   const doApiEdit = async (_bodyData) => {
     try {
       const url = URL + "/users/" + params["id"];
+
       const data = await doApiMethod(url, "PUT", _bodyData);
 
       if (data.modifiedCount) {

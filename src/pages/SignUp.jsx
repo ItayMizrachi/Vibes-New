@@ -6,13 +6,15 @@ import {
   UserIcon,
 } from "@heroicons/react/solid";
 import axios from "axios";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { URL } from "../services/apiService";
+import { URL, imgToString, doApiMethod } from "../services/apiService";
 
 const SignUp = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const uploadRef = useRef();
   const nav = useNavigate();
 
   const {
@@ -20,6 +22,10 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+
+  let url2;
+
 
   const doApi = async (_bodyData) => {
     let url = URL + "/users";
@@ -30,6 +36,9 @@ const SignUp = () => {
     }
 
     try {
+
+      _bodyData.profilePic = url2;
+
       const resp = await axios({
         url: url,
         method: "POST",
@@ -39,6 +48,7 @@ const SignUp = () => {
         toast.success("Welcome to our site! Please log in");
         nav("/signin");
       }
+      setIsLoading(false);
     } catch (err) {
       console.log(err.response.data.code);
       if (err.response.data.code == 11000) {
@@ -48,9 +58,27 @@ const SignUp = () => {
       alert("There problem, come back later");
     }
   };
-  const onSub = (_bodyData) => {
+
+
+  const onSub = async (_bodyData) => {
+    setIsLoading(true);
     console.log(_bodyData);
+    await doApiCloudUpload();
     doApi(_bodyData);
+  };
+
+  const doApiCloudUpload = async () => {
+    try {
+      const myFile = uploadRef.current.files[0];
+      const imgData = await imgToString(myFile);
+      const url = URL + "/upload/cloud";
+      const resp = await doApiMethod(url, "POST", { image: imgData });
+      console.log(resp.data);
+      url2 = resp.data.secure_url;
+      console.log(url2);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const validateEmail = (value) => {
@@ -82,6 +110,7 @@ const SignUp = () => {
               <div className="text-red-600">*Enter valid name(min 2 chars)</div>
             )}
 
+
             <div className="relative p-1 mt-1 rounded-md lg:mt-4">
               <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
                 <UserIcon className="w-5 h-5 text-gray-500" />
@@ -93,7 +122,7 @@ const SignUp = () => {
                 placeholder="username"
                 {...register("user_name", {
                   required: true,
-                  minLength: 2 ,
+                  minLength: 2,
                 })}
               />
             </div>
@@ -160,17 +189,10 @@ const SignUp = () => {
               </div>
             )}
 
-            <div className="relative p-1 mt-2 rounded-md ">
-              <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
-                <CameraIcon className="w-5 h-5 text-gray-500" />
-              </div>
-              <input
-                className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
-                type="text"
-                placeholder="profile pic"
-                {...register("profilePic", { required: false, minLength: 6 })}
-              />
-            </div>
+
+
+
+
 
             <div className="relative p-1 mt-1 rounded-md lg:mt-4">
               <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
@@ -191,6 +213,15 @@ const SignUp = () => {
               )}
             </div>
 
+            <div className="relative p-1 mt-1 rounded-md lg:mt-4">
+              <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
+                <CameraIcon className="w-5 h-5 text-gray-500" />
+              </div>
+              <input ref={uploadRef}
+                className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
+                type="file"
+              />
+            </div>
             <div className="relative p-1 mt-2 rounded-md">
               <div className="absolute inset-y-0 flex p-3 pl-3 pointer-events-none">
                 {/* Use an icon for the textarea input */}
