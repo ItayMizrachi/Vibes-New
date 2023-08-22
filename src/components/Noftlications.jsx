@@ -50,7 +50,7 @@ const Noftlications = ({ setShowNoftlications,  setIsRead, }) => {
               </div>
             </div>
 
-            <div>
+            <div className="mt-16">
               {notifications.length === 0 && flag ? (
                 <div className="justify-center chatRow">
                   <div className="flex-1 truncate md:inline-flex flex-col">

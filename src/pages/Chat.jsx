@@ -1,7 +1,7 @@
 import {
-    ArrowCircleDownIcon,
-    ChatIcon,
-    SearchIcon,
+  ArrowCircleDownIcon,
+  ChatIcon,
+  SearchIcon,
 } from "@heroicons/react/outline";
 import { PaperAirplaneIcon } from "@heroicons/react/solid";
 import moment from "moment";
@@ -55,6 +55,7 @@ const Chat = () => {
       const data = await doApiGet(url);
       //   history.push(`/chat/${chatId}`);
       setMessages(data);
+      //   const read = await axios.put(URL + "/message/mark-as-read/" + chatId);
       nav(`/chat/${chatId}`);
       // Find the other participant and set their information
       const activeChat = chats.find((item) => item._id === chatId);
@@ -82,6 +83,7 @@ const Chat = () => {
 
       // Refresh messages
       doApiMesssages(chatId);
+      doApiChats();
       // Clear message input
       setText("");
       setMessageInput("");
@@ -145,10 +147,11 @@ const Chat = () => {
             {loading && <LoadingPage />}
             <div>
               {/* new chat */}
-              <div className="p-2 hidden md:inline-flex">
+              <div className="p-2 hidden z-10 md:inline-flex">
                 <SearchChat
                   startNewChat={startNewChat}
                   user_id={userData._id}
+                  setShowSearch={setShowSearch}
                 />
               </div>
               <div
@@ -183,7 +186,7 @@ const Chat = () => {
                                 >
                                   <div className="w-7 h-7">
                                     <img
-                                      className="object-cover w-full h-full rounded-full"
+                                      className="object-cover w-full h-full rounded-full "
                                       src={participant.profilePic}
                                       alt={`Profile pic of ${participant.user_name}`}
                                     />
@@ -218,9 +221,10 @@ const Chat = () => {
           {/* messages */}
           {otherParticipant && (
             <div className="flex items-center border-b p-2 py-4 sticky top-0 z-10 bg-white">
+              {/* <ArrowLeftIcon className="w-5 h-5 ml-1 cursor-pointer btn"/> */}
               <Link to={"/" + otherParticipant.user_name}>
                 <img
-                  className="w-10 h-10 rounded-full mr-2"
+                  className="w-10 h-10 rounded-full mr-2 ml-2"
                   src={otherParticipant.profilePic}
                   alt={`Profile pic of ${otherParticipant.user_name}`}
                 />
