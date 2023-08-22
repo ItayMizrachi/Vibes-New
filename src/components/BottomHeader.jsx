@@ -1,7 +1,8 @@
 import {
+  AcademicCapIcon,
   BellIcon,
+  CameraIcon,
   ChatIcon,
-  InformationCircleIcon,
   PlusCircleIcon,
 } from "@heroicons/react/outline";
 import { HomeIcon } from "@heroicons/react/solid";
@@ -9,11 +10,15 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "../context/myContext";
 import { TOKEN_KEY, URL, doApiGet } from "../services/apiService";
+import AddPost from "./AddPost";
+import ImageAi from "./ImageAi";
 import Noftlications from "./Noftlications";
 
 const BottomHeader = () => {
   const { userData } = useContext(MyContext);
+  const [showAddPost, setShowAddPost] = useState(false);
   const [showNoftlications, setShowNoftlications] = useState(false);
+  const [showImgAi, setShowImgAi] = useState(false);
 
   const toggleNoftlications = () => {
     setShowNoftlications(!showNoftlications);
@@ -39,15 +44,20 @@ const BottomHeader = () => {
 
   return (
     <header className="sticky bottom-0 p-5 left-0 right-0 z-40  bg-white border-t shadow-s  lg:hidden md:hidden">
-        {showNoftlications && (
-          <Noftlications
-            setIsRead={setIsRead}
-            setShowNoftlications={setShowNoftlications}
-          />
-        )}
-      <div className="flex items-center justify-center space-x-7">
+      {showNoftlications && (
+        <Noftlications
+          setIsRead={setIsRead}
+          setShowNoftlications={setShowNoftlications}
+        />
+      )}
+      {showAddPost && <AddPost setShowAddPost={setShowAddPost} />}
+      {showImgAi && <ImageAi setShowImgAi={setShowImgAi} />}
+      <div className="flex items-center justify-around">
         {localStorage[TOKEN_KEY] && userData ? (
           <>
+            <Link to="/">
+              <HomeIcon className="lowNavBtn" />
+            </Link>
             <div className="relative lowNavBtn">
               <BellIcon onClick={toggleNoftlications} className="lowNavBtn" />
               {isRead.unreadCount > 0 && (
@@ -56,17 +66,18 @@ const BottomHeader = () => {
                 </div>
               )}
             </div>
+
+            <PlusCircleIcon
+              onClick={() => setShowAddPost(true)}
+              className="lowNavBtn"
+            />
+            <CameraIcon onClick={() => setShowImgAi(true)} className="lowNavBtn" />
+
             <Link to="chatbot">
+              <AcademicCapIcon className="lowNavBtn" />
+            </Link>
+            <Link to="chat">
               <ChatIcon className="lowNavBtn" />
-            </Link>
-            <Link to="addpost">
-              <PlusCircleIcon className="lowNavBtn" />
-            </Link>
-            <Link to="about">
-              <InformationCircleIcon className="lowNavBtn" />
-            </Link>
-            <Link to="/">
-              <HomeIcon className="lowNavBtn" />
             </Link>
           </>
         ) : (

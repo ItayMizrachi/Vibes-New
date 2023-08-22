@@ -5,7 +5,7 @@ import {
   ChatIcon,
   InformationCircleIcon,
   PlusCircleIcon,
-  SearchIcon
+  SearchIcon,
 } from "@heroicons/react/outline";
 import { HomeIcon, LogoutIcon } from "@heroicons/react/solid";
 import React, { useContext, useEffect, useState } from "react";
@@ -18,17 +18,16 @@ import Noftlications from "./Noftlications";
 import Search from "./Search";
 
 const Header = () => {
-  const { userSignOut, userData } =
-    useContext(MyContext);
-    const [showAddPost, setShowAddPost] = useState(false);
-    const [showNoftlications, setShowNoftlications] = useState(false);
-    const [showImgAi, setShowImgAi] = useState(false);
+  const { userSignOut, userData } = useContext(MyContext);
+  const [showAddPost, setShowAddPost] = useState(false);
+  const [showNoftlications, setShowNoftlications] = useState(false);
+  const [showImgAi, setShowImgAi] = useState(false);
 
-    const toggleNoftlications = () => {
-      setShowNoftlications(!showNoftlications);
-    };
+  const toggleNoftlications = () => {
+    setShowNoftlications(!showNoftlications);
+  };
   const [isRead, setIsRead] = useState({ unreadCount: 0 });
-  
+
   const doApiUnreadCount = async () => {
     try {
       const url = URL + "/notifications/unread-count/" + userData?._id;
@@ -47,9 +46,16 @@ const Header = () => {
   }, [userData]);
 
   return (
-    <header className="sticky top-0 z-50 px-6 bg-white border-b shadow-s">
-      <div className="flex justify-between max-w-6xl mx-5 lg:mx-auto">
-        {showNoftlications && <Noftlications setIsRead={setIsRead} setShowNoftlications={setShowNoftlications} />}
+    <header className="sticky top-0 z-40 md:px-6 bg-white border-b shadow-s px-3">
+      <div className="flex justify-between max-w-6xl mx-auto">
+        {showNoftlications && (
+          <Noftlications
+            setIsRead={setIsRead}
+            setShowNoftlications={setShowNoftlications}
+          />
+        )}
+        {showAddPost && <AddPost setShowAddPost={setShowAddPost} />}
+        {showImgAi && <ImageAi setShowImgAi={setShowImgAi} />}
         {/* left */}
         <div className="relative hidden w-24 h-24 cursor-pointer lg:inline-grid">
           <Link to="/">
@@ -72,7 +78,7 @@ const Header = () => {
 
         {/* middle - Search input field */}
         <div className="max-w-xs">
-          <div className="relative p-3 mt-1 rounded-md lg:mt-4">
+          <div className="relative p-3 mt-1 rounded-md md:mt-4">
             <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
               <SearchIcon className="w-5 h-5 text-gray-500" />
             </div>
@@ -80,7 +86,7 @@ const Header = () => {
           </div>
         </div>
         {/* right */}
-        <div className="flex items-center justify-end space-x-4">
+        <div className="flex items-center justify-end space-x-2 md:space-x-4">
           <Link to="/">
             <HomeIcon className="navBtn" />
           </Link>
@@ -100,11 +106,12 @@ const Header = () => {
                   </div>
                 )}
               </div>
-              {/* <Link to="addpost">
-                <PlusCircleIcon className="navBtn" />
-              </Link> */}
-                <PlusCircleIcon onClick={() => setShowAddPost(true)} className="navBtn" />
-                {showAddPost && <AddPost setShowAddPost={setShowAddPost}/>}
+
+              <PlusCircleIcon
+                onClick={() => setShowAddPost(true)}
+                className="navBtn"
+              />
+
               {/* <Link to="groups">
                 <UserGroupIcon className="navBtn" />
               </Link> */}
@@ -114,17 +121,19 @@ const Header = () => {
               <Link to="chat">
                 <ChatIcon className="navBtn" />
               </Link>
-            
-                <CameraIcon onClick={() => setShowImgAi(true)} className="navBtn" />
-                {showImgAi &&  <ImageAi setShowImgAi={setShowImgAi}/>}
-             
+
+              <CameraIcon
+                onClick={() => setShowImgAi(true)}
+                className="navBtn"
+              />
+
               <LogoutIcon onClick={userSignOut} className="lowNavBtn" />
               <Link to={userData.user_name}>
                 <div className="w-10 h-10">
                   <img
                     src={userData?.profilePic}
                     alt="profile pic"
-                    className="object-cover w-full h-full rounded-full cursor-pointer"
+                    className="object-cover w-full h-full rounded-full"
                   />
                 </div>
               </Link>
