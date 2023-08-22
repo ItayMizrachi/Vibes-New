@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import FollowersList from "../components/FollowersList";
 import Gallery from "../components/Gallery";
 import PopWindow from "../components/PopWindow";
 import Post from "../components/Post";
 import UserNotFound from "../components/UserNotFound";
 import { MyContext } from "../context/myContext";
 import { URL, doApiGet } from "../services/apiService";
-import FollowersList from "../components/FollowersList";
 
 const Profile = () => {
   const [postsInfo, setPostsInfo] = useState([]);
@@ -19,6 +19,13 @@ const Profile = () => {
   const [isPop, setIsPop] = useState(false);
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
+
+  const nav= useNavigate(); // Get the navigation function from react-router-dom
+
+  const handleSendMessage = (userId) => {
+    // Navigate to the chat page with the selected user's ID
+    nav(`/chat/${userId}`);
+  };
 
   const show = (type) => {
     if (type === "userPosts") {
@@ -112,16 +119,24 @@ const Profile = () => {
                 {userInfo.user_name}
               </span>
               {userData._id !== userInfo._id && (
-                <button
-                  className="p-2 my-2 text-white font-semibold bg-blue-500 rounded hover:bg-blue-600"
-                  onClick={() => followUser(userInfo._id)}
-                >
-                  {userInfo.followers.find((followers) => {
-                    return followers._id === userData._id;
-                  })
-                    ? "Unfollow"
-                    : "Follow"}
-                </button>
+                <>
+                  <button
+                    className="p-2 my-2 text-white font-semibold bg-blue-500 rounded hover:bg-blue-600"
+                    onClick={() => followUser(userInfo._id)}
+                  >
+                    {userInfo.followers.find((followers) => {
+                      return followers._id === userData._id;
+                    })
+                      ? "Unfollow"
+                      : "Follow"}
+                  </button>
+                  <button
+                    className="p-2 my-2 ml-1 text-white font-semibold bg-blue-500 rounded hover:bg-blue-600"
+                    onClick={() => handleSendMessage(userInfo._id)}
+                  >
+                    Message
+                  </button>
+                </>
               )}
               {/* <div className="inline text-sm font-semibold text-blue-400 cursor-pointer">
                 Edit Profile

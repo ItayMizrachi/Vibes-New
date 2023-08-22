@@ -7,7 +7,7 @@ import { PaperAirplaneIcon } from "@heroicons/react/solid";
 import moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
 import InputEmojiWithRef from "react-input-emoji";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import SearchChat from "../components/chat/SearchChat";
 import { MyContext } from "../context/myContext";
 import { URL, doApiGet, doApiMethod } from "../services/apiService";
@@ -22,6 +22,10 @@ const Chat = () => {
   const [text, setText] = useState("");
   const [loading, setIsLoading] = useState(false);
   const [otherParticipant, setOtherParticipant] = useState(null);
+  const [showSearch, setShowSearch] = useState(false);
+  const nav = useNavigate();
+
+  const { chat_id } = useParams();
 
   const doApiChats = async () => {
     try {
@@ -47,10 +51,11 @@ const Chat = () => {
 
   const doApiMesssages = async (chatId) => {
     try {
-      const url = `${URL}/message/${chatId}`;
+      const url = `${URL}/message/${chatId || chat_id}`;
       const data = await doApiGet(url);
+      //   history.push(`/chat/${chatId}`);
       setMessages(data);
-
+      nav(`/chat/${chatId}`);
       // Find the other participant and set their information
       const activeChat = chats.find((item) => item._id === chatId);
       const otherParticipant = activeChat.participants.find(
@@ -146,7 +151,10 @@ const Chat = () => {
                   user_id={userData._id}
                 />
               </div>
-              <div className="p-2 flex items-center justify-center chatRow py-5 md:hidden">
+              <div
+                onClick={() => setShowSearch(!showSearch)}
+                className="p-2 flex items-center justify-center chatRow py-5 md:hidden"
+              >
                 {/* Show the SearchIcon only on small screens */}
                 <SearchIcon className="w-5 h-5 text-center" />
               </div>
@@ -220,6 +228,16 @@ const Chat = () => {
               <Link to={"/" + otherParticipant.user_name}>
                 <p className="font-semibold">{otherParticipant.user_name}</p>
               </Link>
+            </div>
+          )}
+
+          {showSearch && (
+            <div className="p-4 z-50 absolute lg:hidden md:hidden">
+              <SearchChat
+                startNewChat={startNewChat}
+                user_id={userData._id}
+                setShowSearch={setShowSearch}
+              />
             </div>
           )}
           <div className="flex-1 p-4 overflow-x-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-black">

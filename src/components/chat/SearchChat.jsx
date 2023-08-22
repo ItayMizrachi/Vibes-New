@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { URL, doApiGet } from "../../services/apiService";
 
-const SearchChat = ({ startNewChat, user_id }) => {
+const SearchChat = ({ startNewChat, user_id, setShowSearch }) => {
   const [userNames, setUserNames] = useState([]);
 
   const handleOnSelect = (item) => {
     // Set the selected item and start new chat
     startNewChat([item.id, user_id]);
-
+    setShowSearch(false);
   };
 
  
