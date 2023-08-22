@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { URL, doApiGet } from "../services/apiService";
+import { URL, doApiGet } from "../../services/apiService";
 import Post from "./Post";
 
 const SinglePost2 = () => {

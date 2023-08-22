@@ -2,8 +2,8 @@ import { XIcon } from "@heroicons/react/outline";
 import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { MyContext } from "../context/myContext";
-import { URL, doApiMethod, imgToString } from "../services/apiService";
+import { MyContext } from "../../context/myContext";
+import { URL, doApiMethod, imgToString } from "../../services/apiService";
 
 const EditProfilePic = ({ onClose }) => {
     const [isLoading, setIsLoading] = useState(false); // Add state for loading

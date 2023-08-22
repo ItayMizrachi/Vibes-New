@@ -1,10 +1,9 @@
 import React from "react";
-import Posts from "../components/Posts";
 import Recommanded from "../components/Recommanded";
 import SideProfile from "../components/SideProfile";
-import Stories from "../components/Stories";
+import Posts from "../components/post/Posts";
+import Stories from "../components/stories/Stories";
 import { TOKEN_KEY } from "../services/apiService";
-
 const Home = () => {
   return (
     <main

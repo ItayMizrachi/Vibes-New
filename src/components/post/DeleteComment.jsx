@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { MyContext } from "../context/myContext";
+import { MyContext } from "../../context/myContext";
 
 const DeleteComment = ({ setShowDelete, comment, deleteComment, user_id }) => {
   const { userData } = useContext(MyContext);

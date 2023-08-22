@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import EditProfilePic from "../components/EditProfilePic";
-import FollowersList from "../components/FollowersList";
-import Gallery from "../components/Gallery";
-import Post from "../components/Post";
-import UserNotFound from "../components/UserNotFound";
+import Post from "../components/post/Post";
+import EditProfilePic from "../components/profile/EditProfilePic";
+import FollowersList from "../components/profile/FollowersList";
+import Gallery from "../components/profile/Gallery";
+import UserNotFound from "../components/profile/UserNotFound";
 import { MyContext } from "../context/myContext";
 import { URL, doApiGet } from "../services/apiService";
 

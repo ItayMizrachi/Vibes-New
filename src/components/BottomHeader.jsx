@@ -1,18 +1,18 @@
 import {
-  AcademicCapIcon,
-  BellIcon,
-  CameraIcon,
-  ChatIcon,
-  PlusCircleIcon,
+    AcademicCapIcon,
+    BellIcon,
+    CameraIcon,
+    ChatIcon,
+    PlusCircleIcon,
 } from "@heroicons/react/outline";
 import { HomeIcon } from "@heroicons/react/solid";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "../context/myContext";
 import { TOKEN_KEY, URL, doApiGet } from "../services/apiService";
-import AddPost from "./AddPost";
 import ImageAi from "./ImageAi";
 import Noftlications from "./Noftlications";
+import AddPost from "./post/AddPost";
 
 const BottomHeader = () => {
   const { userData } = useContext(MyContext);

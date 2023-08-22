@@ -1,6 +1,6 @@
 import { EmojiHappyIcon } from "@heroicons/react/outline";
 import React, { useState } from "react";
-import { TOKEN_KEY } from "../services/apiService";
+import { TOKEN_KEY } from "../../services/apiService";
 
 const AddComment = ({ handleSubmit, register, onSubForm }) => {
   const [isInputFocused, setInputFocused] = useState(false);

@@ -12,10 +12,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "../context/myContext";
 import { TOKEN_KEY, URL, doApiGet } from "../services/apiService";
-import AddPost from "./AddPost";
 import ImageAi from "./ImageAi";
 import Noftlications from "./Noftlications";
 import Search from "./Search";
+import AddPost from "./post/AddPost";
 
 const Header = () => {
   const { userSignOut, userData } = useContext(MyContext);

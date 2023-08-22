@@ -8,11 +8,9 @@ import LoginAdmin from "../admin/LoginAdmin";
 import PostsAdmin from "../admin/PostsAdmin";
 import UsersList from "../admin/UsersList";
 import BottomHeader from "../components/BottomHeader";
-import EditRegUser from "../components/EditRegUser";
-import Emoji from "../components/Emoji";
 import Header from "../components/Header";
-import SinglePost2 from "../components/SinglePost2";
-import Uploader from "../components/Uploader";
+import SinglePost2 from "../components/post/SinglePost2";
+import EditRegUser from "../components/profile/EditRegUser";
 import About from "../pages/About";
 import Chat from "../pages/Chat";
 import Chatbot from "../pages/Chatbot";
@@ -39,9 +37,7 @@ const Router = () => {
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/:user_name" element={<Profile />} />
                 <Route path="/chatbot" element={<Chatbot />} />
-                <Route path="/addpost" element={<Uploader />} />
                 <Route path="/singlepost/:post_id" element={<SinglePost2 />} />
-                <Route path="/emoji" element={<Emoji />} />
                 <Route path="/*" element={<Page404 />} />
                 <Route path="/chat" element={<Chat />} />
                 <Route path="/chat/:otherUser_id" element={<Chat />} />

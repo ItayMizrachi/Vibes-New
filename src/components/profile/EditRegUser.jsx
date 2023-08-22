@@ -7,8 +7,8 @@ import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { MyContext } from "../context/myContext";
-import { URL, doApiMethod } from "../services/apiService";
+import { MyContext } from "../../context/myContext";
+import { URL, doApiMethod } from "../../services/apiService";
 
 const EditRegUser = () => {
     const { userData } = useContext(MyContext);

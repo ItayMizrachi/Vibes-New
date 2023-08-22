@@ -1,24 +1,24 @@
 import {
-  BookmarkIcon,
-  ChatIcon,
-  DotsHorizontalIcon,
-  HeartIcon,
-  TrashIcon,
+    BookmarkIcon,
+    ChatIcon,
+    DotsHorizontalIcon,
+    HeartIcon,
+    TrashIcon,
 } from "@heroicons/react/outline";
 import {
-  BookmarkIcon as FullBookMarkIcon,
-  HeartIcon as FullHeart,
+    BookmarkIcon as FullBookMarkIcon,
+    HeartIcon as FullHeart,
 } from "@heroicons/react/solid";
+import moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { MyContext } from "../context/myContext";
-import { TOKEN_KEY, URL, doApiGet, doApiMethod } from "../services/apiService";
+import { MyContext } from "../../context/myContext";
+import { TOKEN_KEY, URL, doApiGet, doApiMethod } from "../../services/apiService";
 import AddComment2 from "./AddComment2";
 import Comments from "./Comments";
 import EditPost3 from "./EditPost3";
 import LikesList from "./LikesList";
-import moment from "moment";
 
 const Post = ({
   likes,

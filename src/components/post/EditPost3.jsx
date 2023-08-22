@@ -1,12 +1,15 @@
-import { PencilIcon, XIcon } from "@heroicons/react/solid";
-import { React, useContext } from "react";
+import { XIcon } from "@heroicons/react/solid";
+import { React, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import InputEmoji from "react-input-emoji";
 import { toast } from "react-toastify";
-import { MyContext } from "../context/myContext";
-import { URL, doApiMethod } from "../services/apiService";
+import { MyContext } from "../../context/myContext";
+import { URL, doApiMethod } from "../../services/apiService";
 
-const EditPost2 = ({ post_id, description, setShowEdit }) => {
+const EditPost3 = ({ post_id, description, setShowEdit }) => {
   const { setPostsInfo } = useContext(MyContext);
+  const [isInputFocused, setInputFocused] = useState(false);
+  const [text, setText] = useState("");
 
   const {
     register,
@@ -28,13 +31,15 @@ const EditPost2 = ({ post_id, description, setShowEdit }) => {
           )
         );
         setShowEdit(false);
+        console.log("2");
       }
     } catch (error) {
       alert("there's problem, try again later");
+      console.log(error);
     }
   };
 
-  const onSub = (_bodyData) => {
+  const onSubForm = (_bodyData) => {
     doApiEdit(_bodyData);
   };
 
@@ -45,13 +50,27 @@ const EditPost2 = ({ post_id, description, setShowEdit }) => {
     }
   };
 
+  const handleInputFocus = () => {
+    setInputFocused(true);
+  };
+
+  const handleInputBlur = () => {
+    setInputFocused(false);
+  };
+
+  function handleOnEnter({}) {
+    // Call the form submission function passed as a prop
+    onSubForm({ description: text });
+    setText(""); // Clear the InputEmoj after submission
+  }
+
   return (
     <div
       onClick={handleOverlayClick}
       className="fixed inset-0 flex z-50 justify-center items-center bg-black bg-opacity-80"
     >
       <div className="flex flex-col items-center justify-center flex-1 max-w-sm px-2 mx-auto">
-        <div className="w-full px-6 py-4 rounded-lg  bg-white   ">
+        <div className="w-full px-6 py-4 rounded-lg bg-white">
           <div className="flex justify-between items-center p-3 border-b">
             <h2 className="text-lg font-semibold">Edit Post </h2>
             <XIcon
@@ -60,29 +79,24 @@ const EditPost2 = ({ post_id, description, setShowEdit }) => {
             />
           </div>
 
-          <form onSubmit={handleSubmit(onSub)}>
+          <form onSubmit={(e) => e.preventDefault()}>
             <div className="relative p-1 mt-1 rounded-md lg:mt-4">
               <label className="ml-2 font-semibold">description:</label>
-              <div className="relative p-1 mt-1 rounded-md lg:mt-4">
-                <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
-                  <PencilIcon className="w-5 h-5 text-gray-500" />
-                </div>
-                <input
-                  defaultValue={description}
-                  {...register("description", {
-                    required: true,
-                    minLength: 2,
-                  })}
-                  type="text"
-                  className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
-                />
-              </div>
-              {errors.description && (
-                <div className="text-danger">
-                  *Enter valid description(min 2 chars)
-                </div>
-              )}
-              <button className="w-full py-3 my-1 mt-2 font-semibold text-center text-white bg-blue-500 rounded hover:bg-blue-600">
+              {/* Replace the regular input with InputEmoj */}
+              <InputEmoji
+                value={text} // Use the state value
+                onChange={setText} // Update the state when the value changes
+                onEnter={handleOnEnter}
+                placeholder={description}
+                className="flex-1 border-none outline-none focus:ring-0 emoj"
+                onFocus={handleInputFocus}
+                onBlur={handleInputBlur}
+              />
+
+              <button
+                onClick={handleOnEnter}
+                className="w-full py-3 my-1 mt-2 font-semibold text-center text-white bg-blue-500 rounded hover:bg-blue-600"
+              >
                 Confirm Changes
               </button>
             </div>
@@ -93,4 +107,4 @@ const EditPost2 = ({ post_id, description, setShowEdit }) => {
   );
 };
 
-export default EditPost2;
+export default EditPost3;

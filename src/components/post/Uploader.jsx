@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { URL, doApiMethod, imgToString } from "../services/apiService";
+import { URL, doApiMethod, imgToString } from "../../services/apiService";
 
 const Uploader = () => {
   const [isLoading, setIsLoading] = useState(false); // Add state for loading
