@@ -9,11 +9,20 @@ const Recommanded = () => {
 
   useEffect(() => {
     doApiRandom5();
-  }, [followFlag]);
+  }, [followFlag, userData]);
 
   const doApiRandom5 = async () => {
+    console.log(userData)
+    console.log(userData.followings)
+    let url;
     try {
-      const url = URL + "/users/random5";
+      if (userData && userData.followings.length === 0) {
+        url = URL + "/users/random4";
+      } else {
+        url = URL + "/users/random5";
+
+      }
+      console.log(url);
       const data = await doApiGet(url);
       setSuggestions(data);
       // console.log(data);
@@ -31,7 +40,7 @@ const Recommanded = () => {
 
       {suggestions.map((profile) => (
         <div
-          key={profile._id}
+          key={profile._id + Math.random()}
           className="flex items-center justify-between mt-3"
         >
           <Link to={"/" + profile.user_name}>
@@ -52,7 +61,7 @@ const Recommanded = () => {
             <p className="text-gray-400 text-sm">{profile.name}</p>
             <p className="text-xs text-gray-400 whitespace-normal">
               {" "}
-              {profile.desc.length > 27
+              {profile?.desc?.length > 27
                 ? profile.desc.substring(0, 27) + ".."
                 : profile.desc}
             </p>
@@ -62,7 +71,7 @@ const Recommanded = () => {
             onClick={() => followUser(profile?._id)}
             className="text-sm font-semibold text-blue-400"
           >
-            {profile.followers.find((follower_id) => {
+            {(profile?.followers || []).find((follower_id) => {
               return follower_id === userData._id;
             })
               ? "Unfollow"
