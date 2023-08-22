@@ -1,32 +1,48 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import EditProfilePic from "../components/EditProfilePic";
+import FollowersList from "../components/FollowersList";
 import Gallery from "../components/Gallery";
-import PopWindow from "../components/PopWindow";
 import Post from "../components/Post";
 import UserNotFound from "../components/UserNotFound";
 import { MyContext } from "../context/myContext";
 import { URL, doApiGet } from "../services/apiService";
-import FollowersList from "../components/FollowersList";
 
 const Profile = () => {
   const [postsInfo, setPostsInfo] = useState([]);
   const [userInfo, setUserInfo] = useState({});
+  const [savedPostsInfo, setSavedPostsInfo] = useState([]);
   const { user_name } = useParams(); // Get the user_name from the URL parameter
   const [showGallery, setShowGallery] = useState(true);
   const [showUserPosts, setShowUserPosts] = useState(false);
+  const [showUserSaves, setShowUserSaves] = useState(false);
   const [userNotFound, setUserNotFound] = useState(false);
   const { userData, followUser, followFlag } = useContext(MyContext);
   const [isPop, setIsPop] = useState(false);
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
 
+  const nav = useNavigate(); // Get the navigation function from react-router-dom
+
+  const handleSendMessage = (userId) => {
+    // Navigate to the chat page with the selected user's ID
+    nav(`/chat/${userId}`);
+  };
+
   const show = (type) => {
     if (type === "userPosts") {
       setShowGallery(false);
+      setShowUserSaves(false);
       setShowUserPosts(true);
     } else if (type === "gallery") {
       setShowGallery(true);
       setShowUserPosts(false);
+      setShowUserSaves(false);
+    } else if (type === "saves") {
+      savedPost();
+      setShowGallery(false);
+      setShowUserPosts(false);
+      setShowUserSaves(true);
     }
   };
 
@@ -39,6 +55,16 @@ const Profile = () => {
     } catch (err) {
       console.log(err);
       setUserNotFound(true);
+    }
+  };
+
+  const savedPost = async () => {
+    try {
+      const url = URL + "/userPosts/savedPosts";
+      const data = await doApiGet(url);
+      setSavedPostsInfo(data);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -99,12 +125,12 @@ const Profile = () => {
             <div className="justify-center avatar md:col-span-1">
               <div>
                 <img
-                  className="mx-auto rounded-full w-36 h-36 md:mx-0"
+                  className="mx-auto rounded-full w-36 h-36 md:mx-0 cursor-pointer"
                   src={userInfo.profilePic}
                   alt="profile pic"
                   onClick={openWindow}
                 />
-                {isPop && <PopWindow onClose={closeWindow} />}
+                {isPop && <EditProfilePic onClose={closeWindow} />}
               </div>
             </div>
             <div className="md:col-span-3">
@@ -112,16 +138,31 @@ const Profile = () => {
                 {userInfo.user_name}
               </span>
               {userData._id !== userInfo._id && (
-                <button
-                  className="p-2 my-2 text-white font-semibold bg-blue-500 rounded hover:bg-blue-600"
-                  onClick={() => followUser(userInfo._id)}
-                >
-                  {userInfo.followers.find((followers) => {
-                    return followers._id === userData._id;
-                  })
-                    ? "Unfollow"
-                    : "Follow"}
-                </button>
+                <>
+                  <button
+                    className="p-2 my-2 text-white font-semibold bg-blue-500 rounded hover:bg-blue-600"
+                    onClick={() => followUser(userInfo._id)}
+                  >
+                    {userInfo.followers.find((followers) => {
+                      return followers._id === userData._id;
+                    })
+                      ? "Unfollow"
+                      : "Follow"}
+                  </button>
+                  <button
+                    className="p-2 my-2 ml-1 text-white font-semibold bg-blue-500 rounded hover:bg-blue-600"
+                    onClick={() => handleSendMessage(userInfo._id)}
+                  >
+                    Message
+                  </button>
+                </>
+              )}
+              {userData._id === userInfo._id && (
+                <Link to={"/edit_user"}>
+                  <button className="p-2 my-2 text-white font-semibold bg-blue-500 rounded hover:bg-blue-600">
+                    Edit User
+                  </button>
+                </Link>
               )}
               {/* <div className="inline text-sm font-semibold text-blue-400 cursor-pointer">
                 Edit Profile
@@ -194,7 +235,10 @@ const Profile = () => {
                 <button className="flex gap-2 py-4 text-sm font-semibold text-gray-400 border-gray-300 focus:border-t focus:text-gray-600">
                   Liked
                 </button>
-                <button className="flex gap-2 py-4 text-sm font-semibold text-gray-400 border-gray-300 focus:border-t focus:text-gray-600">
+                <button
+                  onClick={() => show("saves")}
+                  className="flex gap-2 py-4 text-sm font-semibold text-gray-400 border-gray-300 focus:border-t focus:text-gray-600"
+                >
                   Saved
                 </button>
               </>

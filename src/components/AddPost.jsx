@@ -58,8 +58,8 @@ const AddPost = ({ setShowAddPost }) => {
     try {
       const url = URL + "/userPosts";
       _bodyData.img_url = url2;
-      console.log(url2);
-      console.log(_bodyData);
+      // console.log(url2);
+      // console.log(_bodyData);
       const data = await doApiMethod(url, "POST", _bodyData);
       if (data._id) {
         toast.success("Post added");
@@ -143,7 +143,7 @@ const AddPost = ({ setShowAddPost }) => {
               }`}
               disabled={isLoading}
             >
-              {isLoading ? "Loading..." : "Post"}
+              {isLoading ? "Posting..." : "Post"}
             </button>
           </form>
         </div>

@@ -6,8 +6,8 @@ import { URL, doApiMethod, imgToString } from "../services/apiService";
 
 const Uploader = () => {
   const [isLoading, setIsLoading] = useState(false); // Add state for loading
-  const nav = useNavigate();
   const uploadRef = useRef();
+  const nav = useNavigate();
   const {
     register,
     handleSubmit,
@@ -90,9 +90,8 @@ const Uploader = () => {
 
             <button
               type="submit"
-              className={`w-full py-3 mt-4 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600 ${
-                isLoading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+              className={`w-full py-3 mt-4 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600 ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               disabled={isLoading}
             >
               {isLoading ? "Loading..." : "Post"}

@@ -8,6 +8,7 @@ import LoginAdmin from "../admin/LoginAdmin";
 import PostsAdmin from "../admin/PostsAdmin";
 import UsersList from "../admin/UsersList";
 import BottomHeader from "../components/BottomHeader";
+import EditRegUser from "../components/EditRegUser";
 import Emoji from "../components/Emoji";
 import Header from "../components/Header";
 import SinglePost2 from "../components/SinglePost2";
@@ -33,6 +34,7 @@ const Router = () => {
               <Routes>
                 <Route index element={<Home />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/edit_user" element={<EditRegUser />} />
                 <Route path="/signin" element={<SignIn />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/:user_name" element={<Profile />} />
@@ -42,6 +44,7 @@ const Router = () => {
                 <Route path="/emoji" element={<Emoji />} />
                 <Route path="/*" element={<Page404 />} />
                 <Route path="/chat" element={<Chat />} />
+                <Route path="/chat/:otherUser_id" element={<Chat />} />
               </Routes>
               <BottomHeader />
             </>

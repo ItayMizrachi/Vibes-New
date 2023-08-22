@@ -4,6 +4,7 @@ import { TOKEN_KEY, URL, doApiGet } from "../services/apiService";
 
 export const useUserData = () => {
   const [userData, setUserData] = useState({});
+  const [loading, setIsLoading] = useState(false);
 
   const doApiUser = async () => {
     const url = URL + "/users/userInfo";
@@ -44,14 +45,20 @@ export const useUserData = () => {
       deleteToken();
     }
   };
-
-  const deleteToken = () => {
-    localStorage.removeItem(TOKEN_KEY); // Remove the token from localStorage
-    localStorage.removeItem("tokenExpiration"); // Remove the token expiration time
-    toast.info("You logged out, see you soon...");
-    setUserData({});
-    window.location.href = "/signin";
+  
+  const deleteToken = async () => {
+    try {
+      setIsLoading(true);
+      await localStorage.removeItem(TOKEN_KEY); // Remove the token from localStorage
+      await localStorage.removeItem("tokenExpiration"); // Remove the token expiration time
+      toast.info("You logged out, see you soon...");
+      setUserData({});
+      window.location.href = "/signin";
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error deleting token:", error);
+    }
   };
 
-  return { userData, doApiUser, userSignOut };
+  return { userData, doApiUser, userSignOut, loading };
 };
