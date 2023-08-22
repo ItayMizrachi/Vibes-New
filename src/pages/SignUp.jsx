@@ -16,6 +16,7 @@ const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const uploadRef = useRef();
   const nav = useNavigate();
+  let url2;
 
   const {
     register,
@@ -24,7 +25,6 @@ const SignUp = () => {
   } = useForm();
 
 
-  let url2;
 
 
   const doApi = async (_bodyData) => {

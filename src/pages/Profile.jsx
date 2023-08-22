@@ -7,6 +7,8 @@ import UserNotFound from "../components/UserNotFound";
 import { MyContext } from "../context/myContext";
 import { URL, doApiGet } from "../services/apiService";
 import FollowersList from "../components/FollowersList";
+import { Link } from "react-router-dom";
+import EditProfilePic from "../components/EditProfilePic";
 
 const Profile = () => {
   const [postsInfo, setPostsInfo] = useState([]);
@@ -21,6 +23,7 @@ const Profile = () => {
   const [isPop, setIsPop] = useState(false);
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
+  const [showAddPost, setShowAddPost] = useState(false);
 
   const show = (type) => {
     if (type === "userPosts") {
@@ -114,6 +117,8 @@ const Profile = () => {
     setIsPop(true);
   };
 
+
+
   return (
     <div className=" p-4 sm:p-10 mx-0 lg:max-w-6xl md:mx-5 xl:mx-auto">
       {/* Profile Info */}
@@ -128,7 +133,7 @@ const Profile = () => {
                   alt="profile pic"
                   onClick={openWindow}
                 />
-                {isPop && <PopWindow onClose={closeWindow} />}
+                {isPop && <EditProfilePic onClose={closeWindow} />}
               </div>
             </div>
             <div className="md:col-span-3">
@@ -146,6 +151,15 @@ const Profile = () => {
                     ? "Unfollow"
                     : "Follow"}
                 </button>
+              )}
+              {userData._id === userInfo._id && (
+
+                <Link to={"/edit_user"}>
+                  <button className="p-2 my-2 text-white font-semibold bg-blue-500 rounded hover:bg-blue-600">
+                    Edit User
+                  </button>
+                </Link>
+
               )}
               {/* <div className="inline text-sm font-semibold text-blue-400 cursor-pointer">
                 Edit Profile
