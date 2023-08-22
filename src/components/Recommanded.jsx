@@ -9,11 +9,20 @@ const Recommanded = () => {
 
   useEffect(() => {
     doApiRandom5();
-  }, [followFlag]);
+
+  }, [followFlag, userData]);
 
   const doApiRandom5 = async () => {
+    console.log(userData)
+    console.log(userData.followings)
+
+    let url;
+    if (userData.followings && userData.followings.length > 0) {
+      url = URL + "/users/random5";
+    } else {
+      url = URL + "/users/random4";
+    }
     try {
-      const url = URL + "/users/random5";
       const data = await doApiGet(url);
       setSuggestions(data);
       // console.log(data);

@@ -44,6 +44,9 @@ export const useFollow = () => {
     }
   };
 
+
+
+
   // const followUser = async (otherUser_id) => {
   //   try {
   //     if (otherUser_id._id !== userData?._id) {

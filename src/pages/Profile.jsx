@@ -10,10 +10,12 @@ import FollowersList from "../components/FollowersList";
 
 const Profile = () => {
   const [postsInfo, setPostsInfo] = useState([]);
+  const [savedPostsInfo, setSavedPostsInfo] = useState([]);
   const [userInfo, setUserInfo] = useState({});
   const { user_name } = useParams(); // Get the user_name from the URL parameter
   const [showGallery, setShowGallery] = useState(true);
   const [showUserPosts, setShowUserPosts] = useState(false);
+  const [showUserSaves, setShowUserSaves] = useState(false);
   const [userNotFound, setUserNotFound] = useState(false);
   const { userData, followUser, followFlag } = useContext(MyContext);
   const [isPop, setIsPop] = useState(false);
@@ -23,11 +25,20 @@ const Profile = () => {
   const show = (type) => {
     if (type === "userPosts") {
       setShowGallery(false);
+      setShowUserSaves(false);
       setShowUserPosts(true);
     } else if (type === "gallery") {
       setShowGallery(true);
       setShowUserPosts(false);
+      setShowUserSaves(false);
+    } else if (type === "saves") {
+      savedPost();
+      setShowGallery(false);
+      setShowUserPosts(false);
+      setShowUserSaves(true);
     }
+
+
   };
 
   const doApiUserPosts = async (user_name) => {
@@ -41,6 +52,18 @@ const Profile = () => {
       setUserNotFound(true);
     }
   };
+
+  const savedPost = async () => {
+    try {
+      const url = URL + "/userPosts/savedPosts";
+      const data = await doApiGet(url);
+      setSavedPostsInfo(data);
+
+    } catch (err) {
+      console.log(err);
+
+    }
+  }
 
   // const [Intersector, data, setData] = useLazyLoading(
   //   { initPage: 0, distance: "50px", targetPercent: 0.5 },
@@ -77,6 +100,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
+
     if (user_name) {
       doApiUserPosts(user_name);
       doApiUserInfo(user_name);
@@ -194,7 +218,7 @@ const Profile = () => {
                 <button className="flex gap-2 py-4 text-sm font-semibold text-gray-400 border-gray-300 focus:border-t focus:text-gray-600">
                   Liked
                 </button>
-                <button className="flex gap-2 py-4 text-sm font-semibold text-gray-400 border-gray-300 focus:border-t focus:text-gray-600">
+                <button onClick={() => show("saves")} className="flex gap-2 py-4 text-sm font-semibold text-gray-400 border-gray-300 focus:border-t focus:text-gray-600">
                   Saved
                 </button>
               </>
@@ -211,7 +235,28 @@ const Profile = () => {
           )}
 
           {/* Gallery */}
+
           {showGallery && <Gallery postsInfo={postsInfo} />}
+
+          {showUserSaves && (
+            <>
+              {savedPostsInfo.map((post) => (
+                <Post
+                  likes={post.likes}
+                  likesLength={post.likes.length}
+                  key={post._id + Math.random()}
+
+                  _id={post._id}
+                  user_name={post.user?.user_name}
+                  profilePic={post.user?.profilePic}
+                  img_url={post.img_url}
+                  description={post.description}
+                  date_created={post.date_created}
+                />
+              ))}
+              {/* <Intersector /> */}
+            </>
+          )}
           {showUserPosts && (
             <>
               {postsInfo.map((post) => (
