@@ -11,6 +11,7 @@ import { URL, doApiGet } from "../services/apiService";
 const Profile = () => {
   const [postsInfo, setPostsInfo] = useState([]);
   const [userInfo, setUserInfo] = useState({});
+  const [savedPostsInfo, setSavedPostsInfo] = useState([]);
   const { user_name } = useParams(); // Get the user_name from the URL parameter
   const [showGallery, setShowGallery] = useState(true);
   const [showUserPosts, setShowUserPosts] = useState(false);
@@ -129,7 +130,7 @@ const Profile = () => {
                   alt="profile pic"
                   onClick={openWindow}
                 />
-                {isPop && <EditProfilePic setIsPop={setIsPop} />}
+                {isPop && <EditProfilePic onClose={closeWindow} />}
               </div>
             </div>
             <div className="md:col-span-3">
