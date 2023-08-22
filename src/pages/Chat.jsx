@@ -25,7 +25,29 @@ const Chat = () => {
   const [showSearch, setShowSearch] = useState(false);
   const nav = useNavigate();
 
-  const { chat_id } = useParams();
+  const { otherUser_id } = useParams();
+
+  useEffect(() => {
+    if (otherUser_id) {
+      startNewChat([userData._id, otherUser_id]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (activeChatId) {
+      doApiMesssages(activeChatId);
+    }
+  }, [activeChatId, otherParticipant]);
+
+  // useEffect(() => {
+  //   console.log(chats);
+  // }, [chats]);
+
+  useEffect(() => {
+    if (userData._id) {
+      doApiChats();
+    }
+  }, [userData]);
 
   const doApiChats = async () => {
     try {
@@ -39,31 +61,19 @@ const Chat = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(chats);
-  }, [chats]);
-
-  useEffect(() => {
-    if (userData._id) {
-      doApiChats();
-    }
-  }, [userData]);
-
   const doApiMesssages = async (chatId) => {
     try {
-      const url = `${URL}/message/${chatId || chat_id}`;
+      const url = `${URL}/message/${chatId}`;
       const data = await doApiGet(url);
-      //   history.push(`/chat/${chatId}`);
       setMessages(data);
       //   const read = await axios.put(URL + "/message/mark-as-read/" + chatId);
-      nav(`/chat/${chatId}`);
       // Find the other participant and set their information
       const activeChat = chats.find((item) => item._id === chatId);
       const otherParticipant = activeChat.participants.find(
         (participant) => participant._id !== userData._id
       );
       setOtherParticipant(otherParticipant);
-
+      nav(`/chat/${otherParticipant._id}`);
       setActiveChatId(chatId);
       console.log(data);
     } catch (error) {
@@ -170,7 +180,7 @@ const Chat = () => {
                     <div
                       key={item._id}
                       className={` chatRow ${
-                        item._id === activeChatId ? "bg-gray-200" : ""
+                        item._id === activeChatId ? "bg-[#f1eded]" : ""
                       }`}
                       onClick={() => doApiMesssages(item._id)} // Call doApiMessages with the chat ID when clicked
                     >
@@ -198,13 +208,15 @@ const Chat = () => {
                               )
                           )}
                       </div>
-                      <ChatIcon className="w-5 h-5 hidden md:inline-flex" />
+                      <ChatIcon className="w-5 h-5 hidden md:inline-flex text-gray-400" />
+                      {/* {item.last_updated &&   moment(item?.last_updated).fromNow() }  */}
                     </div>
                   ))}
                 </>
               ) : (
                 <div className="justify-center chatRow">
                   <ChatIcon className="w-5 h-5" />
+
                   <div className="flex-1 hidden truncate md:inline-flex">
                     <p>no chats yet</p>
                   </div>
@@ -283,15 +295,15 @@ const Chat = () => {
                       className={`${
                         message.sender._id === userData._id
                           ? "bg-[#378df0] p-3 text-white rounded-l-lg rounded-br-lg"
-                          : "bg-gray-200 p-3 rounded-r-lg rounded-bl-lg"
+                          : "bg-[#f1eded] p-3 rounded-r-lg rounded-bl-lg"
                       } ml-2`}
                     >
                       <p className="text-sm">{message.content}</p>
                       <span
-                        className={`text-xs text-gray-500 leading-none mt-2 ${
+                        className={`text-xs  leading-none mt-2 ${
                           message.sender._id === userData._id
-                            ? "ml-auto text-gray-50/60"
-                            : "mr-auto"
+                            ? "ml-auto text-[#c1d9f6]"
+                            : "mr-auto text-gray-400 "
                         }`}
                       >
                         {moment(message.date_created).fromNow()}

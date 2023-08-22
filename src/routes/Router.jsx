@@ -42,7 +42,7 @@ const Router = () => {
                 <Route path="/emoji" element={<Emoji />} />
                 <Route path="/*" element={<Page404 />} />
                 <Route path="/chat" element={<Chat />} />
-                <Route path="/chat/:chat_id" element={<Chat />} />
+                <Route path="/chat/:otherUser_id" element={<Chat />} />
               </Routes>
               <BottomHeader />
             </>
