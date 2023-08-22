@@ -20,29 +20,39 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
       {commentsInfo.length > 0 && (
         <div className="h-20 ml-10 overflow-y-scroll scrollbar-thumb-black scrollbar-thin">
           {commentsInfo.map((comment, index) => (
-            <div
-              key={comment._id}
-              className="flex flex-col md:flex-row items-start mb-3"
-            >
+            <div key={comment._id} className="flex items-start mb-3">
               <Link
                 to={"/" + comment.user.user_name}
                 className="flex items-center space-x-2"
               >
-                <img
-                  className="rounded-full h-10 w-10"
-                  src={comment.user.profilePic}
-                  alt="profile pic"
-                />
-                <p className="text-sm font-bold">{comment.user.user_name}</p>
+                <div className="w-10 h-10 mr-1">
+                  <img
+                    className="object-cover w-full h-full rounded-full"
+                    src={comment.user.profilePic}
+                    alt="profile pic"
+                  />
+                </div>
               </Link>
+
               <div className="ml-0 md:ml-2 mt-2 md:max-w-md">
-                <p className="break-words">{comment.text}</p>
+                <p className="break-words">
+                  {" "}
+                  <span className="text-sm font-bold mr-2">
+                    <Link to={"/" + comment.user.user_name}>
+                      {comment.user.user_name}
+                    </Link>
+                  </span>
+                  {comment.text}
+                </p>
+                <span className="text-gray-500 text-end">
+                  {moment(comment.date_created).fromNow()}
+                </span>
               </div>
+              
               <div className="flex mt-3 items-center ml-auto pr-5 text-xs text-gray-500">
-                {moment(comment.date_created).fromNow()}
                 <DotsHorizontalIcon
                   onClick={() => toggleShowDelete(index)}
-                  className="w-3 h-3 ml-1 cursor-pointer hover:text-gray-600"
+                  className="w-5 h-5 ml-1 cursor-pointer hover:text-gray-600"
                 />
               </div>
               {showDeleteList[index] && (
@@ -62,3 +72,18 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
 };
 
 export default Comments;
+
+{
+  /* <div className="ml-0 md:ml-2 mt-2 md:max-w-md">
+<p className="break-words">
+  {" "}
+  <span className="text-sm font-bold mr-2">
+   <Link to={"/" + comment.user.user_name}>{comment.user.user_name}</Link> 
+  </span>
+  <span className="text-gray-500 text-end">
+  {moment(comment.date_created).fromNow()}
+</span>
+<p> {comment.text}</p>
+ 
+</p> */
+}
