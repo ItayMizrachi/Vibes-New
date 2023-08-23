@@ -3,7 +3,14 @@ import { MyContext } from "../../context/myContext";
 import Post from "./Post";
 
 const Posts = () => {
-  const { postsInfo, Intersector } = useContext(MyContext);
+  const { postsInfo } = useContext(MyContext);
+
+  const [Intersector, data, setData] = useLazyLoading(
+    { initPage: 0, distance: "50px", targetPercent: 0.5 },
+    (page) => {
+      // do your api request using page parameter and update the data state
+    }
+  );
 
   return (
     <div>
