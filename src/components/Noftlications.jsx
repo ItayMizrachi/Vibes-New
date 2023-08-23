@@ -5,31 +5,58 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "../context/myContext";
 import { URL, doApiGet } from "../services/apiService";
+import { useLazyLoading } from "mg-js";
 
-const Noftlications = ({ setShowNoftlications,  setIsRead, }) => {
+const Noftlications = ({ setShowNoftlications, setIsRead }) => {
   const { userData, followUser, followFlag } = useContext(MyContext);
   const [notifications, setNotifications] = useState([]);
   const [flag, setFlag] = useState(false);
 
-  const doApiNotifications = async () => {
-    try {
-      const url = URL + "/notifications/" + userData._id;
-      const data = await doApiGet(url);
-      setNotifications(data);
-      const read = await axios.put(URL + "/notifications/mark-as-read/" + userData._id);
-      // console.log(data);
-      setIsRead(read);
-      setFlag(true);
-    } catch (err) {
-      console.log(err);
+  const [Intersector, data, setData] = useLazyLoading(
+    {
+      initPage: 1,
+      distance: "50px",
+      targetPercent: 0.5,
+      uuidKeeper: "notifications",
+    },
+    async (page) => {
+      try {
+        const url = URL + "/notifications/" + userData._id + "?page=" + page;
+        const resp = await fetch(url);
+        const obj = await resp.json();
+        setData(obj);
+        const read = await axios.put(
+          URL + "/notifications/mark-as-read/" + userData._id
+        );
+        setIsRead(read);
+        setFlag(true);
+      } catch (error) {
+        alert(error);
+      }
     }
-  };
+  );
 
-  useEffect(() => {
-    if (userData._id) {
-      doApiNotifications();
-    }
-  }, [userData._id, followFlag]);
+  // const doApiNotifications = async () => {
+  //   try {
+  //     const url = URL + "/notifications/" + userData._id;
+  //     const data = await doApiGet(url);
+  //     setNotifications(data);
+  //     const read = await axios.put(
+  //       URL + "/notifications/mark-as-read/" + userData._id
+  //     );
+  //     // console.log(data);
+  //     setIsRead(read);
+  //     setFlag(true);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (userData._id) {
+  //     doApiNotifications();
+  //   }
+  // }, [userData._id, followFlag]);
 
   return (
     <div className="flex fixed right-0 top-0 z-40">
@@ -37,7 +64,7 @@ const Noftlications = ({ setShowNoftlications,  setIsRead, }) => {
       <div className={`  transition-all transform duration-300 ease-in-out`}>
         <div className="max-2-xs h-[100vh] border-l-2 overflow-x-hidden min-w-[20rem] bg-white custom-scrollbar">
           <div className="flex flex-col h-[100vh] pt-0 p-2">
-            {/* Title */} 
+            {/* Title */}
             <div className="bg-white p-2 fixed w-full pr-3 top-0 z-50">
               <div className="bg-white ">
                 <div
@@ -51,7 +78,7 @@ const Noftlications = ({ setShowNoftlications,  setIsRead, }) => {
             </div>
 
             <div className="mt-16">
-              {notifications.length === 0 && flag ? (
+              {data.length === 0 && flag ? (
                 <div className="justify-center chatRow">
                   <div className="flex-1 truncate md:inline-flex flex-col">
                     <h2 className="text-lg">
@@ -60,7 +87,7 @@ const Noftlications = ({ setShowNoftlications,  setIsRead, }) => {
                   </div>
                 </div>
               ) : (
-                notifications.map((item, index) => (
+                data.map((item, index) => (
                   <div key={index} className="justify-center chatRow">
                     <div className="w-10 h-10">
                       <Link
@@ -153,6 +180,7 @@ const Noftlications = ({ setShowNoftlications,  setIsRead, }) => {
                   </div>
                 ))
               )}
+              <Intersector />
             </div>
           </div>
         </div>

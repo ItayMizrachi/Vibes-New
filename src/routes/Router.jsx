@@ -19,6 +19,7 @@ import Page404 from "../pages/Page404";
 import Profile from "../pages/Profile";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
+import Test from "../pages/Test";
 
 const Router = () => {
   return (
@@ -41,6 +42,7 @@ const Router = () => {
                 <Route path="/*" element={<Page404 />} />
                 <Route path="/chat" element={<Chat />} />
                 <Route path="/chat/:otherUser_id" element={<Chat />} />
+                <Route path="/test" element={<Test />} />
               </Routes>
               <BottomHeader />
             </>

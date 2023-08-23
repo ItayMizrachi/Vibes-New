@@ -48,7 +48,7 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
                   {moment(comment.date_created).fromNow()}
                 </span>
               </div>
-              
+
               <div className="flex mt-3 items-center ml-auto pr-5 text-xs text-gray-500">
                 <DotsHorizontalIcon
                   onClick={() => toggleShowDelete(index)}
@@ -67,6 +67,7 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
           ))}
         </div>
       )}
+      <Intersector />
     </div>
   );
 };
