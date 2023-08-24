@@ -16,7 +16,7 @@ import { useLazyLoading } from "mg-js";
 
 const Chat = () => {
   const { userData } = useContext(MyContext);
-  // const [chats, setChats] = useState([]);
+  const [chats, setChats] = useState([]);
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
   const [activeChatId, setActiveChatId] = useState(null);
@@ -44,42 +44,44 @@ const Chat = () => {
   //   console.log(chats);
   // }, [chats]);
 
-  // useEffect(() => {
-  //   if (userData._id) {
-  //     doApiChats();
-  //   }
-  // }, [userData]);
-
-  const [Intersector, chats, setData] = useLazyLoading(
-    {
-      initPage: 1,
-      distance: "50px",
-      targetPercent: 0.5,
-      uuidKeeper: "chat",
-    },
-    async (page) => {
-      try {
-        const url = `${URL}/chats/${userData._id}?page=` + page;
-        const resp = await doApiGet(url);
-        // const obj = await resp.json();
-        setData(resp);
-      } catch (error) {
-        alert(error);
-      }
+  useEffect(() => {
+    if (userData._id) {
+      doApiChats();
     }
-  );
+  }, [userData]);
 
-  // const doApiChats = async () => {
-  //   try {
-  //     setIsLoading(true);
-  //     const url = `${URL}/chats/${userData._id}`;
-  //     const data = await doApiGet(url);
-  //     setChats(data);
-  //     setIsLoading(false);
-  //   } catch (err) {
-  //     console.log(err);
+  // const [Intersector, chats, setData] = useLazyLoading(
+  //   {
+  //     initPage: 1,
+  //     distance: "50px",
+  //     targetPercent: 0.5,
+  //     uuidKeeper: "chat",
+  //   },
+  //   async (page) => {
+  //     try {
+  //       setIsLoading(true);
+  //       const url = `${URL}/chats/${userData._id}?page=` + page;
+  //       const resp = await doApiGet(url);
+  //       // const obj = await resp.json();
+  //       setData(resp);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       alert(error);
+  //     }
   //   }
-  // };
+  // );
+
+  const doApiChats = async () => {
+    try {
+      setIsLoading(true);
+      const url = `${URL}/chats/${userData._id}`;
+      const data = await doApiGet(url);
+      setChats(data);
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const doApiMesssages = async (chatId) => {
     try {
@@ -242,7 +244,7 @@ const Chat = () => {
                   </div>
                 </div>
               )}
-              <Intersector />
+              {/* <Intersector /> */}
             </div>
           </div>
         </div>

@@ -114,11 +114,12 @@ const Post = ({
   const [Intersector, commentsInfo, setData] = useLazyLoading(
     {
       initPage: 1,
-      distance: "50px",
+      distance: "8px",
       targetPercent: 0.5,
       uuidKeeper: _id,
     },
     async (page) => {
+      console.log(page);
       try {
         const url = URL + `/comments/${_id}?page=${page}`;
         const resp = await fetch(url);

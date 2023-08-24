@@ -27,7 +27,7 @@ const FollowersList = ({
       className="fixed z-50 inset-0 flex justify-center items-center bg-black bg-opacity-80"
       onClick={handleOverlayClick}
     >
-      <div className="bg-white rounded-lg w-[250px]">
+      <div className="bg-white rounded-lg w-[320px]">
         <div className="flex justify-between p-4 border-b">
           <h2 className="text-center font-bold">{title}</h2>
           <XIcon onClick={close} className="w-5 h-5 cursor-pointer" />

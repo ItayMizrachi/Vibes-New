@@ -2,8 +2,7 @@ import { CameraIcon } from "@heroicons/react/solid";
 import React, { useState } from "react";
 // const API_TOKEN = "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";
 
-const ImageAi = ({setShowImgAi}) => {
-
+const ImageAi = ({ setShowImgAi }) => {
   const [loading, setLoading] = useState(false);
   const [output, setOutput] = useState(null);
 
@@ -17,9 +16,9 @@ const ImageAi = ({setShowImgAi}) => {
       {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_IMAGE_AI_KEY}`,
-          },
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${import.meta.env.VITE_IMAGE_AI_KEY}`,
+        },
         body: JSON.stringify({ inputs: input }),
       }
     );
@@ -52,7 +51,10 @@ const ImageAi = ({setShowImgAi}) => {
   //check
 
   return (
-    <div   onClick={handleOverlayClick}  className="fixed z-50 inset-0 flex justify-center items-center bg-black bg-opacity-80">
+    <div
+      onClick={handleOverlayClick}
+      className="fixed z-50 inset-0 flex justify-center items-center bg-black bg-opacity-80"
+    >
       <div className="flex flex-col items-center justify-center flex-1 max-w-sm px-2 mx-auto">
         <div className="w-full py-4 px-7 rounded-lg bg-white border">
           <h1 className="text-center font-semibold pb-2 text-lg">
@@ -75,11 +77,10 @@ const ImageAi = ({setShowImgAi}) => {
               className="w-full py-3 my-1 mt-2 font-semibold text-center text-white bg-blue-500 rounded hover:bg-blue-600"
               type="submit"
             >
-              Generate
+              {loading ? "Loading..." : "Generate"}
             </button>
           </form>
           <div>
-            {loading && <div className="font-semibold text-md">Loading...</div>}
             {!loading && output && (
               <>
                 <div className="result-image">

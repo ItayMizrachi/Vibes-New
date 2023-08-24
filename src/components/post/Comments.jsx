@@ -17,8 +17,13 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
 
   return (
     <div>
-      {commentsInfo.length > 0 && (
-        <div className="h-20 ml-10 overflow-y-scroll scrollbar-thumb-black scrollbar-thin">
+      {/* {commentsInfo.length > 0 && ( */}
+      <>
+        <div
+          className={`${
+            commentsInfo.length > 0 ? "h-20" : ""
+          } ml-10 overflow-y-scroll scrollbar-thumb-black scrollbar-thin`}
+        >
           {commentsInfo.map((comment, index) => (
             <div key={comment._id} className="flex items-start mb-3">
               <Link
@@ -65,9 +70,10 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
               )}
             </div>
           ))}
+          <Intersector />
         </div>
-      )}
-      <Intersector />
+      </>
+      {/* )} */}
     </div>
   );
 };
