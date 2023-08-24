@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -10,9 +10,10 @@ import LoadingPage from "./pages/LoadingPage";
 import Router from "./routes/Router";
 
 const App = () => {
-  const { userData, doApiUser, userSignOut, loading } = useUserData();
-  const { deletePost, postsInfo, Intersector, singlePostInfo, setPostsInfo } = usePostInfo();
+  const { userData, doApiUser, userSignOut } = useUserData();
+  const { deletePost, postsInfo, setPostsInfo , Intersector} = usePostInfo();
   const { followUser, followFlag } = useFollow();
+  const [loading, setIsLoading] = useState(false);
 
   return (
     <MyContext.Provider
@@ -21,16 +22,17 @@ const App = () => {
         doApiUser,
         userSignOut,
         deletePost,
-        postsInfo,
-        setPostsInfo,
         followUser,
         followFlag,
-        Intersector,
-        singlePostInfo,
+        loading,
+        setIsLoading,
+        postsInfo,
+        setPostsInfo,
+        Intersector
       }}
     >
       <Router />
-      {loading && <LoadingPage/>}
+      {loading && <LoadingPage />}
       <ToastContainer theme="colored" />
     </MyContext.Provider>
   );

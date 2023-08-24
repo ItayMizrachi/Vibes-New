@@ -3,9 +3,9 @@ import { toast } from "react-toastify";
 import { TOKEN_KEY, URL, doApiGet } from "../services/apiService";
 
 export const useUserData = () => {
+  // const {setIsLoading} = useContext(MyContext);
   const [userData, setUserData] = useState({});
-  const [loading, setIsLoading] = useState(false);
-
+  
   const doApiUser = async () => {
     const url = URL + "/users/userInfo";
     const data = await doApiGet(url);
@@ -48,17 +48,17 @@ export const useUserData = () => {
   
   const deleteToken = async () => {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
       await localStorage.removeItem(TOKEN_KEY); // Remove the token from localStorage
       await localStorage.removeItem("tokenExpiration"); // Remove the token expiration time
       toast.info("You logged out, see you soon...");
       setUserData({});
       window.location.href = "/signin";
-      setIsLoading(false);
+      // setIsLoading(false);
     } catch (error) {
       console.error("Error deleting token:", error);
     }
   };
 
-  return { userData, doApiUser, userSignOut, loading };
+  return { userData, doApiUser, userSignOut };
 };

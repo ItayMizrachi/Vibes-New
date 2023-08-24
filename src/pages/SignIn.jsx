@@ -1,12 +1,15 @@
 import { LockClosedIcon, UserIcon } from "@heroicons/react/solid";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { MyContext } from "../context/myContext";
 import { EXP_DATE_KEY, TOKEN_KEY, URL, doApiMethod } from "../services/apiService";
 
 const SignIn = () => {
+  const {setIsLoading} = useContext(MyContext);
   const nav = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -17,29 +20,37 @@ const SignIn = () => {
     doApiPost(_bodyData);
   };
 
-  const doApiPost = async (_bodyData) => {
-    try {
-      const url = URL + "/users/login";
-      const data = await doApiMethod(url, "POST", _bodyData);
-
-      if (data.token) {
-        // Extract the token's payload to get the expiration date
-        const tokenPayload = JSON.parse(atob(data.token.split(".")[1]));
-        const expirationDate = new Date(tokenPayload.exp * 1000);
-
-        // Store the token and its expiration date in the local storage
-        localStorage.setItem(TOKEN_KEY, data.token);
-        localStorage.setItem(EXP_DATE_KEY, data.expDate);
-        localStorage.setItem("tokenExpiration", expirationDate.getTime());
-        toast.success("Welcome, you logged in.");
-        nav("/");
-        window.location.reload();
-      }
-    } catch (err) {
-      console.log(err);
-      toast.error("User or password is wrong!");
+/**
+ * Perform a POST request to the login endpoint with user credentials.
+ * If successful, extract and store the token along with its expiration information.
+ * @param {object} _bodyData - The user's login credentials.
+ */
+const doApiPost = async (_bodyData) => {
+  try {
+    setIsLoading(true)
+    const url = URL + "/users/login";
+    const data = await doApiMethod(url, "POST", _bodyData);
+    if (data.token) {
+      // Extract the token's payload to get the expiration date
+      const tokenPayload = JSON.parse(atob(data.token.split(".")[1]));
+      const expirationDate = new Date(tokenPayload.exp * 1000);
+      // Store the token and its expiration date in local storage
+      localStorage.setItem(TOKEN_KEY, data.token);
+      localStorage.setItem(EXP_DATE_KEY, data.expDate);
+      localStorage.setItem("tokenExpiration", expirationDate.getTime());
+      toast.success("Welcome, you logged in.");
+      nav("/");
+      window.location.reload();
+      setIsLoading(false)
     }
-  };
+  } catch (err) {
+    // Log any errors to the console
+    console.log(err);
+
+    // Display an error message to the user
+    toast.error("User or password is wrong!");
+  }
+};
 
   return (
     <div className="mt-5 bg-grey-lighter lg:mt-20">

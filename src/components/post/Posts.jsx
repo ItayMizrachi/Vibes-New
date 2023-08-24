@@ -1,35 +1,16 @@
 import React, { useContext } from "react";
 import { MyContext } from "../../context/myContext";
 import Post from "./Post";
-import { URL } from "../../services/apiService";
-import { useLazyLoading } from "mg-js";
 
 const Posts = () => {
-  const { postsInfo } = useContext(MyContext);
-
-  const [Intersector, data, setData] = useLazyLoading(
-    {
-      initPage: 1,
-      distance: "50px",
-      targetPercent: 0.5,
-      uuidKeeper: "posts-home",
-    },
-    async (page) => {
-      try {
-        const url = URL + "/userPosts/allposts?page=" + page;
-        const resp = await fetch(url);
-        const obj = await resp.json();
-        setData(obj);
-      } catch (error) {
-        alert(error);
-      }
-    }
-  );
-
+    const {postsInfo, setPostsInfo,Intersector} = useContext(MyContext);
+ 
   return (
     <div>
-      {data.map((post) => (
+      {postsInfo.map((post) => (
         <Post
+          postsInfo={postsInfo}
+          setPostsInfo={setPostsInfo}
           likes={post.likes}
           likesLength={post.likes.length}
           key={post._id + Math.random()}
