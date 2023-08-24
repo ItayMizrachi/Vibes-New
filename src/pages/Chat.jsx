@@ -26,73 +26,61 @@ const Chat = () => {
   const [showSearch, setShowSearch] = useState(false);
   const nav = useNavigate();
   const { otherUser_id } = useParams();
-  const socketRef = useRef(null);
   const messagesEndRef = useRef(null);
 
-  
+  const socketRef = useRef(null);
+  const [otherUserProfilePic, setOtherUserProfilePic] = useState("");
+
   // useEffect(() => {
-  //   socketRef.current = io(URL);
-  
-  //   // Join the active chat room
-  //   if (activeChatId) {
-  //     socketRef.current.emit("joinRoom", activeChatId);
-  //   }
-  
-  //   // Listen for new messages
-  //   socketRef.current.on("receiveMessage", (newMessage) => {
-  //     setMessages((prevMessages) => [...prevMessages, newMessage]);
+  //   socketRef.current.on("receiveMessage", (data) => {
+  //     setMessages((prevMessages) => [...prevMessages, data.message]);
   //   });
-  
   //   return () => {
   //     socketRef.current.disconnect();
   //   };
   // }, [setMessages, activeChatId]);
 
+  // useEffect for setting up socket connection and joining chat room
   useEffect(() => {
     socketRef.current = io(URL);
-
     if (activeChatId) {
-        socketRef.current.emit("joinRoom", activeChatId);
+      socketRef.current.emit("joinRoom", activeChatId);
     }
-
-    socketRef.current.on("receiveMessage", (newMessage) => {
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
+    socketRef.current.on("receiveMessage", (data) => {
+      setMessages((prevMessages) => [...prevMessages, data.message]);
     });
-
     return () => {
-        socketRef.current.disconnect();
+      socketRef.current.disconnect();
     };
-}, [setMessages, activeChatId]);
-  
+  }, [setMessages, activeChatId]);
 
+  // UseEffect to start a new chat when otherUser_id is available
   useEffect(() => {
     if (otherUser_id) {
       startNewChat([userData._id, otherUser_id]);
     }
   }, []);
 
+  // UseEffect to load messages when an active chat is selected or otherParticipant changes
   useEffect(() => {
     if (activeChatId) {
       doApiMesssages(activeChatId);
     }
   }, [activeChatId, otherParticipant]);
 
-  // useEffect(() => {
-  //   console.log(chats);
-  // }, [chats]);
-
+  // UseEffect to load user's chats when userData changes
   useEffect(() => {
     if (userData._id) {
       doApiChats();
     }
   }, [userData]);
 
-    
+  // UseEffect to scroll to the latest message when messages change
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });
-}, [messages]);
+    messagesEndRef.current?.scrollIntoView({ behavior: "auto" });
+  }, [messages]);
 
-
+  // Function to fetch user's chats from the API
   const doApiChats = async () => {
     try {
       const url = `${URL}/chats/${userData._id}`;
@@ -103,18 +91,20 @@ const Chat = () => {
     }
   };
 
+  // Function to fetch messages for a specific chat from the API
   const doApiMesssages = async (chatId) => {
     try {
       const url = `${URL}/message/${chatId}`;
       const data = await doApiGet(url);
       setMessages(data);
-      //   const read = await axios.put(URL + "/message/mark-as-read/" + chatId);
       // Find the other participant and set their information
       const activeChat = chats.find((item) => item._id === chatId);
       const otherParticipant = activeChat.participants.find(
         (participant) => participant._id !== userData._id
       );
       setOtherParticipant(otherParticipant);
+      setOtherUserProfilePic(otherParticipant.profilePic);
+      console.log(otherUserProfilePic);
       nav(`/chat/${otherParticipant._id}`);
       setActiveChatId(chatId);
       console.log(data);
@@ -123,6 +113,7 @@ const Chat = () => {
     }
   };
 
+  // Function to send a new message
   const sendMessage = async (chatId) => {
     try {
       const url = `${URL}/message`;
@@ -132,13 +123,15 @@ const Chat = () => {
         content: text || messageInput,
       };
       const response = await doApiMethod(url, "POST", body);
+      // Refresh messages and chats
       // Emit a sendMessage event to the Socket.io server
       socketRef.current.emit("sendMessage", body);
-      // Refresh messages
+      // socketRef.current.emit("sendMessage", body, () => {
+      //   // This callback is called when the server confirms message sent
+      //   callback();
+      // });
       doApiMesssages(chatId);
       doApiChats();
-      // setMessages(prevMessages => [...prevMessages, response]);
-
       // Clear message input
       setText("");
       setMessageInput("");
@@ -147,6 +140,7 @@ const Chat = () => {
     }
   };
 
+  // Function to handle sending a message when a button is clicked
   const onSendMessage = () => {
     if (activeChatId) {
       sendMessage(activeChatId);
@@ -156,12 +150,14 @@ const Chat = () => {
     }
   };
 
+  // Function to handle sending a message when the Enter key is pressed
   const onKeyboardClick = (e) => {
     if (e.key === "Enter") {
       onSendMessage();
     }
   };
 
+  // Function to start a new chat with selected participants
   const startNewChat = async (selectedParticipants) => {
     try {
       const url = `${URL}/chats`;
@@ -192,7 +188,6 @@ const Chat = () => {
       }
     }
   };
-
 
   return (
     <div className="flex">
@@ -303,7 +298,10 @@ const Chat = () => {
               />
             </div>
           )}
-          <div  className="flex-1 p-4 overflow-x-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-black">
+          <div
+            // key={Math.random()}
+            className="flex-1 p-4 overflow-x-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-black"
+          >
             {/* if there are no messages */}
             {messages?.length === 0 ? (
               <div className="flex flex-col pt-10 h-full">
@@ -314,19 +312,19 @@ const Chat = () => {
               // mapping the messages
               messages.map((message) => (
                 <div
-                ref={messagesEndRef}
-                  key={message._id}
+                  ref={messagesEndRef}
+                  key={message?._id}
                   className={`flex w-full mt-2 ${
-                    message.sender._id !== userData._id ? "justify-end" : ""
+                    message?.sender?._id !== userData._id ? "justify-end" : ""
                   }`}
                 >
-                  {message.sender._id !== userData._id && (
-                    <Link to={"/" + message.sender.user_name}>
+                  {message?.sender?._id !== userData._id && (
+                    <Link to={"/" + message?.sender?.user_name}>
                       <div className="w-10 h-10">
                         <img
                           className=" w-full h-full rounded-full mr-2 object-cover"
-                          src={message.sender.profilePic}
-                          alt={`Profile pic of ${message.sender.user_name}`}
+                          src={otherUserProfilePic}
+                          alt={`Profile pic of ${message?.sender?.user_name}`}
                         />
                       </div>
                     </Link>
@@ -334,37 +332,37 @@ const Chat = () => {
 
                   <div
                     className={`flex flex-col max-w-xs ${
-                      message.sender._id === userData._id
+                      message?.sender?._id === userData._id
                         ? "ml-auto"
                         : "mr-auto"
                     }`}
                   >
                     <div
                       className={`${
-                        message.sender._id === userData._id
+                        message?.sender?._id === userData._id
                           ? "bg-[#378df0] p-3 text-white rounded-l-lg rounded-br-lg"
                           : "bg-[#f1eded] p-3 rounded-r-lg rounded-bl-lg"
                       } ml-2`}
                     >
-                      <p className="text-sm">{message.content}</p>
+                      <p className="text-sm">{message?.content}</p>
                       <span
                         className={`text-xs  leading-none mt-2 ${
-                          message.sender._id === userData._id
+                          message?.sender?._id === userData._id
                             ? "ml-auto text-[#c1d9f6]"
                             : "mr-auto text-gray-400 "
                         }`}
                       >
-                        {moment(message.date_created).fromNow()}
+                        {moment(message?.date_created).fromNow()}
                       </span>
                     </div>
                   </div>
-                  {message.sender._id === userData._id && (
-                    <Link to={"/" + message.sender.user_name}>
+                  {message?.sender._id === userData._id && (
+                    <Link to={"/" + message?.sender?.user_name}>
                       <div className="w-10 h-10 ml-1">
                         <img
                           className="object-cover w-full h-full rounded-full"
-                          src={message.sender.profilePic}
-                          alt={`Profile pic of ${message.sender.user_name}`}
+                          src={message?.sender?.profilePic}
+                          alt={`Profile pic of ${message?.sender?.user_name}`}
                         />
                       </div>
                     </Link>

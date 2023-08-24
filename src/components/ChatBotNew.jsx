@@ -1,8 +1,8 @@
 import { ArrowCircleDownIcon } from "@heroicons/react/outline";
 import { PaperAirplaneIcon, XIcon } from "@heroicons/react/solid";
 import axios from "axios";
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { MyContext } from "../context/myContext";
 import { TOKEN_KEY } from "../services/apiService";
 
@@ -12,7 +12,7 @@ const ChatBotNew = () => {
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const location = useLocation();
   const onKeyboardClick = (e) => {
     if (e.key === "Enter") {
       getMessages();
@@ -47,10 +47,16 @@ const ChatBotNew = () => {
     }
   };
 
+  useEffect(() => {
+    if(location.pathname.includes("chat")){
+      setShowChat(false);
+    }
+  },[location])
+
   return (
     <>
       {/* button */}
-      <div className="fixed md:bottom-3 bottom-20 right-3  z-30 ">
+      <div className={`fixed md:bottom-3 bottom-20 right-3  z-30 ${location.pathname.includes("chat") && "hidden"} `}>
         <div
           onClick={() => setShowChat(!showChat)}
           className="md:w-14 md:h-14 w-11 h-11 cursor-pointer border-2 border-gray-100 bg-white p-1 rounded-md"
@@ -65,7 +71,7 @@ const ChatBotNew = () => {
 
       {/* button */}
       {showChat && (
-        <div className="fixed md:bottom-3 bottom-20 right-3 bg-white border rounded-lg shadow-lg h-[400px] w-[360px] md:w-[400px] md:h-[500px] z-30">
+        <div className={`fixed md:bottom-3 bottom-20 right-3 bg-white border rounded-lg shadow-lg h-[400px] w-[360px] md:w-[400px] md:h-[500px] z-30  ${location.pathname.includes("chat") && "hidden"} `}>
           <div className="flex">
             <div className="flex-1">
               <div className="flex flex-col md:h-[500px] h-[400px] overflow-clip">
