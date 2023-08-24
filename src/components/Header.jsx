@@ -1,11 +1,10 @@
 import {
-  AcademicCapIcon,
   BellIcon,
   CameraIcon,
   ChatIcon,
   InformationCircleIcon,
   PlusCircleIcon,
-  SearchIcon,
+  SearchIcon
 } from "@heroicons/react/outline";
 import { HomeIcon, LogoutIcon } from "@heroicons/react/solid";
 import React, { useContext, useEffect, useState } from "react";
@@ -115,9 +114,9 @@ const Header = () => {
               {/* <Link to="groups">
                 <UserGroupIcon className="navBtn" />
               </Link> */}
-              <Link to="chatbot">
+              {/* <Link to="chatbot">
                 <AcademicCapIcon className="navBtn" />
-              </Link>
+              </Link> */}
               <Link to="chat">
                 <ChatIcon className="navBtn" />
               </Link>

@@ -8,17 +8,18 @@ import LoginAdmin from "../admin/LoginAdmin";
 import PostsAdmin from "../admin/PostsAdmin";
 import UsersList from "../admin/UsersList";
 import BottomHeader from "../components/BottomHeader";
+import ChatBotNew from "../components/ChatBotNew";
 import Header from "../components/Header";
 import SinglePost2 from "../components/post/SinglePost2";
 import EditRegUser from "../components/profile/EditRegUser";
 import About from "../pages/About";
 import Chat from "../pages/Chat";
-import Chatbot from "../pages/Chatbot";
 import Home from "../pages/Home";
 import Page404 from "../pages/Page404";
 import Profile from "../pages/Profile";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
+import Test from "../pages/Test";
 
 const Router = () => {
   return (
@@ -36,12 +37,13 @@ const Router = () => {
                 <Route path="/signin" element={<SignIn />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/:user_name" element={<Profile />} />
-                <Route path="/chatbot" element={<Chatbot />} />
                 <Route path="/singlepost/:post_id" element={<SinglePost2 />} />
                 <Route path="/*" element={<Page404 />} />
                 <Route path="/chat" element={<Chat />} />
                 <Route path="/chat/:otherUser_id" element={<Chat />} />
+                <Route path="/test" element={<Test />} />
               </Routes>
+              <ChatBotNew/>
               <BottomHeader />
             </>
           }

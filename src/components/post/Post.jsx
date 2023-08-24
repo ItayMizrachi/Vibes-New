@@ -1,24 +1,30 @@
 import {
-    BookmarkIcon,
-    ChatIcon,
-    DotsHorizontalIcon,
-    HeartIcon,
-    TrashIcon,
+  BookmarkIcon,
+  ChatIcon,
+  DotsHorizontalIcon,
+  HeartIcon,
+  TrashIcon,
 } from "@heroicons/react/outline";
 import {
-    BookmarkIcon as FullBookMarkIcon,
-    HeartIcon as FullHeart,
+  BookmarkIcon as FullBookMarkIcon,
+  HeartIcon as FullHeart,
 } from "@heroicons/react/solid";
 import moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { MyContext } from "../../context/myContext";
-import { TOKEN_KEY, URL, doApiGet, doApiMethod } from "../../services/apiService";
+import {
+  TOKEN_KEY,
+  URL,
+  doApiGet,
+  doApiMethod,
+} from "../../services/apiService";
 import AddComment2 from "./AddComment2";
 import Comments from "./Comments";
 import EditPost3 from "./EditPost3";
 import LikesList from "./LikesList";
+import { useLazyLoading } from "mg-js";
 
 const Post = ({
   likes,
@@ -31,7 +37,7 @@ const Post = ({
   user_id,
   date_created,
 }) => {
-  const [commentsInfo, setCommentsInfo] = useState([]);
+  // const [commentsInfo, setCommentsInfo] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Add state for loading
   const [likesCount, setLikesCount] = useState(likesLength);
@@ -105,34 +111,40 @@ const Post = ({
     }
   };
 
-  // const [Intersector, data, setData] = useLazyLoading(
-  //   { initPage: 0, distance: "50px", targetPercent: 0.5 },
-  //   async (page) => {
-  //     try {
-  //       //  const url = URL + `/comments/${_id}?page=2`;
-  //       const url = URL + `/comments/${_id}?page=${page}`;
-  //       const d = await doApiGet(url);
-  //       setData(d);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-  // );
+  const [Intersector, commentsInfo, setData] = useLazyLoading(
+    {
+      initPage: 1,
+      distance: "8px",
+      targetPercent: 0.5,
+      uuidKeeper: _id,
+    },
+    async (page) => {
+      console.log(page);
+      try {
+        const url = URL + `/comments/${_id}?page=${page}`;
+        const resp = await fetch(url);
+        const obj = await resp.json();
+        setData(obj);
+      } catch (error) {
+        alert(error);
+      }
+    }
+  );
 
   // useEffect(() => {
   //   setCommentsInfo(data);
   // }, [data]);
 
-  const doApiComments = async () => {
-    try {
-      const url = URL + "/comments/" + _id;
-      const data = await doApiGet(url);
-      setCommentsInfo(data);
-      //  console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const doApiComments = async () => {
+  //   try {
+  //     const url = URL + "/comments/" + _id;
+  //     const data = await doApiGet(url);
+  //     setCommentsInfo(data);
+  //     //  console.log(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const doApiPostComment = async (_bodyData) => {
     try {
@@ -143,7 +155,7 @@ const Post = ({
       const commentId = response._id; // Adjust this according to your API response structure
       console.log;
       // Call your other functions
-      doApiComments();
+      // doApiComments();
       reset();
 
       if (user_id !== userData._id) {
@@ -182,7 +194,7 @@ const Post = ({
   };
 
   useEffect(() => {
-    doApiComments();
+    // doApiComments();
     if (likes?.includes(userData.user_name)) {
       setIsLiked(true);
     }
@@ -306,6 +318,7 @@ const Post = ({
         user_id={user_id}
         deleteComment={deleteComment}
         commentsInfo={commentsInfo}
+        Intersector={Intersector}
       />
 
       {/* input box */}

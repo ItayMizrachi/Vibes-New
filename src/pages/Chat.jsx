@@ -8,6 +8,7 @@ import SearchChat from "../components/chat/SearchChat";
 import { MyContext } from "../context/myContext";
 import { URL, doApiGet, doApiMethod } from "../services/apiService";
 import LoadingPage from "./LoadingPage";
+import { useLazyLoading } from "mg-js";
 
 const Chat = () => {
   const { userData } = useContext(MyContext);
@@ -44,6 +45,27 @@ const Chat = () => {
       doApiChats();
     }
   }, [userData]);
+
+  // const [Intersector, chats, setData] = useLazyLoading(
+  //   {
+  //     initPage: 1,
+  //     distance: "50px",
+  //     targetPercent: 0.5,
+  //     uuidKeeper: "chat",
+  //   },
+  //   async (page) => {
+  //     try {
+  //       setIsLoading(true);
+  //       const url = `${URL}/chats/${userData._id}?page=` + page;
+  //       const resp = await doApiGet(url);
+  //       // const obj = await resp.json();
+  //       setData(resp);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       alert(error);
+  //     }
+  //   }
+  // );
 
   const doApiChats = async () => {
     try {
@@ -217,6 +239,7 @@ const Chat = () => {
                   </div>
                 </div>
               )}
+              {/* <Intersector /> */}
             </div>
           </div>
         </div>
