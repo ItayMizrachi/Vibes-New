@@ -70,7 +70,7 @@ const EditRegUser = () => {
                                 type="text"
 
                                 placeholder={userData.name}
-                                {...register("name", { required: false, minLength: 2 })}
+                                {...register("name", { required: true, minLength: 2 })}
                             />
                         </div>
                         {errors.name && (
@@ -85,7 +85,7 @@ const EditRegUser = () => {
                             <select
                                 className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
 
-                                {...register("gender", { required: false })}
+                                {...register("gender", { required: true })}
                             >
                                 <option value="">Select gender</option>
                                 <option value="male"> Male</option>
@@ -108,7 +108,7 @@ const EditRegUser = () => {
                                 className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
                                 rows="3"
                                 placeholder={userData.desc}
-                                {...register("desc", { required: false, minLength: 6 })}
+                                {...register("desc", { required: true, minLength: 6 })}
                             />
                         </div>
 

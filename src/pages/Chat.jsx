@@ -1,8 +1,4 @@
-import {
-  ArrowCircleDownIcon,
-  ChatIcon,
-  SearchIcon,
-} from "@heroicons/react/outline";
+import { ArrowCircleDownIcon, ChatIcon, SearchIcon, } from "@heroicons/react/outline";
 import { PaperAirplaneIcon } from "@heroicons/react/solid";
 import moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
@@ -135,7 +131,7 @@ const Chat = () => {
         error.response &&
         error.response.data &&
         error.response.data.error ===
-          "Chat with these participants already exists"
+        "Chat with these participants already exists"
       ) {
         // Redirect the user to the existing chat
         const existingChat = error.response.data.existingChat;
@@ -179,9 +175,8 @@ const Chat = () => {
                   {chats.map((item) => (
                     <div
                       key={item._id}
-                      className={` chatRow ${
-                        item._id === activeChatId ? "bg-[#f1eded]" : ""
-                      }`}
+                      className={` chatRow ${item._id === activeChatId ? "bg-[#f1eded]" : ""
+                        }`}
                       onClick={() => doApiMesssages(item._id)} // Call doApiMessages with the chat ID when clicked
                     >
                       <div className="flex-1  truncate ">
@@ -268,9 +263,8 @@ const Chat = () => {
               messages.map((message) => (
                 <div
                   key={message._id}
-                  className={`flex w-full mt-2 ${
-                    message.sender._id !== userData._id ? "justify-end" : ""
-                  }`}
+                  className={`flex w-full mt-2 ${message.sender._id !== userData._id ? "justify-end" : ""
+                    }`}
                 >
                   {message.sender._id !== userData._id && (
                     <Link to={"/" + message.sender.user_name}>
@@ -285,26 +279,23 @@ const Chat = () => {
                   )}
 
                   <div
-                    className={`flex flex-col max-w-xs ${
-                      message.sender._id === userData._id
+                    className={`flex flex-col max-w-xs ${message.sender._id === userData._id
                         ? "ml-auto"
                         : "mr-auto"
-                    }`}
+                      }`}
                   >
                     <div
-                      className={`${
-                        message.sender._id === userData._id
+                      className={`${message.sender._id === userData._id
                           ? "bg-[#378df0] p-3 text-white rounded-l-lg rounded-br-lg"
                           : "bg-[#f1eded] p-3 rounded-r-lg rounded-bl-lg"
-                      } ml-2`}
+                        } ml-2`}
                     >
                       <p className="text-sm">{message.content}</p>
                       <span
-                        className={`text-xs  leading-none mt-2 ${
-                          message.sender._id === userData._id
+                        className={`text-xs  leading-none mt-2 ${message.sender._id === userData._id
                             ? "ml-auto text-[#c1d9f6]"
                             : "mr-auto text-gray-400 "
-                        }`}
+                          }`}
                       >
                         {moment(message.date_created).fromNow()}
                       </span>
