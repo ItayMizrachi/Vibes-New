@@ -24,26 +24,18 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-
-
-
-  const doApi = async (_bodyData) => {
+  const doApiProfilePic = async (_bodyData) => {
     let url = URL + "/users";
-
     if (!_bodyData.profilePic) {
-      _bodyData.profilePic =
-        "/images/anonymous.jpg";
+      _bodyData.profilePic = "/images/anonymous.jpg";
     }
-
     try {
-
       _bodyData.profilePic = url2;
-
       const resp = await axios({
         url: url,
         method: "POST",
         data: _bodyData,
-      });
+      });s
       if (resp.data._id) {
         toast.success("Welcome to our site! Please log in");
         nav("/signin");
@@ -59,12 +51,11 @@ const SignUp = () => {
     }
   };
 
-
   const onSub = async (_bodyData) => {
     setIsLoading(true);
     console.log(_bodyData);
     await doApiCloudUpload();
-    doApi(_bodyData);
+    doApiProfilePic(_bodyData);
   };
 
   const doApiCloudUpload = async () => {
@@ -109,7 +100,6 @@ const SignUp = () => {
             {errors.name && (
               <div className="text-red-600">*Enter valid name(min 2 chars)</div>
             )}
-
 
             <div className="relative p-1 mt-1 rounded-md lg:mt-4">
               <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
@@ -189,11 +179,6 @@ const SignUp = () => {
               </div>
             )}
 
-
-
-
-
-
             <div className="relative p-1 mt-1 rounded-md lg:mt-4">
               <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
                 <UserIcon className="w-5 h-5 text-gray-500" />
@@ -217,7 +202,8 @@ const SignUp = () => {
               <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
                 <CameraIcon className="w-5 h-5 text-gray-500" />
               </div>
-              <input ref={uploadRef}
+              <input
+                ref={uploadRef}
                 className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
                 type="file"
               />

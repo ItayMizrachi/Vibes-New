@@ -9,6 +9,7 @@ import {
   BookmarkIcon as FullBookMarkIcon,
   HeartIcon as FullHeart,
 } from "@heroicons/react/solid";
+import { useLazyLoading } from "mg-js";
 import moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -24,9 +25,9 @@ import AddComment2 from "./AddComment2";
 import Comments from "./Comments";
 import EditPost3 from "./EditPost3";
 import LikesList from "./LikesList";
-import { useLazyLoading } from "mg-js";
 
 const Post = ({
+  postsInfo,
   likes,
   likesLength,
   _id,
@@ -111,7 +112,7 @@ const Post = ({
     }
   };
 
-  const [Intersector, commentsInfo, setData] = useLazyLoading(
+  const [Intersector, commentsInfo, setCommentsInfo] = useLazyLoading(
     {
       initPage: 1,
       distance: "8px",
@@ -124,7 +125,7 @@ const Post = ({
         const url = URL + `/comments/${_id}?page=${page}`;
         const resp = await fetch(url);
         const obj = await resp.json();
-        setData(obj);
+        setCommentsInfo(obj);
       } catch (error) {
         alert(error);
       }
@@ -173,10 +174,10 @@ const Post = ({
         await doApiMethod(url, "DELETE");
 
         // Delete the associated comment notification
-        // await doApiMethod(`/notifications/comment/${commentId}`, "DELETE");
+        setCommentsInfo((prevData) => prevData.filter((p) => p._id !== _id));
         deleteCommentNotification(commentId);
         // Refresh comments
-        doApiComments();
+        // doApiComments();
       }
     } catch (error) {
       console.log(error);

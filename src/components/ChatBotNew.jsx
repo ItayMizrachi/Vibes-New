@@ -1,8 +1,8 @@
 import { ArrowCircleDownIcon } from "@heroicons/react/outline";
 import { PaperAirplaneIcon, XIcon } from "@heroicons/react/solid";
 import axios from "axios";
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { MyContext } from "../context/myContext";
 import { TOKEN_KEY } from "../services/apiService";
 
@@ -12,6 +12,7 @@ const ChatBotNew = () => {
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
 
   const onKeyboardClick = (e) => {
     if (e.key === "Enter") {
@@ -33,13 +34,16 @@ const ChatBotNew = () => {
         { headers: options.headers }
       );
       const data = response.data;
-      console.log(data);
+      // console.log(data);
       setMessages((prevMessages) => [
         ...prevMessages,
         { role: "user", content: value },
-        { role: data.choices[0].message.role, content: data.choices[0].message.content },
+        {
+          role: data.choices[0].message.role,
+          content: data.choices[0].message.content,
+        },
       ]);
-      setValue('');
+      setValue("");
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -47,10 +51,29 @@ const ChatBotNew = () => {
     }
   };
 
+  useEffect(() => {
+    if (location.pathname.includes("chat")) {
+      setShowChat(false);
+    }
+  }, [location]);
+
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    // Scroll the chat container to the bottom whenever messages change
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   return (
     <>
       {/* button */}
-      <div className="fixed md:bottom-3 bottom-20 right-3  z-30 ">
+      <div
+        className={`fixed md:bottom-3 bottom-20 right-3  z-30 ${
+          location.pathname.includes("chat") && "hidden"
+        } `}
+      >
         <div
           onClick={() => setShowChat(!showChat)}
           className="md:w-14 md:h-14 w-11 h-11 cursor-pointer border-2 border-gray-100 bg-white p-1 rounded-md"
@@ -65,12 +88,15 @@ const ChatBotNew = () => {
 
       {/* button */}
       {showChat && (
-        <div className="fixed md:bottom-3 bottom-20 right-3 bg-white border rounded-lg shadow-lg h-[400px] w-[360px] md:w-[400px] md:h-[500px] z-30">
+        <div
+          className={`fixed md:bottom-3 bottom-20 right-3 bg-white border rounded-lg shadow-lg h-[400px] w-[360px] md:w-[400px] md:h-[500px] z-30  ${
+            location.pathname.includes("chat") && "hidden"
+          } `}
+        >
           <div className="flex">
             <div className="flex-1">
               <div className="flex flex-col md:h-[500px] h-[400px] overflow-clip">
-
-               {/* chat header */}
+                {/* chat header */}
                 <div className="flex items-center border-b rounded-lg p-2 px-3 py-4 sticky top-0 z-10 bg-white">
                   {/* <ArrowLeftIcon className="w-5 h-5 ml-1 cursor-pointer btn"/> */}
                   <div className="flex-shrink-0 w-10 mr-1">
@@ -78,15 +104,15 @@ const ChatBotNew = () => {
                       className="object-contain w-full h-full"
                       src="/images/vibes-logo-responsive.png"
                       alt={`vibes logo`}
-                      />
+                    />
                   </div>
                   <p className="font-semibold">Vibes Assistant</p>
                   <XIcon
                     onClick={() => setShowChat(false)}
                     className="h-5 w-5 ml-auto mr-2 cursor-pointer"
-                    />
+                  />
                 </div>
-                 {/* chat header */}
+                {/* chat header */}
 
                 <div className="flex-1 p-4 overflow-x-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-black">
                   {/* if there are no messages */}
@@ -104,16 +130,15 @@ const ChatBotNew = () => {
                           message.role === "assistant" ? "justify-end" : ""
                         }`}
                       >
-                        {message.role === "assistant" && 
-                                <div className="w-10 h-10">
-                                <img
-                                  className="object-cover w-full h-full rounded-full mr-2"
-                                  src="http://localhost:5173/images/vibes-logo-responsive.png"
-                                  alt={`vibes logo`}
-                                />
-                              </div>
-                        }
-                
+                        {message.role === "assistant" && (
+                          <div className="w-10 h-10">
+                            <img
+                              className="object-cover w-full h-full rounded-full mr-2"
+                              src="http://localhost:5173/images/vibes-logo-responsive.png"
+                              alt={`vibes logo`}
+                            />
+                          </div>
+                        )}
 
                         <div
                           className={`flex flex-col max-w-xs ${
@@ -130,19 +155,21 @@ const ChatBotNew = () => {
                             <p className="text-sm start">{message.content}</p>
                           </div>
                         </div>
-                        {message.role !== "assistant" && 
-                        <Link to={"/" + userData.user_name}>
-                          <div className="w-10 h-10 ml-1">
-                            <img
-                              className="object-cover w-full h-full rounded-full"
-                              src={userData.profilePic}
-                              alt={`Profile pic of ${userData.profilePic}`}
-                            />
-                          </div>
-                        </Link>}
+                        {message.role !== "assistant" && (
+                          <Link to={"/" + userData.user_name}>
+                            <div className="w-10 h-10 ml-1">
+                              <img
+                                className="object-cover w-full h-full rounded-full"
+                                src={userData.profilePic}
+                                alt={`Profile pic of ${userData.profilePic}`}
+                              />
+                            </div>
+                          </Link>
+                        )}
                       </div>
                     ))
                   )}
+                  <div ref={messagesEndRef}></div>
                 </div>
 
                 {/* chat input */}
