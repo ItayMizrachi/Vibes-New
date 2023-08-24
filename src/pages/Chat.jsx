@@ -31,15 +31,6 @@ const Chat = () => {
   const socketRef = useRef(null);
   const [otherUserProfilePic, setOtherUserProfilePic] = useState("");
 
-  // useEffect(() => {
-  //   socketRef.current.on("receiveMessage", (data) => {
-  //     setMessages((prevMessages) => [...prevMessages, data.message]);
-  //   });
-  //   return () => {
-  //     socketRef.current.disconnect();
-  //   };
-  // }, [setMessages, activeChatId]);
-
   // useEffect for setting up socket connection and joining chat room
   useEffect(() => {
     socketRef.current = io(URL);
@@ -51,7 +42,7 @@ const Chat = () => {
     });
     return () => {
       socketRef.current.disconnect();
-    };
+    }; 
   }, [setMessages, activeChatId]);
 
   // UseEffect to start a new chat when otherUser_id is available
@@ -104,10 +95,10 @@ const Chat = () => {
       );
       setOtherParticipant(otherParticipant);
       setOtherUserProfilePic(otherParticipant.profilePic);
-      console.log(otherUserProfilePic);
+      // console.log(otherUserProfilePic);
       nav(`/chat/${otherParticipant._id}`);
       setActiveChatId(chatId);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -165,7 +156,7 @@ const Chat = () => {
         participants: selectedParticipants,
       };
       const response = await doApiMethod(url, "POST", body);
-      console.log(response);
+      // console.log(response);
       if (response) {
         setActiveChatId(response._id);
         doApiMesssages(response._id);
