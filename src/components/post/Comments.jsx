@@ -22,13 +22,13 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
           {commentsInfo.map((comment, index) => (
             <div key={comment._id} className="flex items-start mb-3">
               <Link
-                to={"/" + comment.user.user_name}
+                to={"/" + comment.user?.user_name}
                 className="flex items-center space-x-2"
               >
                 <div className="w-10 h-10 mr-1">
                   <img
                     className="object-cover w-full h-full rounded-full"
-                    src={comment.user.profilePic}
+                    src={comment.user?.profilePic}
                     alt="profile pic"
                   />
                 </div>
@@ -38,8 +38,8 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
                 <p className="break-words">
                   {" "}
                   <span className="text-sm font-bold mr-2">
-                    <Link to={"/" + comment.user.user_name}>
-                      {comment.user.user_name}
+                    <Link to={"/" + comment.user?.user_name}>
+                      {comment.user?.user_name}
                     </Link>
                   </span>
                   {comment.text}
@@ -48,7 +48,7 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
                   {moment(comment.date_created).fromNow()}
                 </span>
               </div>
-              
+
               <div className="flex mt-3 items-center ml-auto pr-5 text-xs text-gray-500">
                 <DotsHorizontalIcon
                   onClick={() => toggleShowDelete(index)}

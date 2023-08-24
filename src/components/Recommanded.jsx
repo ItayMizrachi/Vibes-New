@@ -8,7 +8,10 @@ const Recommanded = () => {
   const { userData, followUser, followFlag } = useContext(MyContext);
 
   useEffect(() => {
-    doApiRandom5();
+    if (userData._id) {
+
+      doApiRandom5();
+    }
   }, [followFlag, userData]);
 
   const doApiRandom5 = async () => {
@@ -20,12 +23,11 @@ const Recommanded = () => {
         url = URL + "/users/random4";
       } else {
         url = URL + "/users/random5";
-
       }
       console.log(url);
       const data = await doApiGet(url);
       setSuggestions(data);
-      // console.log(data);
+      console.log(data);
     } catch (err) {
       console.log(err);
     }

@@ -60,7 +60,7 @@ const GroupsList = () => {
               {HEAD.map((head) => (
                 <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
                   <Typography
-                    variant="small"
+                    variant="h5"
                     color="blue-gray"
                     className="font-normal leading-none opacity-70"
                   >
@@ -77,17 +77,17 @@ const GroupsList = () => {
               return (
                 <tr key={i + 1} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
-                    <Typography variant="small" color="blue-gray" className="font-normal">
+                    <Typography variant="h5" color="blue-gray" className="font-normal">
                       {(page - 1) * 8 + i + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
-                    <Typography variant="small" color="blue-gray" className="font-normal">
+                    <Typography variant="h5" color="blue-gray" className="font-normal">
                       {item.group_admin}
                     </Typography>
                   </td>
                   <td className="p-4">
-                    <Typography variant="small" color="blue-gray" className="font-normal">
+                    <Typography variant="h5" color="blue-gray" className="font-normal">
                       {item.group_name}
                     </Typography>
                   </td>
