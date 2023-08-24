@@ -49,7 +49,7 @@ const Chatbot = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:3001/openai/completions",
+        "http://localhost:3009/openai/completions",
         options.data,
         { headers: options.headers }
       );
