@@ -11,7 +11,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "../context/myContext";
 import { TOKEN_KEY, URL, doApiGet } from "../services/apiService";
-import ImageAi from "./ImageAi";
+import Dalle from "./Dalle";
 import Noftlications from "./Noftlications";
 import Search from "./Search";
 import AddPost from "./post/AddPost";
@@ -54,7 +54,8 @@ const Header = () => {
           />
         )}
         {showAddPost && <AddPost setShowAddPost={setShowAddPost} />}
-        {showImgAi && <ImageAi setShowImgAi={setShowImgAi} />}
+        {showImgAi && <Dalle setShowImgAi={setShowImgAi} />}
+        {/* {showImgAi && <ImageAi setShowImgAi={setShowImgAi} />} */}
         {/* left */}
         <div className="relative hidden w-24 h-24 cursor-pointer lg:inline-grid">
           <Link to="/">
