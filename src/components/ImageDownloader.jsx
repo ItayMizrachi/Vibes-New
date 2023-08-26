@@ -1,76 +1,43 @@
 import { CameraIcon } from "@heroicons/react/solid";
-import FileSaver, { saveAs } from "file-saver";
-
 import React, { useState } from "react";
 import { URL as URL2 } from "../services/apiService";
 
-const Dalle = ({ setShowImgAi }) => {
-  const [loading, setLoading] = useState(false);
+function ImageDownloader({ setShowImgAi }) {
   const [images, setImages] = useState([]);
   const [value, setValue] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const getImages2 = async () => {
+  const fetchImages = async () => {
     try {
-      setLoading(true);
-      const options = {
+      const response = await fetch(URL2 + "/dalle", {
         method: "POST",
-        body: JSON.stringify({ prompt: value }),
         headers: {
           "Content-type": "application/json",
         },
-      };
-      const response = await fetch(URL2 + "/dalle", options);
-      //   const data = await response.json();
+        body: JSON.stringify({ prompt: value }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to generate image");
+      }
+      console.log(response);
       const blob = await response.blob();
-      console.log(blob);
-      setImages(URL.createObjectURL(blob));
-      console.log(images);
-      //   setImages(data);
+      setImages([URL.createObjectURL(blob)]);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching images:", error);
     }
   };
 
-  const getImages = async () => {
-    try {
-      setLoading(true);
-      const options = {
-        method: "POST",
-        body: JSON.stringify({ prompt: value }),
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-      const response = await fetch(URL2 + "/dalle", options);
-      const data = await response.json();
-      setImages(data); // As the result should be an array of URLs, wrap it in an array
-      console.log(data);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
+
+
+  const downloadImg = (image) => {
+    const link = document.createElement("a");
+    link.href = image;
+    link.download = "generated_image.png"; // Specify the desired filename
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
-
-  const handleDownload3 = (image) => {
-    saveAs(image, "image.png");
-    console.log(saveAs);
-};
-
-const handleDownload1 = (image) => {
-  saveAs(image, "image.png");
-};
-
-
-const handleDownload2 = (image) => {
-      FileSaver.saveAs(image, "image.png");
-    var canvas = document.getElementById(image);
-    canvas.toBlob(function(image) {
-        saveAs(image, "pretty image.png");
-    });
-  };
-
-
 
   const handleOverlayClick = (event) => {
     if (event.target.classList.contains("bg-black")) {
@@ -104,7 +71,7 @@ const handleDownload2 = (image) => {
             />
           </div>
           <button
-            onClick={getImages}
+            onClick={fetchImages}
             className="w-full py-3 my-1 mt-2 font-semibold text-center text-white bg-blue-500 rounded hover:bg-blue-600"
             type="submit"
           >
@@ -122,7 +89,7 @@ const handleDownload2 = (image) => {
                   />
                   <button
                     className="w-full py-2 font-semibold text-center text-white bg-blue-500 rounded hover:bg-blue-600"
-                    onClick={() => handleDownload1(img.url)}
+                    onClick={() => downloadImg(img.url)}
                   >
                     Download Image
                   </button>
@@ -133,6 +100,6 @@ const handleDownload2 = (image) => {
       </div>
     </div>
   );
-};
+}
 
-export default Dalle;
+export default ImageDownloader;

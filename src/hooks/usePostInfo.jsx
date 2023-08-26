@@ -4,10 +4,6 @@ import { toast } from "react-toastify";
 import { URL, doApiMethod } from "../services/apiService";
 
 export const usePostInfo = () => {
-  // const [postsInfo, setPostsInfo] = useState([]);
-  // const [singlePostInfo, setSinglePostInfo] = useState({});
-  // const { post_id } = useParams();
-
   // useEffect(() => {
   //   doApiPosts();
   // }, []);
@@ -22,75 +18,69 @@ export const usePostInfo = () => {
   //   }
   // };
 
-  // TODO: lazyloading after the bug  in the library is fixed
-  // lazyloading
-
-  // const [Intersector, data, setData] = useLazyLoading(
-  //   { initPage: 0, distance: "50px", targetPercent: 0.5 },
+  // const [Intersector, postsInfo, setPostsInfo] = useLazyLoading(
+  //   {
+  //     initPage: 1,
+  //     distance: "50px",
+  //     targetPercent: 0.5,
+  //     uuidKeeper: "posts-home",
+  //   },
   //   async (page) => {
   //     try {
-  //       const url = URL + `/userPosts/allposts?page=${page}`;
-  //       const d = await doApiGet(url);
-  //       setData(d);
-  //     } catch (err) {
-  //       console.log(err);
+  //       const url = URL + "/userPosts/allposts?page=" + page;
+  //       const resp = await fetch(url);
+  //       const arr = await resp.json();
+  //       setPostsInfo(arr);
+  //     } catch (error) {
+  //       console.log(error);
   //     }
   //   }
-  //   );
+  // );
 
-  const [deletedPostId, setDeletedPostId] = useState(null);
+  const [postsInfo, setPostsInfo] = useState([]);
+  const [page, setPage] = useState(1);
 
-  const [Intersector, postsInfo, setPostsInfo] = useLazyLoading(
+  // Increment the page whenever the threshold is reached
+  const incrementPage = () => setPage((prevPage) => prevPage + 1);
+
+  const [Intersector] = useLazyLoading(
     {
-      initPage: 1,
-      distance: "50px",
+      initPage: page,
+      distance: "10px",
       targetPercent: 0.5,
       uuidKeeper: "posts-home",
     },
-    async (page) => {
+    incrementPage
+  );
+
+  useEffect(() => {
+   const fetchPosts = async () => {
       try {
         const url = URL + "/userPosts/allposts?page=" + page;
         const resp = await fetch(url);
         const arr = await resp.json();
-        setPostsInfo(arr);
+        setPostsInfo((prevPosts) => [...prevPosts, ...arr]);
       } catch (error) {
         console.log(error);
       }
-    }
-  );
+    };
 
-  
+    fetchPosts();
+  }, [page]);
+
   const deletePost = async (_id) => {
-    try {
-        if (window.confirm("Are you sure you want to delete post?")) {
-            const url = URL + "/userPosts/" + _id;
-            await doApiMethod(url, "DELETE");
-            setPostsInfo((prevData) => prevData.filter((p) => p._id !== _id));
-            toast.info(`Post deleted`);
-            deletePostNotification(_id);
-            
-            setDeletedPostId(_id); // Set the recently deleted post ID
-        }
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-
-  const deletePost2 = async (_id) => {
     try {
       if (window.confirm("Are you sure you want to delete post?")) {
         const url = URL + "/userPosts/" + _id;
         await doApiMethod(url, "DELETE");
         setPostsInfo((prevData) => prevData.filter((p) => p._id !== _id));
-        toast.info(`Post deleted`);
         deletePostNotification(_id);
+        toast.info(`Post deleted`);
       }
     } catch (error) {
       console.log(error);
     }
   };
-
 
   const deletePostNotification = async (post_id) => {
     try {
@@ -102,15 +92,9 @@ export const usePostInfo = () => {
     }
   };
 
-  useEffect(() => {
-    if(deletedPostId) {
-        // Here, you can perform any side effects, like fetching new data, reflecting changes, etc.
-        // For instance:
-        // fetchDataAndUpdatePostsInfo();
-        console.log("Post with ID " + deletedPostId + " was deleted");
-    }
-}, [deletedPostId]);
-
-
-  return { deletePost, postsInfo, setPostsInfo, Intersector };
+  const addNewPost = (newPost) => {
+    setPostsInfo((prevPosts) => [newPost, ...prevPosts]);
+  };
+  
+  return { deletePost, postsInfo, setPostsInfo, Intersector , addNewPost};
 };

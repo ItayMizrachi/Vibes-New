@@ -38,7 +38,7 @@ const Post = ({
   user_id,
   date_created,
 }) => {
-  // const [commentsInfo, setCommentsInfo] = useState([]);
+  const [commentsInfo, setCommentsInfo] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Add state for loading
   const [likesCount, setLikesCount] = useState(likesLength);
@@ -46,6 +46,9 @@ const Post = ({
   const [isLiked, setIsLiked] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const { deletePost, userData } = useContext(MyContext);
+  const [newCommentPosted, setNewCommentPosted] = useState(false);
+  const [hasNewComment, setHasNewComment] = useState(false);
+
 
   const createLikeNotification = async (userId, postId, senderId) => {
     try {
@@ -112,60 +115,58 @@ const Post = ({
     }
   };
 
-  const [Intersector, commentsInfo, setCommentsInfo] = useLazyLoading(
+  const [page, setPage] = useState(1);
+
+  // Increment the page whenever the threshold is reached
+  const incrementPage = () => setPage((prevPage) => prevPage + 1);
+
+  const [Intersector] = useLazyLoading(
     {
-      initPage: 1,
-      distance: "8px",
+      initPage: page,
+      distance: "4px",
       targetPercent: 0.5,
       uuidKeeper: _id,
     },
-    async (page) => {
-      console.log(page);
+    incrementPage
+  );
+
+ 
+
+  useEffect(() => {
+  const fetchComments = async () => {
       try {
         const url = URL + `/comments/${_id}?page=${page}`;
         const resp = await fetch(url);
-        const obj = await resp.json();
-        setCommentsInfo(obj);
+        const arr = await resp.json();
+        setCommentsInfo((prevComments) => [...prevComments, ...arr]);
       } catch (error) {
-        alert(error);
+        console.log(error);
       }
-    }
-  );
+    };
 
-  // useEffect(() => {
-  //   setCommentsInfo(data);
-  // }, [data]);
-
-  // const doApiComments = async () => {
-  //   try {
-  //     const url = URL + "/comments/" + _id;
-  //     const data = await doApiGet(url);
-  //     setCommentsInfo(data);
-  //     //  console.log(data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+    fetchComments();
+  }, [page]);
 
   const doApiPostComment = async (_bodyData) => {
     try {
       const url = URL + "/comments/" + _id;
       const response = await doApiMethod(url, "POST", _bodyData);
 
-      // Extract the commentId from the response data
-      const commentId = response._id; // Adjust this according to your API response structure
-      console.log;
-      // Call your other functions
-      // doApiComments();
+      const commentId = response._id; 
+      console.log(response)
       reset();
 
+      // Update the state variable to indicate a new comment has been posted
+      
       if (user_id !== userData._id) {
         await createCommentNotification(user_id, _id, userData._id, commentId);
       }
+      setCommentsInfo((prevComments) => [response ,...prevComments]);
     } catch (error) {
       console.log(error);
     }
   };
+
 
   const deleteComment = async (commentId) => {
     try {
@@ -173,8 +174,8 @@ const Post = ({
         const url = URL + "/comments/" + commentId + "/" + user_id;
         await doApiMethod(url, "DELETE");
 
+        setCommentsInfo((prevData) => prevData.filter((c) => c._id !== commentId));
         // Delete the associated comment notification
-        setCommentsInfo((prevData) => prevData.filter((p) => p._id !== _id));
         deleteCommentNotification(commentId);
         // Refresh comments
         // doApiComments();

@@ -26,7 +26,7 @@ const ImageAi = ({ setShowImgAi }) => {
     if (!response.ok) {
       throw new Error("Failed to generate image");
     }
-
+    console.log(response)
     const blob = await response.blob();
     setOutput(URL.createObjectURL(blob));
     setLoading(false);

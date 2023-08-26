@@ -11,7 +11,8 @@ import Router from "./routes/Router";
 
 const App = () => {
   const { userData, doApiUser, userSignOut } = useUserData();
-  const { deletePost, postsInfo, setPostsInfo , Intersector} = usePostInfo();
+  const { deletePost, postsInfo, setPostsInfo, addNewPost, Intersector } =
+    usePostInfo();
   const { followUser, followFlag } = useFollow();
   const [loading, setIsLoading] = useState(false);
 
@@ -28,7 +29,8 @@ const App = () => {
         setIsLoading,
         postsInfo,
         setPostsInfo,
-        Intersector
+        addNewPost,
+        Intersector,
       }}
     >
       <Router />

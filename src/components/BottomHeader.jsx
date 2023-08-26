@@ -42,7 +42,7 @@ const BottomHeader = () => {
   }, [userData]);
 
   return (
-    <header className="fixed bottom-0 p-5 left-0 right-0 z-40  bg-white border-t shadow-s  lg:hidden md:hidden">
+    <header className="fixed bottom-0 p-5 left-0 right-0 z-30  bg-white border-t shadow-s  lg:hidden md:hidden">
       {showNoftlications && (
         <Noftlications
           setIsRead={setIsRead}
