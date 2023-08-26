@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Story from "./Story";
 
 const Stories = () => {
-  
   const [suggestions, setSuggestions] = useState([]);
   useEffect(() => {
     const suggestions = [...Array(20)].map((_, i) => ({
@@ -18,17 +17,27 @@ const Stories = () => {
     setSuggestions(suggestions);
   }, []);
 
-
-
   return (
     <div className="flex rounded-2xl p-6 mt-8 space-x-2 overflow-x-scroll bg-white border border-gray-200 scrollbar-thin ">
-     {/* {session && (
+      {/* {session && (
       <Story img={session.user.image}
       username={session.user.username}/>
      )} */}
-      
+      <div
+        className="rounded-full h-14 w-14 p-[1.5px]
+        border-red-500 border-2 object-contain cursor-pointer hover:scale-110
+         transition transfrom duration-200 ease-out flex flex-col items-center"
+      >
+        <p className="text-sm mt-[6px]">coming</p>
+        <p className="text-sm">soon</p>
+      </div>
+
       {suggestions.map((profile) => (
-        <Story key={profile.userId} img={profile.avatar} username={profile.username} />
+        <Story
+          key={profile.userId}
+          img={profile.avatar}
+          username={profile.username}
+        />
       ))}
     </div>
   );
