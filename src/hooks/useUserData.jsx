@@ -60,5 +60,5 @@ export const useUserData = () => {
     }
   };
 
-  return { userData, doApiUser, userSignOut };
+  return { userData, doApiUser, userSignOut, setUserData };
 };
