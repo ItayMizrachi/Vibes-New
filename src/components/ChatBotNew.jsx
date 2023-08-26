@@ -69,23 +69,24 @@ const ChatBotNew = () => {
   return (
     <>
       {/* button */}
-      {localStorage[TOKEN_KEY] && (
-        <div
-          className={`fixed md:bottom-3 bottom-20 right-3  z-30 ${
-            location.pathname.includes("chat") && "hidden"
-          } `}
-        >
-          <div
-            onClick={() => setShowChat(!showChat)}
-            className="md:w-14 md:h-14 w-11 h-11 cursor-pointer border-2 border-gray-100 bg-white p-1 rounded-md"
-          >
-            <img
-              className="w-full h-full rounded-full object-cover"
-              src="http://localhost:5173/images/vibes-logo-responsive.png"
-              alt={`vibes logo`}
-            />
-          </div>
-        </div>
+      {localStorage[TOKEN_KEY] && !showChat && (
+     <div
+     className={`fixed transform transition-transform duration-300 md:bottom-3 bottom-20 right-3 z-30 ${location.pathname.includes("chat") && "hidden"}`}
+     onClick={() => setShowChat(!showChat)} // Added hover to show chat for a more fluid interaction
+   >
+     <button 
+       onClick={() => setShowChat(!showChat)}
+       className="md:w-14 md:h-14 w-11 h-11 cursor-pointer border-2 border-gray-200 bg-white p-1 rounded-md shadow-lg hover:shadow-xl hover:border-indigo-100 transition-all duration-300"
+       aria-label="Open chat"
+     >
+       <img
+         className="w-full h-full rounded-full object-cover transform hover:scale-105 transition-transform duration-300"
+         src="http://localhost:5173/images/vibes-logo-responsive.png"
+         alt="vibes logo"
+       />
+     </button>
+   </div>
+   
       )}
       {/* button */}
       {showChat && (
@@ -110,7 +111,7 @@ const ChatBotNew = () => {
                   <p className="font-semibold">Vibes Assistant</p>
                   <XIcon
                     onClick={() => setShowChat(false)}
-                    className="h-5 w-5 ml-auto mr-2 cursor-pointer"
+                    className="h-5 w-5 ml-auto mr-2 cursor-pointer hover:text-gray-500 transition duration-200"
                   />
                 </div>
                 {/* chat header */}
@@ -149,8 +150,8 @@ const ChatBotNew = () => {
                           <div
                             className={`${
                               message.role !== "assistant"
-                                ? "bg-[#378df0] p-3 text-white rounded-l-lg rounded-br-lg"
-                                : "bg-[#f1eded] p-3 rounded-r-lg rounded-bl-lg"
+                                ? "bg-indigo-500 hover:bg-indigo-600 p-3 text-white rounded-l-lg rounded-br-lg"
+                                : "bg-[#f1eded] hover:bg-[#ebe5e5]  p-3 rounded-r-lg rounded-bl-lg"
                             } ml-2`}
                           >
                             <p className="text-sm start">{message.content}</p>
@@ -186,7 +187,7 @@ const ChatBotNew = () => {
                     onKeyDown={onKeyboardClick}
                   />
                   <button
-                    className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed "
+                    className="px-4 py-2 font-bold text-white transition duration-200 bg-indigo-500 rounded hover:bg-indigo-600 disabled:bg-indigo-300 disabled:cursor-not-allowed "
                     disabled={
                       !localStorage[TOKEN_KEY] || loading || value == ""
                     }

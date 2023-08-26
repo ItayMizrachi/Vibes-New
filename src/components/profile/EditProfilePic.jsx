@@ -100,50 +100,46 @@ const EditProfilePic = ({ onClose }) => {
   return (
     <div
       onClick={handleOverlayClick}
-      className="fixed inset-0 flex z-50 justify-center items-center bg-black bg-opacity-80"
+      className="fixed inset-0 flex z-50 justify-center items-center bg-black bg-opacity-90 transition-opacity duration-300"
     >
-      <div className="flex flex-col items-center justify-center flex-1 max-w-sm px-2 mx-auto">
-        <div className="w-full px-6 py-4 rounded-lg bg-white">
-          <div className="flex justify-between items-center p-3 border-b">
-            <h2 className="text-xl font-semibold">Edit Profile pic </h2>
-            <XIcon onClick={onClose} className="h-5 w-5 cursor-pointer" />
-          </div>
-
-          <form onSubmit={handleSubmit(onSubForm)}>
-            <div className="mb-4">
-              <label className="font-semibold">Upload image</label>
-              <input
-                required
-                ref={uploadRef}
-                onChange={handleImageChange}
-                type="file"
-                className="w-full p-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500 upload"
+      <div className="bg-white rounded-lg shadow-lg max-w-sm px-4 py-5 space-y-4">
+        <div className="flex justify-between items-start">
+          <h2 className="text-xl font-semibold">Edit Profile pic</h2>
+          <XIcon
+            onClick={onClose}
+            className="h-6 w-6 cursor-pointer hover:text-gray-600 transition-colors duration-200"
+          />
+        </div>
+        <form onSubmit={handleSubmit(onSubForm)}>
+          <div className="space-y-4">
+            <label className="block font-semibold mb-2">Upload image</label>
+            <input
+              required
+              ref={uploadRef}
+              onChange={handleImageChange}
+              type="file"
+              className="w-full p-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition-border duration-200"
+            />
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="Image Preview"
+                className="my-2 rounded-md shadow-md"
               />
-            </div>
-
-            <div className="mb-4 mt-4">
-              {imagePreview && (
-                <img
-                  src={imagePreview}
-                  alt="Image Preview"
-                  className="my-2 rounded-md"
-                />
-              )}
-            </div>
+            )}
             <button
               type="submit"
-              className={`w-full py-3 mt-4 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600 ${
+              className={`w-full py-2 font-medium text-white bg-indigo-500 rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-60 transition-all duration-200 ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
               disabled={isLoading}
             >
               {isLoading ? "Loading..." : "Change Profile Pic"}
             </button>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   );
 };
-
 export default EditProfilePic;

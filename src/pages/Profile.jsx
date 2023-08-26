@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Post from "../components/post/Post";
 import EditProfilePic from "../components/profile/EditProfilePic";
+import EditUser from "../components/profile/EditUser";
 import FollowersList from "../components/profile/FollowersList";
 import Gallery from "../components/profile/Gallery";
 import UserNotFound from "../components/profile/UserNotFound";
@@ -23,7 +24,7 @@ const Profile = () => {
   const [isPop, setIsPop] = useState(false);
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
-
+  const [showEditUser,setShowEditUser] = useState(false);
   const nav = useNavigate(); // Get the navigation function from react-router-dom
 
   const handleSendMessage = (userId) => {
@@ -144,128 +145,159 @@ const Profile = () => {
   return (
     <div className=" p-4 sm:p-10 mx-0 lg:max-w-6xl md:mx-5 xl:mx-auto">
       {/* Profile Info */}
+      {showFollowers && (
+        <FollowersList
+          setShowFollowers={setShowFollowers}
+          follow={userInfo.followers}
+          title={"Followers"}
+        />
+      )}
+      {showFollowing && (
+        <FollowersList
+          setShowFollowing={setShowFollowing}
+          follow={userInfo.followings}
+          title={"Following"}
+        />
+      )}
+      {showEditUser && <EditUser setShowEditUser={setShowEditUser} />}
       {userInfo?.user_name ? (
         <>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-            <div className="justify-center avatar md:col-span-1">
-              <div>
+            <div className="justify-center avatar md:col-span-1 relative ">
+              <div className="justify-center avatar md:col-span-1  relative w-36 group h-36 mx-auto md:mx-0">
                 <img
-                  className="mx-auto rounded-full w-36 h-36 md:mx-0 cursor-pointer"
+                  className={`rounded-full w-full h-full transition-opacity duration-300 ${
+                    userInfo._id === userData._id
+                      ? "cursor-pointer hover:opacity-100 "
+                      : ""
+                  }`}
                   src={userInfo.profilePic}
                   alt="profile pic"
-                  onClick={openWindow}
                 />
+                {userInfo.profilePic === userData.profilePic && (
+                  <div
+                    onClick={openWindow}
+                    className="absolute cursor-pointer inset-0 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300"
+                  >
+                    <span className="text-white font-semibold ">
+                      Change Profile Pic
+                    </span>
+                  </div>
+                )}
                 {isPop && <EditProfilePic onClose={closeWindow} />}
               </div>
             </div>
-            <div className="md:col-span-3">
-              <span className="mr-20 text-2xl text-gray-700">
-                {userInfo.user_name}
-              </span>
-              {userData._id !== userInfo._id && (
-                <>
-                  <button
-                    className="p-2 my-2 text-white font-semibold bg-blue-500 rounded hover:bg-blue-600"
-                    onClick={() => followUser(userInfo._id)}
-                  >
-                    {userInfo.followers.find((followers) => {
-                      return followers._id === userData._id;
-                    })
-                      ? "Unfollow"
-                      : "Follow"}
-                  </button>
-                  <button
-                    className="p-2 my-2 ml-1 text-white font-semibold bg-blue-500 rounded hover:bg-blue-600"
-                    onClick={() => handleSendMessage(userInfo._id)}
-                  >
-                    Message
-                  </button>
-                </>
-              )}
-              {userData._id === userInfo._id && (
-                <Link to={"/edit_user"}>
-                  <button className="p-2 my-2 text-white font-semibold bg-blue-500 rounded hover:bg-blue-600">
-                    Edit User
-                  </button>
-                </Link>
-              )}
-              {/* <div className="inline text-sm font-semibold text-blue-400 cursor-pointer">
-                Edit Profile
-              </div> */}
-              <div className="flex mt-2 md:mt-4">
-                <div className="mr-6">
-                  <span className="font-semibold">
-                    {postsInfo.length + " "}
-                  </span>
-                  posts
-                </div>
-                <div
-                  onClick={() => setShowFollowers(true)}
-                  className="mr-6 cursor-pointer"
-                >
-                  <span className="font-semibold">
-                    {userInfo.followers?.length + " "}
-                  </span>
-                  followers
-                </div>
-                {showFollowers && (
-                  <FollowersList
-                    setShowFollowers={setShowFollowers}
-                    follow={userInfo.followers}
-                    title={"Followers"}
-                  />
-                )}
-                <div
-                  onClick={() => setShowFollowing(true)}
-                  className="mr-6 cursor-pointer"
-                >
-                  <span className="font-semibold">
-                    {userInfo.followings?.length + " "}
-                  </span>
-                  following
-                </div>
-                {showFollowing && (
-                  <FollowersList
-                    setShowFollowing={setShowFollowing}
-                    follow={userInfo.followings}
-                    title={"Following"}
-                  />
+
+            <div className="md:col-span-3 space-y-4">
+              {/* User Info and Action Buttons */}
+              <div className="flex items-center justify-between space-x-4">
+                <span className="text-2xl font-semibold text-gray-700">
+                  {userInfo.user_name}
+                </span>
+
+                {userData._id !== userInfo._id ? (
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => followUser(userInfo._id)}
+                      className="px-4 py-2 text-white font-semibold bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
+                    >
+                      {userInfo.followers.some(
+                        (follower) => follower._id === userData._id
+                      )
+                        ? "Unfollow"
+                        : "Follow"}
+                    </button>
+                    <button
+                      onClick={() => handleSendMessage(userInfo._id)}
+                      className="px-4 py-2 text-white font-semibold bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
+                    >
+                      Message
+                    </button>
+                  </div>
+                ) : (
+               
+                    <button onClick={() => setShowEditUser(true)} className="px-4 py-2 text-white font-semibold bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200">
+                      Edit User
+                    </button>
+                 
                 )}
               </div>
-              <div className="mt-2 md:mt-4">
-                <div className="pt-2">
-                  <span className="text-lg font-semibold text-gray-700">
+
+              <div className="space-y-4 md:space-y-6">
+                {/* User's Metrics: Posts, Followers, Following */}
+                <div className="flex justify-start space-x-6">
+                  <div
+                    className="group flex flex-col items-center cursor-pointer"
+                    onClick={() => setShowFollowers(true)}
+                  >
+                    <span className="text-xl font-semibold">
+                      {postsInfo.length}
+                    </span>
+                    <span className=" hover:text-gray-600 transition-colors duration-200">
+                      Posts
+                    </span>
+                  </div>
+                  <div
+                    className="group flex flex-col items-center cursor-pointer"
+                    onClick={() => setShowFollowers(true)}
+                  >
+                    <span className="text-xl font-semibold">
+                      {userInfo.followers?.length}
+                    </span>
+                    <span className=" hover:text-gray-600 transition-colors duration-200">
+                      Followers
+                    </span>
+                  </div>
+
+                  <div
+                    className="group flex flex-col items-center cursor-pointer"
+                    onClick={() => setShowFollowing(true)}
+                  >
+                    <span className="text-xl font-semibold">
+                      {userInfo.followings?.length}
+                    </span>
+                    <span className=" hover:text-gray-600 transition-colors duration-200">
+                      Following
+                    </span>
+                  </div>
+                </div>
+
+                {/* User's Name and Description */}
+                <div>
+                  <h2 className="text-lg md:text-xl font-semibold text-gray-700">
                     {userInfo.name}
-                  </span>
+                  </h2>
+                  <p className="text-base text-indigo-400 mt-1">
+                    {userInfo.desc}
+                  </p>
                 </div>
-                <div className="pt-2">
-                  <p className="text-base text-blue-700">{userInfo.desc}</p>
-                </div>
-                <div></div>
               </div>
             </div>
           </div>
 
           {/* Buttons */}
-          <hr className="mt-6 border" />
-          <div className="flex justify-center gap-10">
+          <hr className="my-6 border-t border-gray-200" />
+
+          {/* Tabs for Posts, Liked, Saved, Gallery */}
+          <div className="flex justify-center gap-4 pb-2">
             <button
               onClick={() => show("userPosts")}
-              className="flex gap-2 py-4 text-sm font-semibold text-gray-400 border-gray-300 focus:border-t focus:text-gray-600"
+              className="py-2 px-4 text-sm font-semibold text-gray-400 border-b-2 border-transparent hover:border-gray-200 focus:border-gray-300"
             >
               Posts
             </button>
+
             {userData._id === userInfo._id && (
               <>
                 <button
                   onClick={() => show("likedposts")}
-                  className="flex gap-2 py-4 text-sm font-semibold text-gray-400 border-gray-300 focus:border-t focus:text-gray-600"
+                  className="py-2 px-4 text-sm font-semibold text-gray-400 border-b-2 border-transparent hover:border-gray-200 focus:border-gray-300"
                 >
                   Liked
                 </button>
                 <button
                   onClick={() => show("saves")}
-                  className="flex gap-2 py-4 text-sm font-semibold text-gray-400 border-gray-300 focus:border-t focus:text-gray-600"
+                  className="py-2 px-4 text-sm font-semibold text-gray-400 border-b-2 border-transparent hover:border-gray-200 focus:border-gray-300"
                 >
                   Saved
                 </button>
@@ -273,7 +305,7 @@ const Profile = () => {
             )}
             <button
               onClick={() => show("gallery")}
-              className="flex gap-2 py-4 text-sm font-semibold text-gray-400 border-gray-300 focus:border-t focus:text-gray-600"
+              className="py-2 px-4 text-sm font-semibold text-gray-400 border-b-2 border-transparent hover:border-gray-200 focus:border-gray-300"
             >
               Gallery
             </button>
@@ -291,6 +323,7 @@ const Profile = () => {
 
           {showUserPosts && (
             <>
+            <div className="max-w-[700px]  mx-auto">
               {postsInfo.map((post) => (
                 <Post
                   likes={post.likes}
@@ -302,6 +335,7 @@ const Profile = () => {
                   img_url={post.img_url}
                   description={post.description}
                   date_created={post.date_created}
+                  user_id={post.user._id}
                 />
               ))}
               {postsInfo.length == 0 && (
@@ -309,11 +343,13 @@ const Profile = () => {
                   no posts posted yet 😕{" "}
                 </h1>
               )}
+              </div>
               {/* <Intersector /> */}
             </>
           )}
           {showUserSaves && (
             <>
+               <div className="max-w-[700px]  mx-auto">
               {savedPostsInfo.map((post) => (
                 <Post
                   likes={post.likes}
@@ -325,6 +361,7 @@ const Profile = () => {
                   img_url={post.img_url}
                   description={post.description}
                   date_created={post.date_created}
+                  user_id={post.user._id}
                 />
               ))}
               {savedPostsInfo.length == 0 && (
@@ -332,11 +369,13 @@ const Profile = () => {
                   no posts saved yet
                 </h1>
               )}
+              </div>
             </>
           )}
 
           {showUserLikes && (
             <>
+               <div className="max-w-[700px]  mx-auto">
               {likedPostsInfo.map((post) => (
                 <Post
                   likes={post.likes}
@@ -348,6 +387,7 @@ const Profile = () => {
                   img_url={post.img_url}
                   description={post.description}
                   date_created={post.date_created}
+                  user_id={post.user._id}
                 />
               ))}
               {likedPostsInfo.length == 0 && (
@@ -355,6 +395,7 @@ const Profile = () => {
                   no posts liked yet
                 </h1>
               )}
+              </div>
             </>
           )}
         </>

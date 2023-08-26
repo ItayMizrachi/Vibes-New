@@ -61,7 +61,7 @@ const Header = () => {
           <Link to="/">
             <img
               src="/images/vibes-logo.png"
-              className="object-contain w-full h-full"
+              className="object-contain w-full h-full "
               alt="logo"
             />
           </Link>
@@ -133,7 +133,7 @@ const Header = () => {
                   <img
                     src={userData?.profilePic}
                     alt="profile pic"
-                    className="object-cover w-full h-full rounded-full"
+                    className="object-cover w-full h-full rounded-full border p-[1px] hover:border-gray-400 transition duration-200"
                   />
                 </div>
               </Link>

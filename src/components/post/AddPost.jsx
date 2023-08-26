@@ -1,4 +1,4 @@
-import { XIcon } from "@heroicons/react/outline";
+import { CameraIcon, XIcon } from "@heroicons/react/outline";
 import { PencilIcon } from "@heroicons/react/solid";
 import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -90,47 +90,51 @@ const AddPost = ({ setShowAddPost }) => {
     onSubForm({ description: text });
     setText(""); // Clear the InputEmoj after submission
   }
-
   return (
     <div
       onClick={handleOverlayClick}
-      className="fixed inset-0 flex z-50 justify-center items-center bg-black bg-opacity-80"
+      className="fixed inset-0 flex z-50 justify-center items-center bg-black bg-opacity-90" // Made the background slightly darker for better contrast
     >
-      <div className="flex flex-col items-center justify-center flex-1 max-w-sm px-2 mx-auto">
-        <div className="w-full px-6 py-4 rounded-lg bg-white">
-          <div className="flex justify-between items-center p-3 border-b">
-            <h2 className="text-xl font-semibold">Add Post </h2>
+      <div className="flex flex-col items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white shadow-xl rounded-xl">
+        {" "}
+        {/* Adjusted sizing, added shadow, and increased border radius */}
+        <div className="w-full bg-white">
+          <div className="flex justify-between items-center pb-3 mb-4 border-b">
+            <h2 className="text-xl font-bold flex items-center">
+              Add Post
+              <CameraIcon className="w-5 h-5 ml-2" />
+            </h2>
             <XIcon
               onClick={() => setShowAddPost(false)}
-              className="h-5 w-5 cursor-pointer"
+              className="h-6 w-6 cursor-pointer hover:text-gray-500 transition duration-200" // Added hover effect
             />
           </div>
 
           <form>
-            <div className="mb-4 mt-4">
-              <label className="font-semibold">Description</label>
+            <div className="mb-6">
+              <label className="block font-semibold mb-2">Description</label>
 
               {/* For small screens */}
-              <div className="relative p-1 mt-1 rounded-md lg:mt-4 lg:hidden">
-                <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
+              <div className="relative mt-1 lg:hidden">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <PencilIcon className="w-5 h-5 text-gray-500" />
                 </div>
                 <input
-                  className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
+                  className="block w-full pl-12 pr-4 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100" // Enhanced input style
                   type="text"
                   placeholder="description"
                   required
                   onChange={(e) => setText(e.target.value)}
                 />
               </div>
-           
+
               {/* For larger screens */}
               <div className="hidden lg:block">
                 <InputEmoji
-                  value={text} // Use the state value
-                  onChange={setText} // Update the state when the value changes
+                  value={text}
+                  onChange={setText}
                   placeholder="description"
-                  className="flex-1 border-none outline-none focus:ring-0 emoj"
+                  className="w-full p-2 mt-1 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
 
@@ -138,29 +142,28 @@ const AddPost = ({ setShowAddPost }) => {
                 <img
                   src={imagePreview}
                   alt="Image Preview"
-                  className="my-2 rounded-md"
+                  className="my-4 w-full rounded-md shadow" // Adjusted size and added shadow
                 />
               )}
             </div>
 
-            <div className="mb-4">
-              <label className="font-semibold">Image</label>
+            <div className="mb-6">
+              <label className="block font-semibold mb-2">Image</label>
               <input
                 required
                 ref={uploadRef}
                 onChange={handleImageChange}
                 type="file"
-                className="w-full p-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500 upload"
+                className="w-full p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 hover:bg-gray-50 transition duration-200" // Enhanced input style
               />
             </div>
 
             <button
               onClick={handleOnEnter}
               type="submit"
-              className={`w-full py-3 mt-4 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600 ${
+              className={`w-full py-3 font-semibold text-white bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
-              disabled={isLoading}
             >
               {isLoading ? "Posting..." : "Post"}
             </button>

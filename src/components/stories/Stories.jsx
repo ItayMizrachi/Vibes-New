@@ -28,8 +28,8 @@ const Stories = () => {
         border-red-500 border-2 object-contain cursor-pointer hover:scale-110
          transition transfrom duration-200 ease-out flex flex-col items-center"
       >
-        <p className="text-sm mt-[6px]">coming</p>
-        <p className="text-sm">soon</p>
+        <p className="text-sm mt-[6px] font-semibold">coming</p>
+        <p className="text-sm font-semibold">soon!</p>
       </div>
 
       {suggestions.map((profile) => (

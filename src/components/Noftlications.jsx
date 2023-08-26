@@ -115,7 +115,7 @@ const Noftlications = ({ setShowNoftlications, setIsRead }) => {
                         <div>
                           <p>Started following you!</p>
                           <button
-                            className="p-2 my-2 text-white font-semibold bg-blue-500 rounded hover:bg-blue-600"
+                            className="p-2 my-2 text-white font-semibold  bg-indigo-500 rounded-mds transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
                             onClick={() => followUser(item.sender?._id)}
                           >
                             {item.sender.followers.find((follower_id) => {
