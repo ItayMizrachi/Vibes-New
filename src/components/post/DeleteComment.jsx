@@ -28,7 +28,7 @@ const DeleteComment = ({ setShowDelete, comment, deleteComment, user_id }) => {
           <span className="text-red-500 font-semibold"> Report </span>(coming
           soon!)
         </button>
-        {(comment?.user._id === userData._id || user_id === userData._id) && (
+        {(comment?.user === userData._id || user_id === userData._id) && (
           <button
             onClick={() => del(comment._id)}
             className="w-full p-3 hover:bg-gray-200 text-red-500 font-semibold"

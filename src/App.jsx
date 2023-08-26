@@ -10,7 +10,7 @@ import LoadingPage from "./pages/LoadingPage";
 import Router from "./routes/Router";
 
 const App = () => {
-  const { userData, doApiUser, userSignOut } = useUserData();
+  const { userData, doApiUser, userSignOut, setUserData } = useUserData();
   const { deletePost, postsInfo, setPostsInfo, addNewPost, Intersector } =
     usePostInfo();
   const { followUser, followFlag } = useFollow();
@@ -20,6 +20,7 @@ const App = () => {
     <MyContext.Provider
       value={{
         userData,
+        setUserData,
         doApiUser,
         userSignOut,
         deletePost,

@@ -6,14 +6,15 @@ import {
   UserIcon,
 } from "@heroicons/react/solid";
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { MyContext } from "../context/myContext";
 import { URL, doApiMethod, imgToString } from "../services/apiService";
 
 const SignUp = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const {setIsLoading} = useContext(MyContext);
   const uploadRef = useRef();
   const nav = useNavigate();
   let url2;
@@ -40,7 +41,6 @@ const SignUp = () => {
         toast.success("Welcome to our site! Please log in");
         nav("/signin");
       }
-      setIsLoading(false);
     } catch (err) {
       console.log(err.response.data.code);
       if (err.response.data.code == 11000) {
@@ -56,6 +56,7 @@ const SignUp = () => {
     console.log(_bodyData);
     await doApiCloudUpload();
     doApiProfilePic(_bodyData);
+    setIsLoading(false);
   };
 
   const doApiCloudUpload = async () => {
