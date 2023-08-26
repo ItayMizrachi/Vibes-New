@@ -2,14 +2,15 @@ import { XIcon } from "@heroicons/react/outline";
 import { PencilIcon } from "@heroicons/react/solid";
 import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MyContext } from "../../context/myContext";
 import { URL, doApiMethod, imgToString } from "../../services/apiService";
 
 const AddPost = ({ setShowAddPost }) => {
   const [isLoading, setIsLoading] = useState(false); // Add state for loading
-  const { setPostsInfo } = useContext(MyContext);
-
+  const {addPost, setAddPost,fetchPosts, postsInfo, setPostsInfo, addNewPost } = useContext(MyContext);
+  const nav = useNavigate();
   const [imagePreview, setImagePreview] = useState(null);
 
   const handleImageChange = (event) => {
@@ -65,6 +66,8 @@ const AddPost = ({ setShowAddPost }) => {
         toast.success("Post added");
         setShowAddPost(false);
       }
+      addNewPost(data)
+      nav("/");
     } catch (error) {
       console.log(error);
       toast.error("There's a problem");
