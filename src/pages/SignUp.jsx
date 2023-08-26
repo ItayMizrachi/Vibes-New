@@ -35,7 +35,7 @@ const SignUp = () => {
         url: url,
         method: "POST",
         data: _bodyData,
-      });s
+      });
       if (resp.data._id) {
         toast.success("Welcome to our site! Please log in");
         nav("/signin");

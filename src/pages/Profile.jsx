@@ -10,8 +10,8 @@ import { URL, doApiGet } from "../services/apiService";
 
 const Profile = () => {
   const [postsInfo, setPostsInfo] = useState([]);
-  const [userInfo, setUserInfo] = useState({});
   const [savedPostsInfo, setSavedPostsInfo] = useState([]);
+  const [userInfo, setUserInfo] = useState({});
   const { user_name } = useParams(); // Get the user_name from the URL parameter
   const [showGallery, setShowGallery] = useState(true);
   const [showUserPosts, setShowUserPosts] = useState(false);
@@ -39,7 +39,6 @@ const Profile = () => {
       setShowUserPosts(false);
       setShowUserSaves(false);
     } else if (type === "saves") {
-      savedPost();
       setShowGallery(false);
       setShowUserPosts(false);
       setShowUserSaves(true);
@@ -51,22 +50,26 @@ const Profile = () => {
       const url = URL + "/userPosts/userInfo/" + user_name;
       const data = await doApiGet(url);
       setPostsInfo(data);
-      // console.log(data);
+      console.log(data);
     } catch (err) {
       console.log(err);
       setUserNotFound(true);
     }
   };
 
-  const savedPost = async () => {
+  const doApiSavedUserPosts = async (user_name) => {
     try {
-      const url = URL + "/userPosts/savedPosts";
+      const url = URL + "/userPosts/savedposts/" + user_name;
       const data = await doApiGet(url);
       setSavedPostsInfo(data);
+      console.log(data);
     } catch (err) {
       console.log(err);
+      setUserNotFound(true);
     }
   };
+
+
 
   // const [Intersector, data, setData] = useLazyLoading(
   //   { initPage: 0, distance: "50px", targetPercent: 0.5 },
@@ -106,6 +109,9 @@ const Profile = () => {
     if (user_name) {
       doApiUserPosts(user_name);
       doApiUserInfo(user_name);
+      doApiSavedUserPosts(user_name);
+
+
     }
   }, [user_name, followFlag]);
 
@@ -274,6 +280,24 @@ const Profile = () => {
               {/* <Intersector /> */}
             </>
           )}
+          {showUserSaves && (
+            <>
+              {savedPostsInfo.map((post) => {
+                <Post
+                  likes={post.likes}
+                  likesLength={post.likes?.length}
+                  key={post._id + Math.random()}
+                  _id={post._id}
+                  user_name={post.user?.user_name}
+                  profilePic={post.user?.profilePic}
+                  img_url={post.img_url}
+                  description={post.description}
+                  date_created={post.date_created}
+                />
+              })
+
+              }
+            </>)}
         </>
       ) : (
         userNotFound && <UserNotFound />
