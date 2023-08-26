@@ -69,23 +69,24 @@ const ChatBotNew = () => {
   return (
     <>
       {/* button */}
-      <div
-        className={`fixed md:bottom-3 bottom-20 right-3  z-30 ${
-          location.pathname.includes("chat") && "hidden"
-        } `}
-      >
+      {localStorage[TOKEN_KEY] && (
         <div
-          onClick={() => setShowChat(!showChat)}
-          className="md:w-14 md:h-14 w-11 h-11 cursor-pointer border-2 border-gray-100 bg-white p-1 rounded-md"
+          className={`fixed md:bottom-3 bottom-20 right-3  z-30 ${
+            location.pathname.includes("chat") && "hidden"
+          } `}
         >
-          <img
-            className="w-full h-full rounded-full object-cover"
-            src="http://localhost:5173/images/vibes-logo-responsive.png"
-            alt={`vibes logo`}
-          />
+          <div
+            onClick={() => setShowChat(!showChat)}
+            className="md:w-14 md:h-14 w-11 h-11 cursor-pointer border-2 border-gray-100 bg-white p-1 rounded-md"
+          >
+            <img
+              className="w-full h-full rounded-full object-cover"
+              src="http://localhost:5173/images/vibes-logo-responsive.png"
+              alt={`vibes logo`}
+            />
+          </div>
         </div>
-      </div>
-
+      )}
       {/* button */}
       {showChat && (
         <div
