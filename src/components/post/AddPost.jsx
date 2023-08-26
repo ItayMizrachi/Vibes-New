@@ -2,6 +2,7 @@ import { XIcon } from "@heroicons/react/outline";
 import { PencilIcon } from "@heroicons/react/solid";
 import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import InputEmoji from "react-input-emoji";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MyContext } from "../../context/myContext";
@@ -9,9 +10,10 @@ import { URL, doApiMethod, imgToString } from "../../services/apiService";
 
 const AddPost = ({ setShowAddPost }) => {
   const [isLoading, setIsLoading] = useState(false); // Add state for loading
-  const {addPost, setAddPost,fetchPosts, postsInfo, setPostsInfo, addNewPost } = useContext(MyContext);
+  const { addNewPost } = useContext(MyContext);
   const nav = useNavigate();
   const [imagePreview, setImagePreview] = useState(null);
+  const [text, setText] = useState("");
 
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -66,7 +68,7 @@ const AddPost = ({ setShowAddPost }) => {
         toast.success("Post added");
         setShowAddPost(false);
       }
-      addNewPost(data)
+      addNewPost(data);
       nav("/");
     } catch (error) {
       console.log(error);
@@ -83,6 +85,12 @@ const AddPost = ({ setShowAddPost }) => {
     }
   };
 
+  function handleOnEnter({}) {
+    // Call the form submission function passed as a prop
+    onSubForm({ description: text });
+    setText(""); // Clear the InputEmoj after submission
+  }
+
   return (
     <div
       onClick={handleOverlayClick}
@@ -98,26 +106,33 @@ const AddPost = ({ setShowAddPost }) => {
             />
           </div>
 
-          <form onSubmit={handleSubmit(onSubForm)}>
+          <form>
             <div className="mb-4 mt-4">
               <label className="font-semibold">Description</label>
-              <div className="relative p-1 mt-1 rounded-md lg:mt-4">
+
+              {/* For small screens */}
+              <div className="relative p-1 mt-1 rounded-md lg:mt-4 lg:hidden">
                 <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
                   <PencilIcon className="w-5 h-5 text-gray-500" />
                 </div>
                 <input
-                  {...register("description", { required: true, minLength: 2 })}
                   className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
                   type="text"
                   placeholder="description"
                   required
-                />{" "}
+                  onChange={(e) => setText(e.target.value)}
+                />
               </div>
-              {errors.description && (
-                <div className="mt-1 text-red-500">
-                  * Enter a valid description
-                </div>
-              )}
+           
+              {/* For larger screens */}
+              <div className="hidden lg:block">
+                <InputEmoji
+                  value={text} // Use the state value
+                  onChange={setText} // Update the state when the value changes
+                  placeholder="description"
+                  className="flex-1 border-none outline-none focus:ring-0 emoj"
+                />
+              </div>
 
               {imagePreview && (
                 <img
@@ -140,6 +155,7 @@ const AddPost = ({ setShowAddPost }) => {
             </div>
 
             <button
+              onClick={handleOnEnter}
               type="submit"
               className={`w-full py-3 mt-4 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600 ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
