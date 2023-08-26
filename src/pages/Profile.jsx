@@ -34,21 +34,21 @@ const Profile = () => {
   const show = (type) => {
     if (type === "userPosts") {
       setShowUserPosts(true);
-      setShowUserLikes(false)
+      setShowUserLikes(false);
       setShowGallery(false);
       setShowUserSaves(false);
     } else if (type === "gallery") {
       setShowGallery(true);
-      setShowUserLikes(false)
+      setShowUserLikes(false);
       setShowUserPosts(false);
       setShowUserSaves(false);
     } else if (type === "saves") {
       setShowUserSaves(true);
       setShowGallery(false);
       setShowUserPosts(false);
-      setShowUserLikes(false)
+      setShowUserLikes(false);
     } else if (type === "likedposts") {
-      setShowUserLikes(true)
+      setShowUserLikes(true);
       setShowGallery(false);
       setShowUserPosts(false);
       setShowUserSaves(false);
@@ -61,7 +61,6 @@ const Profile = () => {
       const data = await doApiGet(url);
       setPostsInfo(data);
       console.log(data);
-
     } catch (err) {
       console.log(err);
       setUserNotFound(true);
@@ -91,8 +90,6 @@ const Profile = () => {
       setUserNotFound(true);
     }
   };
-
-
 
   // const [Intersector, data, setData] = useLazyLoading(
   //   { initPage: 0, distance: "50px", targetPercent: 0.5 },
@@ -262,7 +259,8 @@ const Profile = () => {
               <>
                 <button
                   onClick={() => show("likedposts")}
-                  className="flex gap-2 py-4 text-sm font-semibold text-gray-400 border-gray-300 focus:border-t focus:text-gray-600">
+                  className="flex gap-2 py-4 text-sm font-semibold text-gray-400 border-gray-300 focus:border-t focus:text-gray-600"
+                >
                   Liked
                 </button>
                 <button
@@ -280,12 +278,17 @@ const Profile = () => {
               Gallery
             </button>
           </div>
-          {postsInfo.length == 0 && (
-            <h1 className="text-center mt-5 font-semibold">no posts yet 😕 </h1>
-          )}
 
           {/* Gallery */}
-          {showGallery && <Gallery postsInfo={postsInfo} />}
+          {showGallery &&
+            (postsInfo.length === 0 ? (
+              <h1 className="text-center mt-5 font-semibold">
+                no posts posted yet 😕
+              </h1>
+            ) : (
+              <Gallery postsInfo={postsInfo} />
+            ))}
+
           {showUserPosts && (
             <>
               {postsInfo.map((post) => (
@@ -301,6 +304,11 @@ const Profile = () => {
                   date_created={post.date_created}
                 />
               ))}
+              {postsInfo.length == 0 && (
+                <h1 className="text-center mt-5 font-semibold">
+                  no posts posted yet 😕{" "}
+                </h1>
+              )}
               {/* <Intersector /> */}
             </>
           )}
@@ -318,10 +326,14 @@ const Profile = () => {
                   description={post.description}
                   date_created={post.date_created}
                 />
-              ))
-
-              }
-            </>)}
+              ))}
+              {savedPostsInfo.length == 0 && (
+                <h1 className="text-center mt-5 font-semibold">
+                  no posts saved yet
+                </h1>
+              )}
+            </>
+          )}
 
           {showUserLikes && (
             <>
@@ -337,10 +349,14 @@ const Profile = () => {
                   description={post.description}
                   date_created={post.date_created}
                 />
-              ))
-
-              }
-            </>)}
+              ))}
+              {likedPostsInfo.length == 0 && (
+                <h1 className="text-center mt-5 font-semibold">
+                  no posts liked yet
+                </h1>
+              )}
+            </>
+          )}
         </>
       ) : (
         userNotFound && <UserNotFound />
