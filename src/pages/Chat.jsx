@@ -331,15 +331,15 @@ const Chat = () => {
                     <div
                       className={`${
                         message?.sender?._id === userData._id
-                          ? "bg-[#378df0] p-3 text-white rounded-l-lg rounded-br-lg"
-                          : "bg-[#f1eded] p-3 rounded-r-lg rounded-bl-lg"
+                          ? "bg-indigo-500  hover:bg-indigo-600 p-3 text-white rounded-l-lg rounded-br-lg"
+                          : "bg-[#f1eded] hover:bg-[#ebe5e5] p-3 rounded-r-lg rounded-bl-lg"
                       } ml-2`}
                     >
                       <p className="text-sm">{message?.content}</p>
                       <span
                         className={`text-xs  leading-none mt-2 ${
                           message?.sender?._id === userData._id
-                            ? "ml-auto text-[#c1d9f6]"
+                            ? "ml-auto text-blue-50/80"
                             : "mr-auto text-gray-400 "
                         }`}
                       >
@@ -378,7 +378,7 @@ const Chat = () => {
 
               <div className="search-cont send-message w-full hidden md:inline-flex">
                 <InputEmojiWithRef
-                  className="flex-1  bg-transparent border-none outline-none focus:ring-transparent disabled:cursor-not-allowed disabled:text-gray-300 "
+                  className="flex-1 chatbox bg-transparent border-none outline-none focus:ring-transparent disabled:cursor-not-allowed disabled:text-gray-300 "
                   type="text"
                   disabled={!activeChatId} // Disable the input if there's no active chat
                   value={text}
@@ -390,7 +390,7 @@ const Chat = () => {
               </div>
 
               <button
-                className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed "
+                className="px-4 py-2 font-bold text-white bg-indigo-500 rounded hover:bg-indigo-600 disabled:bg-blue-300 disabled:cursor-not-allowed "
                 type="submit"
                 onClick={onSendMessage}
                 disabled={!activeChatId} // Disable the button if there's no active chat

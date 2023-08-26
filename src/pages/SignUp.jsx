@@ -1,9 +1,7 @@
 import {
-  CameraIcon,
   LockClosedIcon,
   MailIcon,
-  PencilIcon,
-  UserIcon,
+  UserIcon
 } from "@heroicons/react/solid";
 import axios from "axios";
 import React, { useContext, useRef } from "react";
@@ -80,167 +78,192 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen mt-5 lg:mt-20 bg-grey-lighter">
-      <div className="container flex flex-col items-center justify-center flex-1 max-w-sm px-2 mx-auto">
-        <div className="w-full px-6 py-8 text-black bg-white rounded shadow-md">
-          <h1 className="mb-8 text-3xl font-semibold text-center">Sign up</h1>
+    <div className="mt-10 flex justify-center items-center">
+    <div className="flex w-[400px] flex-col items-center justify-center px-4 py-8 bg-white shadow-xl rounded-xl">
+      <div className="w-full">
+        <div className="flex justify-between items-center border-b pb-3 mb-4">
+          <h2 className="text-xl font-bold">Sign Up</h2>
+        </div>
 
-          <form onSubmit={handleSubmit(onSub)}>
-            <div className="relative p-1 mt-1 rounded-md lg:mt-4">
-              <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
+        <form onSubmit={handleSubmit(onSub)}>
+          {/* Name */}
+          <div className="mb-6">
+            <label className="block font-semibold mb-2">Name</label>
+            <div className="relative mt-1">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <UserIcon className="w-5 h-5 text-gray-500" />
               </div>
               <input
-                className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
-                type="text"
-                required
-                placeholder="name"
                 {...register("name", { required: true, minLength: 2 })}
+                className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                type="text"
+                placeholder="name"
+                required
               />
             </div>
             {errors.name && (
-              <div className="text-red-600">*Enter valid name(min 2 chars)</div>
+              <div className="text-sm text-red-600">
+                * Enter valid name(min 2 chars)
+              </div>
             )}
+          </div>
 
-            <div className="relative p-1 mt-1 rounded-md lg:mt-4">
-              <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
+          {/* Username */}
+          <div className="mb-6">
+            <label className="block font-semibold mb-2">Username</label>
+            <div className="relative mt-1">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <UserIcon className="w-5 h-5 text-gray-500" />
               </div>
               <input
-                className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
+                {...register("user_name", { required: true, minLength: 2 })}
+                className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                 type="text"
-                required
                 placeholder="username"
-                {...register("user_name", {
-                  required: true,
-                  minLength: 2,
-                })}
+                required
               />
             </div>
             {errors.user_name && (
-              <div className="text-red-600">
-                *Enter valid username(min 2 chars)
+              <div className="text-sm text-red-600">
+                * Enter valid username(min 2 chars)
               </div>
             )}
+          </div>
 
-            <div className="relative p-1 mt-1 rounded-md lg:mt-4">
-              <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
+          {/* Email */}
+          <div className="mb-6">
+            <label className="block font-semibold mb-2">Email</label>
+            <div className="relative mt-1">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <MailIcon className="w-5 h-5 text-gray-500" />
               </div>
               <input
-                className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
+                {...register("email", { required: true, validate: validateEmail })}
+                className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                 type="text"
                 placeholder="email"
                 required
-                {...register("email", {
-                  required: true,
-                  validate: validateEmail,
-                })}
               />
             </div>
             {errors.email && (
-              <div className="text-red-600">
-                *Enter valid email(valid email)
+              <div className="text-sm text-red-600">
+                * Enter a valid email
               </div>
             )}
+          </div>
 
-            <div className="relative p-1 mt-2 rounded-md ">
-              <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
+          {/* Password */}
+          <div className="mb-6">
+            <label className="block font-semibold mb-2">Password</label>
+            <div className="relative mt-1">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <LockClosedIcon className="w-5 h-5 text-gray-500" />
               </div>
               <input
-                className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
+                {...register("password", { required: true, minLength: 6 })}
+                className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                 type="password"
                 placeholder="password"
                 required
-                {...register("password", { required: true, minLength: 6 })}
               />
             </div>
             {errors.password && (
-              <div className="text-red-600">
-                *Enter valid password(min 6 chars)
+              <div className="text-sm text-red-600">
+                * Enter valid password(min 6 chars)
               </div>
             )}
+          </div>
 
-            <div className="relative p-1 mt-2 rounded-md ">
-              <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
+          {/* Confirm Password */}
+          <div className="mb-6">
+            <label className="block font-semibold mb-2">Confirm Password</label>
+            <div className="relative mt-1">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <LockClosedIcon className="w-5 h-5 text-gray-500" />
               </div>
               <input
-                className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
+                {...register("confirm_password", { required: true, minLength: 6 })}
+                className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                 type="password"
                 placeholder="confirm password"
                 required
-                {...register("password", { required: true, minLength: 6 })}
               />
             </div>
-            {errors.password && (
-              <div className="text-red-600">
-                *Enter valid password(min 6 chars)
+            {errors.confirm_password && (
+              <div className="text-sm text-red-600">
+                * Passwords must match
               </div>
             )}
+          </div>
 
-            <div className="relative p-1 mt-1 rounded-md lg:mt-4">
-              <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
-                <UserIcon className="w-5 h-5 text-gray-500" />
-              </div>
+          {/* Gender */}
+          <div className="mb-6">
+            <label className="block font-semibold mb-2">Gender</label>
+            <div className="relative mt-1">
               <select
-                className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
-                required
                 {...register("gender", { required: true })}
+                className="block w-full pl-4 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
               >
                 <option value="">Select gender</option>
                 <option value="male"> Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
               </select>
-              {errors.gender && (
-                <div className="text-red-600">*Please select a gender</div>
-              )}
             </div>
+            {errors.gender && (
+              <div className="text-sm text-red-600">
+                * Please select a gender
+              </div>
+            )}
+          </div>
 
-            <div className="relative p-1 mt-1 rounded-md lg:mt-4">
-              <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
-                <CameraIcon className="w-5 h-5 text-gray-500" />
-              </div>
-              <input
-                ref={uploadRef}
-                className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
-                type="file"
-              />
-            </div>
-            <div className="relative p-1 mt-2 rounded-md">
-              <div className="absolute inset-y-0 flex p-3 pl-3 pointer-events-none">
-                {/* Use an icon for the textarea input */}
-                <PencilIcon className="w-5 h-5 text-gray-500" />
-              </div>
-              {/* Use the "textarea" element for the description field */}
+          {/* File Upload */}
+          <div className="mb-6">
+            <label className="block font-semibold mb-2">Upload a profile picture</label>
+            <input 
+                {...register("profile_picture")}
+                type="file" 
+                accept="image/*" 
+            />
+          </div>
+
+          {/* Description */}
+          <div className="mb-6">
+            <label className="block font-semibold mb-2">Description</label>
+            <div className="relative mt-1">
               <textarea
-                className="block w-full pl-10 border-gray-300 rounded-md focus:ring-black focus:border-black sm:text-sm bg-gray-50"
-                rows="3"
-                placeholder="description"
-                {...register("desc", { required: false, minLength: 6 })}
-              />
+                {...register("description", { maxLength: 255 })}
+                className="block w-full p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                placeholder="Write about yourself..."
+              ></textarea>
             </div>
+            {errors.description && (
+              <div className="text-sm text-red-600">
+                * Maximum length exceeded
+              </div>
+            )}
+          </div>
 
+          <div className="mt-6">
             <button
               type="submit"
-              className="w-full py-3 my-1 mt-2 font-semibold text-center text-white bg-blue-500 rounded hover:bg-blue-600 bg-green hover:bg-green-dark focus:outline-none"
+              className="w-full py-3 font-semibold text-white bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
             >
               Create Account
             </button>
-          </form>
-        </div>
+          </div>
+        </form>
 
-        <div className="mt-6 text-grey-dark">
+        <div className="mt-6 text-gray-700">
           <p className="inline">Already have an account? </p>
-          <Link to="/signin" className="font-semibold text-blue-500">
-            sign in
+          <Link to="/signin" className="font-semibold text-indigo-500 hover:text-indigo-600">
+            Sign in
           </Link>
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default SignUp;

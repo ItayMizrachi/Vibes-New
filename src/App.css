@@ -100,10 +100,17 @@ input .upload #file-upload-button{
     background: red ;
 }
 
-.react-input-emoji--container {
+.send-message .react-input-emoji--container {
     /* border-radius: 0px !important; */
     background: none !important;
     overflow: auto;
     border: none !important;
+  }
+
+  .react-input-emoji--container {
+    /* border-radius: 0px !important; */
+    /* background: none !important;s */
+    overflow: auto;
+    border: 2px solid gray;
   }
 

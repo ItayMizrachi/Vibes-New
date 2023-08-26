@@ -39,7 +39,7 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
               >
                 <div className="w-10 h-10 mr-1">
                   <img
-                    className="object-cover w-full h-full rounded-full"
+                    className="object-cover w-full h-full rounded-full border p-[1px] hover:border-gray-400 transition duration-200"
                     src={
                       comment.user === userData._id
                         ? userData?.profilePic
@@ -55,6 +55,7 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
                   {" "}
                   <span className="text-sm font-bold mr-2">
                     <Link
+                    className="hover:text-gray-600"
                       to={
                         "/" +
                         (comment.user === userData._id
@@ -100,17 +101,3 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
 
 export default Comments;
 
-{
-  /* <div className="ml-0 md:ml-2 mt-2 md:max-w-md">
-<p className="break-words">
-  {" "}
-  <span className="text-sm font-bold mr-2">
-   <Link to={"/" + comment.user.user_name}>{comment.user.user_name}</Link> 
-  </span>
-  <span className="text-gray-500 text-end">
-  {moment(comment.date_created).fromNow()}
-</span>
-<p> {comment.text}</p>
- 
-</p> */
-}

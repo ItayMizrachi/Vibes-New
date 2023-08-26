@@ -45,7 +45,7 @@ const AddComment2 = ({ onSubForm }) => {
             type="button"
             onClick={handleOnEnter}
             className={`font-semibold ${
-              isInputFocused ? "text-blue-500" : "text-blue-400"
+              isInputFocused ? "text-indigo-500" : "text-indigo-400"
             }`}
           >
             Post

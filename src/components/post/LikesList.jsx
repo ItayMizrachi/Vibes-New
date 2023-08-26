@@ -11,7 +11,7 @@ const LikesList = ({ likes, setShowLikes }) => {
 
   return (
     <div
-      className="fixed z-50 inset-0 flex justify-center items-center bg-black bg-opacity-80"
+      className="fixed z-50 inset-0 flex justify-center items-center bg-black bg-opacity-90"
       onClick={handleOverlayClick}
     >
       <div className="bg-white rounded-lg w-[250px]">
@@ -19,7 +19,7 @@ const LikesList = ({ likes, setShowLikes }) => {
           <h2 className="text-center font-bold">Likes</h2>
           <XIcon
             onClick={() => setShowLikes(false)}
-            className="w-5 h-5 cursor-pointer"
+            className="w-5 h-5 cursor-pointer  hover:text-gray-500 transition duration-200"
           />
         </div>
         {likes.length === 0 ? (
@@ -29,7 +29,7 @@ const LikesList = ({ likes, setShowLikes }) => {
             {likes.map((like, index) => (
               <li
                 key={index}
-                className={`p-3 hover:bg-gray-200 ${
+                className={`p-3 hover:bg-gray-200 transition duration-200 ${
                   index === likes.length - 1 ? "rounded-b-lg" : ""
                 }`}
               >
