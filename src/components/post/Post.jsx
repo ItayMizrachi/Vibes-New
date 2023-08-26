@@ -77,7 +77,10 @@ const Post = ({
     try {
       const url = URL + "/userPosts/like/" + _id;
       const urlSinglePost = URL + "/userPosts/single/" + _id;
+      //add the post to the liked_posts array : 
+      const url_Liked_array = URL + "/userPosts/liked_posts_array/" + _id;
       await doApiMethod(url, "PUT");
+      await doApiMethod(url_Liked_array, "PUT");
       const resp = await doApiGet(urlSinglePost);
       if (!isLiked) {
         if (user_id != userData._id) {

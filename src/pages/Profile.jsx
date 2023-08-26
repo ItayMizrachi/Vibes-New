@@ -11,11 +11,13 @@ import { URL, doApiGet } from "../services/apiService";
 const Profile = () => {
   const [postsInfo, setPostsInfo] = useState([]);
   const [savedPostsInfo, setSavedPostsInfo] = useState([]);
+  const [likedPostsInfo, setLikedPostsInfo] = useState([]);
   const [userInfo, setUserInfo] = useState({});
   const { user_name } = useParams(); // Get the user_name from the URL parameter
   const [showGallery, setShowGallery] = useState(true);
   const [showUserPosts, setShowUserPosts] = useState(false);
   const [showUserSaves, setShowUserSaves] = useState(false);
+  const [showUserLikes, setShowUserLikes] = useState(false);
   const [userNotFound, setUserNotFound] = useState(false);
   const { userData, followUser, followFlag } = useContext(MyContext);
   const [isPop, setIsPop] = useState(false);
@@ -31,17 +33,25 @@ const Profile = () => {
 
   const show = (type) => {
     if (type === "userPosts") {
+      setShowUserPosts(true);
+      setShowUserLikes(false)
       setShowGallery(false);
       setShowUserSaves(false);
-      setShowUserPosts(true);
     } else if (type === "gallery") {
       setShowGallery(true);
+      setShowUserLikes(false)
       setShowUserPosts(false);
       setShowUserSaves(false);
     } else if (type === "saves") {
+      setShowUserSaves(true);
       setShowGallery(false);
       setShowUserPosts(false);
-      setShowUserSaves(true);
+      setShowUserLikes(false)
+    } else if (type === "likedposts") {
+      setShowUserLikes(true)
+      setShowGallery(false);
+      setShowUserPosts(false);
+      setShowUserSaves(false);
     }
   };
 
@@ -51,6 +61,7 @@ const Profile = () => {
       const data = await doApiGet(url);
       setPostsInfo(data);
       console.log(data);
+
     } catch (err) {
       console.log(err);
       setUserNotFound(true);
@@ -62,6 +73,18 @@ const Profile = () => {
       const url = URL + "/userPosts/savedposts/" + user_name;
       const data = await doApiGet(url);
       setSavedPostsInfo(data);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+      setUserNotFound(true);
+    }
+  };
+
+  const doApiLikedUserPosts = async (user_name) => {
+    try {
+      const url = URL + "/userPosts/likedposts/" + user_name;
+      const data = await doApiGet(url);
+      setLikedPostsInfo(data);
       console.log(data);
     } catch (err) {
       console.log(err);
@@ -110,8 +133,7 @@ const Profile = () => {
       doApiUserPosts(user_name);
       doApiUserInfo(user_name);
       doApiSavedUserPosts(user_name);
-
-
+      doApiLikedUserPosts(user_name);
     }
   }, [user_name, followFlag]);
 
@@ -238,7 +260,9 @@ const Profile = () => {
             </button>
             {userData._id === userInfo._id && (
               <>
-                <button className="flex gap-2 py-4 text-sm font-semibold text-gray-400 border-gray-300 focus:border-t focus:text-gray-600">
+                <button
+                  onClick={() => show("likedposts")}
+                  className="flex gap-2 py-4 text-sm font-semibold text-gray-400 border-gray-300 focus:border-t focus:text-gray-600">
                   Liked
                 </button>
                 <button
@@ -282,7 +306,7 @@ const Profile = () => {
           )}
           {showUserSaves && (
             <>
-              {savedPostsInfo.map((post) => {
+              {savedPostsInfo.map((post) => (
                 <Post
                   likes={post.likes}
                   likesLength={post.likes?.length}
@@ -294,7 +318,26 @@ const Profile = () => {
                   description={post.description}
                   date_created={post.date_created}
                 />
-              })
+              ))
+
+              }
+            </>)}
+
+          {showUserLikes && (
+            <>
+              {likedPostsInfo.map((post) => (
+                <Post
+                  likes={post.likes}
+                  likesLength={post.likes?.length}
+                  key={post._id + Math.random()}
+                  _id={post._id}
+                  user_name={post.user?.user_name}
+                  profilePic={post.user?.profilePic}
+                  img_url={post.img_url}
+                  description={post.description}
+                  date_created={post.date_created}
+                />
+              ))
 
               }
             </>)}
