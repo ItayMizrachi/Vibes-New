@@ -22,11 +22,13 @@ const SignUp = () => {
 
   const doApiProfilePic = async (_bodyData) => {
     let url = URL + "/users";
-    // if (!_bodyData.profilePic) {
-    //   _bodyData.profilePic = "/images/anonymous.jpg";
-    // }
-    try {
+    if (!_bodyData.profilePic || _bodyData.profilePic === "") {
+      _bodyData.profilePic = "/images/anonymous.jpg";
+    } else {
       _bodyData.profilePic = url2;
+    }
+
+    try {
       const resp = await axios({
         url: url,
         method: "POST",
@@ -46,7 +48,7 @@ const SignUp = () => {
     }
   };
 
-  const onSub = async (_bodyData) => {
+   const onSub = async (_bodyData) => {
     setIsLoading(true);
     console.log(_bodyData);
     await doApiCloudUpload();
@@ -57,6 +59,7 @@ const SignUp = () => {
   const doApiCloudUpload = async () => {
     try {
       const myFile = uploadRef.current.files[0];
+      if (!myFile) return;
       const imgData = await imgToString(myFile);
       const url = URL + "/upload/cloud";
       const resp = await doApiMethod(url, "POST", { image: imgData });
