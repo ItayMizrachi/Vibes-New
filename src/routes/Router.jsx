@@ -11,7 +11,6 @@ import BottomHeader from "../components/BottomHeader";
 import ChatBotNew from "../components/ChatBotNew";
 import Header from "../components/Header";
 import SinglePost2 from "../components/post/SinglePost2";
-import EditRegUser from "../components/profile/EditRegUser";
 import About from "../pages/About";
 import Chat from "../pages/Chat";
 import Home from "../pages/Home";
@@ -20,7 +19,6 @@ import Profile from "../pages/Profile";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import Test from "../pages/Test";
-
 const Router = () => {
   return (
     <BrowserRouter>
@@ -33,7 +31,6 @@ const Router = () => {
               <Routes>
                 <Route index element={<Home />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/edit_user" element={<EditRegUser />} />
                 <Route path="/signin" element={<SignIn />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/:user_name" element={<Profile />} />
@@ -43,7 +40,7 @@ const Router = () => {
                 <Route path="/chat/:otherUser_id" element={<Chat />} />
                 <Route path="/test" element={<Test />} />
               </Routes>
-              <ChatBotNew/>
+              <ChatBotNew />
               <BottomHeader />
             </>
           }

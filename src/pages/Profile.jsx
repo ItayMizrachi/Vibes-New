@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Post from "../components/post/Post";
 import EditProfilePic from "../components/profile/EditProfilePic";
-import EditUser from "../components/profile/EditUser";
+import EditRegUser from "../components/profile/EditRegUser";
 import FollowersList from "../components/profile/FollowersList";
 import Gallery from "../components/profile/Gallery";
 import UserNotFound from "../components/profile/UserNotFound";
@@ -24,7 +24,7 @@ const Profile = () => {
   const [isPop, setIsPop] = useState(false);
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
-  const [showEditUser,setShowEditUser] = useState(false);
+  const [showEditUser, setShowEditUser] = useState(false);
   const nav = useNavigate(); // Get the navigation function from react-router-dom
 
   const handleSendMessage = (userId) => {
@@ -159,18 +159,17 @@ const Profile = () => {
           title={"Following"}
         />
       )}
-      {showEditUser && <EditUser setShowEditUser={setShowEditUser} />}
+      {showEditUser && <EditRegUser setShowEditUser={setShowEditUser} />}
       {userInfo?.user_name ? (
         <>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
             <div className="justify-center avatar md:col-span-1 relative ">
               <div className="justify-center avatar md:col-span-1  relative w-36 group h-36 mx-auto md:mx-0">
                 <img
-                  className={`rounded-full w-full h-full transition-opacity duration-300 ${
-                    userInfo._id === userData._id
-                      ? "cursor-pointer hover:opacity-100 "
-                      : ""
-                  }`}
+                  className={`rounded-full w-full h-full transition-opacity duration-300 ${userInfo._id === userData._id
+                    ? "cursor-pointer hover:opacity-100 "
+                    : ""
+                    }`}
                   src={userInfo.profilePic}
                   alt="profile pic"
                 />
@@ -215,11 +214,11 @@ const Profile = () => {
                     </button>
                   </div>
                 ) : (
-               
-                    <button onClick={() => setShowEditUser(true)} className="px-4 py-2 text-white font-semibold bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200">
-                      Edit User
-                    </button>
-                 
+
+                  <button onClick={() => setShowEditUser(true)} className="px-4 py-2 text-white font-semibold bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200">
+                    Edit User
+                  </button>
+
                 )}
               </div>
 
@@ -323,78 +322,78 @@ const Profile = () => {
 
           {showUserPosts && (
             <>
-            <div className="max-w-[700px]  mx-auto">
-              {postsInfo.map((post) => (
-                <Post
-                  likes={post.likes}
-                  likesLength={post.likes.length}
-                  key={post._id + Math.random()}
-                  _id={post._id}
-                  user_name={post.user?.user_name}
-                  profilePic={post.user?.profilePic}
-                  img_url={post.img_url}
-                  description={post.description}
-                  date_created={post.date_created}
-                  user_id={post.user._id}
-                />
-              ))}
-              {postsInfo.length == 0 && (
-                <h1 className="text-center mt-5 font-semibold">
-                  no posts posted yet 😕{" "}
-                </h1>
-              )}
+              <div className="max-w-[700px]  mx-auto">
+                {postsInfo.map((post) => (
+                  <Post
+                    likes={post.likes}
+                    likesLength={post.likes.length}
+                    key={post._id + Math.random()}
+                    _id={post._id}
+                    user_name={post.user?.user_name}
+                    profilePic={post.user?.profilePic}
+                    img_url={post.img_url}
+                    description={post.description}
+                    date_created={post.date_created}
+                    user_id={post.user._id}
+                  />
+                ))}
+                {postsInfo.length == 0 && (
+                  <h1 className="text-center mt-5 font-semibold">
+                    no posts posted yet 😕{" "}
+                  </h1>
+                )}
               </div>
               {/* <Intersector /> */}
             </>
           )}
           {showUserSaves && (
             <>
-               <div className="max-w-[700px]  mx-auto">
-              {savedPostsInfo.map((post) => (
-                <Post
-                  likes={post.likes}
-                  likesLength={post.likes?.length}
-                  key={post._id + Math.random()}
-                  _id={post._id}
-                  user_name={post.user?.user_name}
-                  profilePic={post.user?.profilePic}
-                  img_url={post.img_url}
-                  description={post.description}
-                  date_created={post.date_created}
-                  user_id={post.user._id}
-                />
-              ))}
-              {savedPostsInfo.length == 0 && (
-                <h1 className="text-center mt-5 font-semibold">
-                  no posts saved yet
-                </h1>
-              )}
+              <div className="max-w-[700px]  mx-auto">
+                {savedPostsInfo.map((post) => (
+                  <Post
+                    likes={post.likes}
+                    likesLength={post.likes?.length}
+                    key={post._id + Math.random()}
+                    _id={post._id}
+                    user_name={post.user?.user_name}
+                    profilePic={post.user?.profilePic}
+                    img_url={post.img_url}
+                    description={post.description}
+                    date_created={post.date_created}
+                    user_id={post.user._id}
+                  />
+                ))}
+                {savedPostsInfo.length == 0 && (
+                  <h1 className="text-center mt-5 font-semibold">
+                    no posts saved yet
+                  </h1>
+                )}
               </div>
             </>
           )}
 
           {showUserLikes && (
             <>
-               <div className="max-w-[700px]  mx-auto">
-              {likedPostsInfo.map((post) => (
-                <Post
-                  likes={post.likes}
-                  likesLength={post.likes?.length}
-                  key={post._id + Math.random()}
-                  _id={post._id}
-                  user_name={post.user?.user_name}
-                  profilePic={post.user?.profilePic}
-                  img_url={post.img_url}
-                  description={post.description}
-                  date_created={post.date_created}
-                  user_id={post.user._id}
-                />
-              ))}
-              {likedPostsInfo.length == 0 && (
-                <h1 className="text-center mt-5 font-semibold">
-                  no posts liked yet
-                </h1>
-              )}
+              <div className="max-w-[700px]  mx-auto">
+                {likedPostsInfo.map((post) => (
+                  <Post
+                    likes={post.likes}
+                    likesLength={post.likes?.length}
+                    key={post._id + Math.random()}
+                    _id={post._id}
+                    user_name={post.user?.user_name}
+                    profilePic={post.user?.profilePic}
+                    img_url={post.img_url}
+                    description={post.description}
+                    date_created={post.date_created}
+                    user_id={post.user._id}
+                  />
+                ))}
+                {likedPostsInfo.length == 0 && (
+                  <h1 className="text-center mt-5 font-semibold">
+                    no posts liked yet
+                  </h1>
+                )}
               </div>
             </>
           )}
