@@ -226,8 +226,7 @@ const Profile = () => {
                 {/* User's Metrics: Posts, Followers, Following */}
                 <div className="flex justify-start space-x-6">
                   <div
-                    className="group flex flex-col items-center cursor-pointer"
-                    onClick={() => setShowFollowers(true)}
+                    className="group flex flex-col items-center"
                   >
                     <span className="text-xl font-semibold">
                       {postsInfo.length}
