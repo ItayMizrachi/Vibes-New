@@ -6,12 +6,12 @@ import GroupsList from "../admin/GroupsList";
 import HeaderAdmin from "../admin/HeaderAdmin";
 import LoginAdmin from "../admin/LoginAdmin";
 import PostsAdmin from "../admin/PostsAdmin";
+import CommentsAdmin from "../admin/CommentsAdmin";
 import UsersList from "../admin/UsersList";
 import BottomHeader from "../components/BottomHeader";
 import ChatBotNew from "../components/ChatBotNew";
 import Header from "../components/Header";
 import SinglePost2 from "../components/post/SinglePost2";
-import EditRegUser from "../components/profile/EditRegUser";
 import About from "../pages/About";
 import Chat from "../pages/Chat";
 import Home from "../pages/Home";
@@ -20,7 +20,6 @@ import Profile from "../pages/Profile";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import Test from "../pages/Test";
-
 const Router = () => {
   return (
     <BrowserRouter>
@@ -33,7 +32,6 @@ const Router = () => {
               <Routes>
                 <Route index element={<Home />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/edit_user" element={<EditRegUser />} />
                 <Route path="/signin" element={<SignIn />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/:user_name" element={<Profile />} />
@@ -43,7 +41,7 @@ const Router = () => {
                 <Route path="/chat/:otherUser_id" element={<Chat />} />
                 <Route path="/test" element={<Test />} />
               </Routes>
-              <ChatBotNew/>
+              <ChatBotNew />
               <BottomHeader />
             </>
           }
@@ -59,6 +57,7 @@ const Router = () => {
                 <Route path="/groups" element={<GroupsList />} />
                 <Route path="/users/edit/:id" element={<EditUser />} />
                 <Route path="/posts" element={<PostsAdmin />} />
+                <Route path="/comments" element={<CommentsAdmin />} />
                 <Route path="/:dir/*" element={<AuthAdminComp />} />
                 <Route path="/*" element={<Page404 />} />
               </Routes>
