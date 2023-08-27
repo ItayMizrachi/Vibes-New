@@ -4,7 +4,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MyContext } from "../context/myContext";
-import { TOKEN_KEY } from "../services/apiService";
+import { TOKEN_KEY, URL } from "../services/apiService";
 
 const ChatBotNew = () => {
   const [showChat, setShowChat] = useState(false);
@@ -29,7 +29,7 @@ const ChatBotNew = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:3009/openai/completions",
+        URL + "/openai/completions",
         options.data,
         { headers: options.headers }
       );
@@ -70,23 +70,24 @@ const ChatBotNew = () => {
     <>
       {/* button */}
       {localStorage[TOKEN_KEY] && !showChat && (
-     <div
-     className={`fixed transform transition-transform duration-300 md:bottom-3 bottom-20 right-3 z-30 ${location.pathname.includes("chat") && "hidden"}`}
-     onClick={() => setShowChat(!showChat)} // Added hover to show chat for a more fluid interaction
-   >
-     <button 
-       onClick={() => setShowChat(!showChat)}
-       className="md:w-14 md:h-14 w-11 h-11 cursor-pointer border-2 border-gray-200 bg-white p-1 rounded-md shadow-lg hover:shadow-xl hover:border-indigo-100 transition-all duration-300"
-       aria-label="Open chat"
-     >
-       <img
-         className="w-full h-full rounded-full object-cover transform hover:scale-105 transition-transform duration-300"
-         src="http://localhost:5173/images/vibes-logo-responsive.png"
-         alt="vibes logo"
-       />
-     </button>
-   </div>
-   
+        <div
+          className={`fixed transform transition-transform duration-300 md:bottom-3 bottom-20 right-3 z-30 ${
+            location.pathname.includes("chat") && "hidden"
+          }`}
+          onClick={() => setShowChat(!showChat)} // Added hover to show chat for a more fluid interaction
+        >
+          <button
+            onClick={() => setShowChat(!showChat)}
+            className="md:w-14 md:h-14 w-11 h-11 cursor-pointer border-2 border-gray-200 bg-white p-1 rounded-md shadow-lg hover:shadow-xl hover:border-indigo-100 transition-all duration-300"
+            aria-label="Open chat"
+          >
+            <img
+              className="w-full h-full rounded-full object-cover transform hover:scale-105 transition-transform duration-300"
+              src="http://localhost:5173/images/vibes-logo-responsive.png"
+              alt="vibes logo"
+            />
+          </button>
+        </div>
       )}
       {/* button */}
       {showChat && (
