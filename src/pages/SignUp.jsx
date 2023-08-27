@@ -1,8 +1,4 @@
-import {
-  LockClosedIcon,
-  MailIcon,
-  UserIcon
-} from "@heroicons/react/solid";
+import { LockClosedIcon, MailIcon, UserIcon } from "@heroicons/react/solid";
 import axios from "axios";
 import React, { useContext, useRef } from "react";
 import { useForm } from "react-hook-form";
@@ -12,8 +8,9 @@ import { MyContext } from "../context/myContext";
 import { URL, doApiMethod, imgToString } from "../services/apiService";
 
 const SignUp = () => {
-  const {setIsLoading} = useContext(MyContext);
+  const { setIsLoading } = useContext(MyContext);
   const uploadRef = useRef();
+
   const nav = useNavigate();
   let url2;
 
@@ -25,11 +22,13 @@ const SignUp = () => {
 
   const doApiProfilePic = async (_bodyData) => {
     let url = URL + "/users";
-    if (!_bodyData.profilePic) {
+    if (!_bodyData.profilePic || _bodyData.profilePic === "") {
       _bodyData.profilePic = "/images/anonymous.jpg";
-    }
-    try {
+    } else {
       _bodyData.profilePic = url2;
+    }
+
+    try {
       const resp = await axios({
         url: url,
         method: "POST",
@@ -45,11 +44,11 @@ const SignUp = () => {
         return toast.error("Email already in system please log in");
       }
       console.log(err);
-      alert("There problem, come back later");
+      alert("There's a problem, come back later");
     }
   };
 
-  const onSub = async (_bodyData) => {
+   const onSub = async (_bodyData) => {
     setIsLoading(true);
     console.log(_bodyData);
     await doApiCloudUpload();
@@ -60,6 +59,7 @@ const SignUp = () => {
   const doApiCloudUpload = async () => {
     try {
       const myFile = uploadRef.current.files[0];
+      if (!myFile) return;
       const imgData = await imgToString(myFile);
       const url = URL + "/upload/cloud";
       const resp = await doApiMethod(url, "POST", { image: imgData });
@@ -70,7 +70,6 @@ const SignUp = () => {
       console.log(err);
     }
   };
-
   const validateEmail = (value) => {
     // Regular expression to validate email format
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -79,191 +78,196 @@ const SignUp = () => {
 
   return (
     <div className="mt-10 flex justify-center items-center">
-    <div className="flex w-[400px] flex-col items-center justify-center px-4 py-8 bg-white shadow-xl rounded-xl">
-      <div className="w-full">
-        <div className="flex justify-between items-center border-b pb-3 mb-4">
-          <h2 className="text-xl font-bold">Sign Up</h2>
-        </div>
-
-        <form onSubmit={handleSubmit(onSub)}>
-          {/* Name */}
-          <div className="mb-6">
-            <label className="block font-semibold mb-2">Name</label>
-            <div className="relative mt-1">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <UserIcon className="w-5 h-5 text-gray-500" />
-              </div>
-              <input
-                {...register("name", { required: true, minLength: 2 })}
-                className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
-                type="text"
-                placeholder="name"
-                required
-              />
-            </div>
-            {errors.name && (
-              <div className="text-sm text-red-600">
-                * Enter valid name(min 2 chars)
-              </div>
-            )}
+      <div className="flex w-[400px] flex-col items-center justify-center px-4 py-8 bg-white shadow-xl rounded-xl">
+        <div className="w-full">
+          <div className="flex justify-between items-center border-b pb-3 mb-4">
+            <h2 className="text-xl font-bold">Sign Up</h2>
           </div>
-
-          {/* Username */}
-          <div className="mb-6">
-            <label className="block font-semibold mb-2">Username</label>
-            <div className="relative mt-1">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <UserIcon className="w-5 h-5 text-gray-500" />
+          <form onSubmit={handleSubmit(onSub)}>
+            {/* Name */}
+            <div className="mb-6">
+              <label className="block font-semibold mb-2">Name</label>
+              <div className="relative mt-1">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <UserIcon className="w-5 h-5 text-gray-500" />
+                </div>
+                <input
+                  {...register("name", { required: true, minLength: 2 })}
+                  className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  type="text"
+                  placeholder="name"
+                  required
+                />
               </div>
-              <input
-                {...register("user_name", { required: true, minLength: 2 })}
-                className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
-                type="text"
-                placeholder="username"
-                required
-              />
+              {errors.name && (
+                <div className="text-sm text-red-600">
+                  * Enter valid name(min 2 chars)
+                </div>
+              )}
             </div>
-            {errors.user_name && (
-              <div className="text-sm text-red-600">
-                * Enter valid username(min 2 chars)
-              </div>
-            )}
-          </div>
 
-          {/* Email */}
-          <div className="mb-6">
-            <label className="block font-semibold mb-2">Email</label>
-            <div className="relative mt-1">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <MailIcon className="w-5 h-5 text-gray-500" />
+            {/* Username */}
+            <div className="mb-6">
+              <label className="block font-semibold mb-2">Username</label>
+              <div className="relative mt-1">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <UserIcon className="w-5 h-5 text-gray-500" />
+                </div>
+                <input
+                  {...register("user_name", { required: true, minLength: 2 })}
+                  className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  type="text"
+                  placeholder="username"
+                  required
+                />
               </div>
-              <input
-                {...register("email", { required: true, validate: validateEmail })}
-                className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
-                type="text"
-                placeholder="email"
-                required
-              />
+              {errors.user_name && (
+                <div className="text-sm text-red-600">
+                  * Enter valid username(min 2 chars)
+                </div>
+              )}
             </div>
-            {errors.email && (
-              <div className="text-sm text-red-600">
-                * Enter a valid email
-              </div>
-            )}
-          </div>
 
-          {/* Password */}
-          <div className="mb-6">
-            <label className="block font-semibold mb-2">Password</label>
-            <div className="relative mt-1">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <LockClosedIcon className="w-5 h-5 text-gray-500" />
+            {/* Email */}
+            <div className="mb-6">
+              <label className="block font-semibold mb-2">Email</label>
+              <div className="relative mt-1">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <MailIcon className="w-5 h-5 text-gray-500" />
+                </div>
+                <input
+                  {...register("email", {
+                    required: true,
+                    validate: validateEmail,
+                  })}
+                  className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  type="text"
+                  placeholder="email"
+                  required
+                />
               </div>
-              <input
-                {...register("password", { required: true, minLength: 6 })}
-                className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
-                type="password"
-                placeholder="password"
-                required
-              />
+              {errors.email && (
+                <div className="text-sm text-red-600">
+                  * Enter a valid email
+                </div>
+              )}
             </div>
-            {errors.password && (
-              <div className="text-sm text-red-600">
-                * Enter valid password(min 6 chars)
-              </div>
-            )}
-          </div>
 
-          {/* Confirm Password */}
-          <div className="mb-6">
-            <label className="block font-semibold mb-2">Confirm Password</label>
-            <div className="relative mt-1">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <LockClosedIcon className="w-5 h-5 text-gray-500" />
+            {/* Password */}
+            <div className="mb-6">
+              <label className="block font-semibold mb-2">Password</label>
+              <div className="relative mt-1">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <LockClosedIcon className="w-5 h-5 text-gray-500" />
+                </div>
+                <input
+                  {...register("password", { required: true, minLength: 6 })}
+                  className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  type="password"
+                  placeholder="password"
+                  required
+                />
               </div>
-              <input
-                {...register("confirm_password", { required: true, minLength: 6 })}
-                className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
-                type="password"
-                placeholder="confirm password"
-                required
-              />
+              {errors.password && (
+                <div className="text-sm text-red-600">
+                  * Enter valid password(min 6 chars)
+                </div>
+              )}
             </div>
-            {errors.confirm_password && (
-              <div className="text-sm text-red-600">
-                * Passwords must match
-              </div>
-            )}
-          </div>
 
-          {/* Gender */}
-          <div className="mb-6">
-            <label className="block font-semibold mb-2">Gender</label>
-            <div className="relative mt-1">
-              <select
-                {...register("gender", { required: true })}
-                className="block w-full pl-4 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+            {/* Confirm Password */}
+            <div className="mb-6">
+              <label className="block font-semibold mb-2">
+                Confirm Password
+              </label>
+              <div className="relative mt-1">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <LockClosedIcon className="w-5 h-5 text-gray-500" />
+                </div>
+                <input
+                  {...register("password", { required: true, minLength: 6 })}
+                  className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  type="password"
+                  placeholder="confirm password"
+                  required
+                />
+              </div>
+              {errors.confirm_password && (
+                <div className="text-sm text-red-600">
+                  * Passwords must match
+                </div>
+              )}
+            </div>
+
+            {/* Gender */}
+            <div className="mb-6">
+              <label className="block font-semibold mb-2">Gender</label>
+              <div className="relative mt-1">
+                <select
+                  {...register("gender", { required: true })}
+                  className="block w-full pl-4 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                >
+                  <option value="">Select gender</option>
+                  <option value="male"> Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              {errors.gender && (
+                <div className="text-sm text-red-600">
+                  * Please select a gender
+                </div>
+              )}
+            </div>
+
+            {/* File Upload */}
+            <div className="mb-6">
+              <label className="block font-semibold mb-2">
+                Upload a profile picture
+              </label>
+              <input ref={uploadRef} type="file" />
+            </div>
+
+            {/* Description */}
+            <div className="mb-6">
+              <label className="block font-semibold mb-2">Description</label>
+              <div className="relative mt-1">
+                <textarea
+                  {...register("desc", { maxLength: 255 })}
+                  className="block w-full p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  placeholder="Write about yourself..."
+                ></textarea>
+              </div>
+              {errors.description && (
+                <div className="text-sm text-red-600">
+                  * Maximum length exceeded
+                </div>
+              )}
+            </div>
+
+            <div className="mt-6">
+              <button
+                type="submit"
+                className="w-full py-3 font-semibold text-white bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
               >
-                <option value="">Select gender</option>
-                <option value="male"> Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
+                Create Account
+              </button>
             </div>
-            {errors.gender && (
-              <div className="text-sm text-red-600">
-                * Please select a gender
-              </div>
-            )}
-          </div>
+          </form>
 
-          {/* File Upload */}
-          <div className="mb-6">
-            <label className="block font-semibold mb-2">Upload a profile picture</label>
-            <input 
-                {...register("profile_picture")}
-                type="file" 
-                accept="image/*" 
-            />
-          </div>
-
-          {/* Description */}
-          <div className="mb-6">
-            <label className="block font-semibold mb-2">Description</label>
-            <div className="relative mt-1">
-              <textarea
-                {...register("description", { maxLength: 255 })}
-                className="block w-full p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
-                placeholder="Write about yourself..."
-              ></textarea>
-            </div>
-            {errors.description && (
-              <div className="text-sm text-red-600">
-                * Maximum length exceeded
-              </div>
-            )}
-          </div>
-
-          <div className="mt-6">
-            <button
-              type="submit"
-              className="w-full py-3 font-semibold text-white bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+          <div className="mt-6 text-gray-700">
+            <p className="inline">Already have an account? </p>
+            <Link
+              to="/signin"
+              className="font-semibold text-indigo-500 hover:text-indigo-600"
             >
-              Create Account
-            </button>
+              Sign in
+            </Link>
           </div>
-        </form>
-
-        <div className="mt-6 text-gray-700">
-          <p className="inline">Already have an account? </p>
-          <Link to="/signin" className="font-semibold text-indigo-500 hover:text-indigo-600">
-            Sign in
-          </Link>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default SignUp;
