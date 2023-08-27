@@ -71,7 +71,7 @@ const ChatBotNew = () => {
       {/* button */}
       {localStorage[TOKEN_KEY] && !showChat && (
         <div
-          className={`fixed transform transition-transform duration-300 md:bottom-3 bottom-20 right-3 z-30 ${
+          className={`fixed transform transition-transform duration-300 md:bottom-3 bottom-20 right-3 z-20 ${
             location.pathname.includes("chat") && "hidden"
           }`}
           onClick={() => setShowChat(!showChat)} // Added hover to show chat for a more fluid interaction
