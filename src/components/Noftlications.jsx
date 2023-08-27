@@ -1,16 +1,31 @@
 import { ArrowRightIcon } from "@heroicons/react/solid";
+import { animated, useSpring } from "@react-spring/web";
 import axios from "axios";
 import { useLazyLoading } from "mg-js";
 import moment from "moment";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "../context/myContext";
 import { URL } from "../services/apiService";
 
-const Noftlications = ({ setShowNoftlications, setIsRead }) => {
+const Noftlications = ({
+  setShowNoftlications,
+  setIsRead,
+  showNoftlications,
+}) => {
   const { userData, followUser, followFlag } = useContext(MyContext);
-  const [notifications, setNotifications] = useState([]);
   const [flag, setFlag] = useState(false);
+  const [isOpen, setIsOpen] = useState(showNoftlications);
+
+  useEffect(() => {
+    setIsOpen(showNoftlications);
+  }, [showNoftlications]);
+
+  const animation = useSpring({
+    from: { transform: "translateX(100%)" },
+    to: { transform: isOpen ? "translateX(0)" : "translateX(100%)" },
+    config: { tension: 280, friction: 60 }
+});
 
   const [Intersector, data, setData] = useLazyLoading(
     {
@@ -36,39 +51,24 @@ const Noftlications = ({ setShowNoftlications, setIsRead }) => {
     }
   );
 
-  // const doApiNotifications = async () => {
-  //   try {
-  //     const url = URL + "/notifications/" + userData._id;
-  //     const data = await doApiGet(url);
-  //     setNotifications(data);
-  //     const read = await axios.put(
-  //       URL + "/notifications/mark-as-read/" + userData._id
-  //     );
-  //     // console.log(data);
-  //     setIsRead(read);
-  //     setFlag(true);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (userData._id) {
-  //     doApiNotifications();
-  //   }
-  // }, [userData._id, followFlag]);
+  const close = () => {
+    setIsOpen(false);
+    setTimeout(() => {
+      setShowNoftlications(false);
+    }, 300); // delay for 300ms or adjust based on the duration you think is suitable.
+  };
 
   return (
-    <div className="flex fixed right-0 top-0 z-40">
+    <animated.div style={animation} className="flex fixed right-0 top-0 z-40 ">
       {/* sidebar */}
-      <div className={`  transition-all transform duration-300 ease-in-out`}>
+      <div>
         <div className="max-2-xs h-[100vh] border-l-2 overflow-x-hidden min-w-[20rem] bg-white custom-scrollbar">
           <div className="flex flex-col h-[100vh] pt-0 p-2">
             {/* Title */}
             <div className="bg-white p-2 fixed w-full pr-3 top-0 z-40">
               <div className="bg-white ">
                 <div
-                  onClick={() => setShowNoftlications(false)}
+                  onClick={close}
                   className="border-b-2 border-gray-200 chatRow flex justify-between"
                 >
                   <h3 className="text-lg font-semibold">Notifications</h3>
@@ -185,7 +185,7 @@ const Noftlications = ({ setShowNoftlications, setIsRead }) => {
           </div>
         </div>
       </div>
-    </div>
+    </animated.div>
   );
 };
 

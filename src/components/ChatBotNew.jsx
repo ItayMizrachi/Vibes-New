@@ -1,10 +1,10 @@
 import { ArrowCircleDownIcon } from "@heroicons/react/outline";
 import { PaperAirplaneIcon, XIcon } from "@heroicons/react/solid";
+import { animated, useSpring } from "@react-spring/web";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MyContext } from "../context/myContext";
 import { TOKEN_KEY, URL, doApiMethod } from "../services/apiService";
-
 const ChatBotNew = () => {
   const [showChat, setShowChat] = useState(false);
   const { userData } = useContext(MyContext);
@@ -21,11 +21,10 @@ const ChatBotNew = () => {
 
   const getMessages = async () => {
     try {
-      console.log("shalom");
       setLoading(true);
       const url = URL + "/openai/completions";
       const data = await doApiMethod(url, "POST", { message: value });
-      console.log(data);
+      // console.log(data);
       setMessages((prevMessages) => [
         ...prevMessages,
         { role: "user", content: value },
@@ -57,11 +56,27 @@ const ChatBotNew = () => {
     }
   }, [messages]);
 
+  const chatButtonSpring = useSpring({
+    to: {
+      opacity: showChat ? 0 : 1
+    },
+    config: { tension: 260, friction: 60 },
+  });
+  
+  
+  const chatWindowSpring = useSpring({
+    to: {
+      opacity: showChat ? 1 : 0,
+      transform: showChat ? 'scale(1)' : 'scale(0)'
+    },
+    config: { tension: 360, friction: 60 },
+  });
+  
   return (
     <>
       {/* button */}
       {localStorage[TOKEN_KEY] && !showChat && (
-        <div
+        <animated.div style={chatButtonSpring} 
           className={`fixed transform transition-transform duration-300 md:bottom-3 bottom-20 right-3 z-[1] ${
             location.pathname.includes("chat") && "hidden"
           }`}
@@ -78,11 +93,12 @@ const ChatBotNew = () => {
               alt="vibes logo"
             />
           </button>
-        </div>
+        </animated.div>
       )}
       {/* button */}
       {showChat && (
-        <div
+        <animated.div
+        style={chatWindowSpring}
           className={`fixed md:bottom-3 bottom-20 right-3 bg-white border rounded-lg shadow-lg h-[400px] w-[360px] md:w-[400px] md:h-[500px] z-10  ${
             location.pathname.includes("chat") && "hidden"
           } `}
@@ -193,7 +209,7 @@ const ChatBotNew = () => {
               </div>
             </div>
           </div>
-        </div>
+        </animated.div>
       )}
     </>
   );
