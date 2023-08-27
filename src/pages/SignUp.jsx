@@ -48,7 +48,7 @@ const SignUp = () => {
     }
   };
 
-   const onSub = async (_bodyData) => {
+  const onSub = async (_bodyData) => {
     setIsLoading(true);
     console.log(_bodyData);
     await doApiCloudUpload();

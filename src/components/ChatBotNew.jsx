@@ -1,10 +1,9 @@
 import { ArrowCircleDownIcon } from "@heroicons/react/outline";
 import { PaperAirplaneIcon, XIcon } from "@heroicons/react/solid";
-import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MyContext } from "../context/myContext";
-import { TOKEN_KEY, URL } from "../services/apiService";
+import { TOKEN_KEY, URL, doApiMethod } from "../services/apiService";
 
 const ChatBotNew = () => {
   const [showChat, setShowChat] = useState(false);
@@ -21,20 +20,11 @@ const ChatBotNew = () => {
   };
 
   const getMessages = async () => {
-    const options = {
-      method: "POST",
-      data: { message: value },
-      headers: { "Content-Type": "application/json" },
-    };
     try {
+      console.log("shalom");
       setLoading(true);
-      const response = await axios.post(
-        URL + "/openai/completions",
-        options.data,
-        { headers: options.headers }
-      );
-      console.log(response);
-      const data = response.data;
+      const url = URL + "/openai/completions";
+      const data = await doApiMethod(url, "POST", { message: value });
       console.log(data);
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -72,7 +62,7 @@ const ChatBotNew = () => {
       {/* button */}
       {localStorage[TOKEN_KEY] && !showChat && (
         <div
-          className={`fixed transform transition-transform duration-300 md:bottom-3 bottom-20 right-3 z-20 ${
+          className={`fixed transform transition-transform duration-300 md:bottom-3 bottom-20 right-3 z-[1] ${
             location.pathname.includes("chat") && "hidden"
           }`}
           onClick={() => setShowChat(!showChat)} // Added hover to show chat for a more fluid interaction
@@ -93,7 +83,7 @@ const ChatBotNew = () => {
       {/* button */}
       {showChat && (
         <div
-          className={`fixed md:bottom-3 bottom-20 right-3 bg-white border rounded-lg shadow-lg h-[400px] w-[360px] md:w-[400px] md:h-[500px] z-30  ${
+          className={`fixed md:bottom-3 bottom-20 right-3 bg-white border rounded-lg shadow-lg h-[400px] w-[360px] md:w-[400px] md:h-[500px] z-10  ${
             location.pathname.includes("chat") && "hidden"
           } `}
         >
@@ -105,7 +95,7 @@ const ChatBotNew = () => {
                   {/* <ArrowLeftIcon className="w-5 h-5 ml-1 cursor-pointer btn"/> */}
                   <div className="flex-shrink-0 w-10 mr-1">
                     <img
-                      className="object-contain w-full h-full"
+                      className={`object-contain w-full h-full ${loading && "animate-spin"}`}
                       src="/images/vibes-logo-responsive.png"
                       alt={`vibes logo`}
                     />

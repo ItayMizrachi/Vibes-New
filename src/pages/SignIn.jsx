@@ -51,9 +51,10 @@ const SignIn = () => {
     } catch (err) {
       // Log any errors to the console
       console.log(err);
-
+      
       // Display an error message to the user
       toast.error("User or password is wrong!");
+      setIsLoading(false);
     }
   };
 

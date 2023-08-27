@@ -93,10 +93,11 @@ const AddPost = ({ setShowAddPost }) => {
   return (
     <div
       onClick={handleOverlayClick}
-      className="fixed inset-0 flex z-50 justify-center items-center bg-black bg-opacity-90"
+      className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-90 z-50"
     >
-      <div className="flex flex-col items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white shadow-xl rounded-xl">
-        <div className="w-full max-h-[70vh] bg-white overflow-y-auto scrollbar-thin scrollbar-thumb-black">
+    <div className="flex flex-col items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white shadow-xl rounded-xl overflow-y-auto scrollbar-thin overflow-x-hidden scrollbar-thumb-black">
+
+        <div className="w-full max-h-[70vh]">
           <div className="flex justify-between items-center pb-3 mb-4 border-b">
             <h2 className="text-xl font-bold flex items-center">
               Add Post
@@ -104,16 +105,16 @@ const AddPost = ({ setShowAddPost }) => {
             </h2>
             <XIcon
               onClick={() => setShowAddPost(false)}
-              className="h-6 w-6 cursor-pointer hover:text-gray-500 transition duration-200" // Added hover effect
+              className="h-6 w-6 cursor-pointer hover:text-gray-500 transition duration-200"
             />
           </div>
 
           <form>
-            <div className="mb-6">
-              <label className="block font-semibold mb-2">Description</label>
+            <div className="mb-6 relative">
 
               {/* For small screens */}
-              <div className="relative mt-1 lg:hidden">
+              <label className="block font-semibold mb-2">Description</label>
+              <div className="relative mt-1">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <PencilIcon className="w-5 h-5 text-gray-500" />
                 </div>
@@ -126,13 +127,11 @@ const AddPost = ({ setShowAddPost }) => {
                 />
               </div>
 
-              {/* For larger screens */}
-              <div className="hidden lg:block">
+              <div className="w-full hidden">
                 <InputEmoji
                   value={text}
                   onChange={setText}
                   placeholder="description"
-                  className="w-full p-2 mt-1 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
 

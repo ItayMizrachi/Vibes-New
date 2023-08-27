@@ -1,11 +1,15 @@
 import React from 'react'
-import loading from "/loadingGif.gif"
 
 const LoadingPage = () => {
     return (
         <>
             <div className="wrapperLoading">
-                <img className="loader" src={loading} />
+                {/* <img className="loader" src={loading} /> */}
+                    <img
+                      className="animate-spin"
+                      src="/images/vibes-logo-responsive.png"
+                      alt={`vibes logo`}
+                    />
             </div>
         </>
     )

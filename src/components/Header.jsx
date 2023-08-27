@@ -45,7 +45,7 @@ const Header = () => {
   }, [userData]);
 
   return (
-    <header className="sticky top-0 z-20 md:px-6 bg-white border-b shadow-s px-3">
+    <header className="sticky top-0 z-10 md:px-6 bg-white border-b shadow-s px-3">
       <div className="flex justify-between max-w-6xl mx-auto">
         {showNoftlications && (
           <Noftlications

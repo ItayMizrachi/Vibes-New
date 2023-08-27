@@ -75,32 +75,32 @@ const EditPost3 = ({ post_id, description, setShowEdit }) => {
         {" "}
         {/* Adjusted sizing, added shadow and increased border radius */}
         <div className="w-full">
-        <div className="flex justify-between items-center pb-3 mb-4 border-b">
-    <h2 className="text-xl font-bold flex items-center"> 
-        Edit Post 
-        <PencilIcon className="w-5 h-5 ml-2" /> 
-    </h2>
-    <XIcon
-        onClick={() => setShowEdit(false)}
-        className="h-6 w-6 cursor-pointer hover:text-gray-500 transition duration-200" // Added hover effect
-    />
-</div>
+          <div className="flex justify-between items-center pb-3 mb-4 border-b">
+            <h2 className="text-xl font-bold flex items-center">
+              Edit Post
+              <PencilIcon className="w-5 h-5 ml-2" />
+            </h2>
+            <XIcon
+              onClick={() => setShowEdit(false)}
+              className="h-6 w-6 cursor-pointer hover:text-gray-500 transition duration-200" // Added hover effect
+            />
+          </div>
 
           <form onSubmit={(e) => e.preventDefault()}>
             <div className="relative mt-1 mb-6">
               <label className="block font-semibold mb-2">Description:</label>
 
-              {/* Replaced the regular input with InputEmoji */}
-              <InputEmoji
-                value={text}
-                onChange={setText}
-                onEnter={handleOnEnter}
-                placeholder={description}
-                className="w-full p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" // Enhanced the InputEmoji style
-                onFocus={handleInputFocus}
-                onBlur={handleInputBlur}
-              />
-
+          
+              <div className="w-full small-screen">
+                <InputEmoji
+                  value={text}
+                  onChange={setText}
+                  onEnter={handleOnEnter}
+                  placeholder={description}
+                  onFocus={handleInputFocus}
+                  onBlur={handleInputBlur}
+                />
+              </div>
               <button
                 onClick={handleOnEnter}
                 className="w-full py-3 mt-4 font-semibold text-white bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none" // Enhanced the button style
