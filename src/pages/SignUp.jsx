@@ -22,12 +22,7 @@ const SignUp = () => {
 
   const doApiProfilePic = async (_bodyData) => {
     let url = URL + "/users";
-    if (!_bodyData.profilePic || _bodyData.profilePic === "") {
-      _bodyData.profilePic = "/images/anonymous.jpg";
-    } else {
-      _bodyData.profilePic = url2;
-    }
-
+    _bodyData.profilePic = url2 ? url2 : "/images/anonymous.jpg";
     try {
       const resp = await axios({
         url: url,
@@ -47,14 +42,17 @@ const SignUp = () => {
       alert("There's a problem, come back later");
     }
   };
-
   const onSub = async (_bodyData) => {
     setIsLoading(true);
-    console.log(_bodyData);
-    await doApiCloudUpload();
-    doApiProfilePic(_bodyData);
+    // console.log(_bodyData);
+      if (uploadRef.current.files[0]) { // Check if there's a file to upload
+      await doApiCloudUpload(); // Wait until the image is uploaded
+    }
+      doApiProfilePic(_bodyData);
     setIsLoading(false);
   };
+  
+
 
   const doApiCloudUpload = async () => {
     try {
@@ -63,9 +61,9 @@ const SignUp = () => {
       const imgData = await imgToString(myFile);
       const url = URL + "/upload/cloud";
       const resp = await doApiMethod(url, "POST", { image: imgData });
-      console.log(resp.data);
+      // console.log(resp.data);
       url2 = resp.data.secure_url;
-      console.log(url2);
+      // console.log(url2);
     } catch (err) {
       console.log(err);
     }
