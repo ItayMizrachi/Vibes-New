@@ -7,7 +7,7 @@ import PagesBtns from "./PagesBtns";
 const CommentsAdmin = () => {
     const [query] = useSearchParams();
     const [ar, setAr] = useState([]);
-    const HEAD = ["#", "User_name", "Name", "Text", "_id", "Delete"];
+    const HEAD = ["#", "User_name", "Name", "Text", "_id", "Post_id", "Delete"];
 
     useEffect(() => {
         doApi();
@@ -95,6 +95,11 @@ const CommentsAdmin = () => {
                                     <td className="p-6">
                                         <Typography variant="h5" color="blue-gray" className="font-normal">
                                             {item._id}
+                                        </Typography>
+                                    </td>
+                                    <td className="p-6">
+                                        <Typography variant="h5" color="blue-gray" className="font-normal">
+                                            {item.post_id}
                                         </Typography>
                                     </td>
                                     <td className="p-6">
