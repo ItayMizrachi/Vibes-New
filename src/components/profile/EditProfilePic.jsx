@@ -63,7 +63,7 @@ const EditProfilePic = ({ onClose }) => {
       const data = await doApiMethod(url, "PUT", _bodyData);
       if (data.modifiedCount) {
         toast.success("pic changed");
-        window.location.reload();
+        // window.location.reload();
         setShowAddPost(false);
       }
     } catch (error) {
