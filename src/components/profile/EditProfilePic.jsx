@@ -102,7 +102,7 @@ const EditProfilePic = ({ onClose }) => {
       onClick={handleOverlayClick}
       className="fixed inset-0 flex z-50 justify-center items-center bg-black bg-opacity-90 transition-opacity duration-300"
     >
-      <div className="bg-white rounded-lg shadow-lg max-w-sm px-4 py-5 space-y-4">
+      <div className="bg-white rounded-lg shadow-lg max-w-sm px-4 py-5 space-y-4 max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-black">
         <div className="flex justify-between items-start">
           <h2 className="text-xl font-semibold">Edit Profile pic</h2>
           <XIcon
