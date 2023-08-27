@@ -48,6 +48,7 @@ const BottomHeader = () => {
         <Noftlications
           setIsRead={setIsRead}
           setShowNoftlications={setShowNoftlications}
+          showNoftlications={showNoftlications}
         />
       )}
       {showAddPost && <AddPost setShowAddPost={setShowAddPost} />}
