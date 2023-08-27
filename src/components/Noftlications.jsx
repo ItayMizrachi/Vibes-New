@@ -59,7 +59,7 @@ const Noftlications = ({ setShowNoftlications, setIsRead }) => {
   // }, [userData._id, followFlag]);
 
   return (
-    <div className="flex fixed right-0 top-0 z-[10000]">
+    <div className="flex fixed right-0 top-0 z-40">
       {/* sidebar */}
       <div className={`  transition-all transform duration-300 ease-in-out`}>
         <div className="max-2-xs h-[100vh] border-l-2 overflow-x-hidden min-w-[20rem] bg-white custom-scrollbar">
@@ -115,7 +115,7 @@ const Noftlications = ({ setShowNoftlications, setIsRead }) => {
                         <div>
                           <p>Started following you!</p>
                           <button
-                            className="p-2 my-2 text-white font-semibold  bg-indigo-500 rounded-mds transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+                            className="p-2 my-2 text-white font-semibold  bg-indigo-500 rounded-md transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
                             onClick={() => followUser(item.sender?._id)}
                           >
                             {item.sender.followers.find((follower_id) => {
