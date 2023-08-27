@@ -83,7 +83,7 @@ const ChatBotNew = () => {
           >
             <img
               className="w-full h-full rounded-full object-cover transform hover:scale-105 transition-transform duration-300"
-              src="http://localhost:5173/images/vibes-logo-responsive.png"
+              src="/images/vibes-logo-responsive.png"
               alt="vibes logo"
             />
           </button>

@@ -2,7 +2,7 @@ import {
   BellIcon,
   CameraIcon,
   ChatIcon,
-  PlusCircleIcon
+  PlusCircleIcon,
 } from "@heroicons/react/outline";
 import { HomeIcon } from "@heroicons/react/solid";
 import React, { useContext, useEffect, useState } from "react";
@@ -42,7 +42,7 @@ const BottomHeader = () => {
   }, [userData]);
 
   return (
-    <header className="fixed bottom-0 p-5 left-0 right-0 z-30  bg-white border-t shadow-s  lg:hidden md:hidden">
+    <header className="sticky bottom-0 p-5 left-0 right-0 z-20  bg-white border-t shadow-s  lg:hidden md:hidden">
       {showNoftlications && (
         <Noftlications
           setIsRead={setIsRead}
@@ -70,7 +70,10 @@ const BottomHeader = () => {
               onClick={() => setShowAddPost(true)}
               className="lowNavBtn"
             />
-            <CameraIcon onClick={() => setShowImgAi(true)} className="lowNavBtn" />
+            <CameraIcon
+              onClick={() => setShowImgAi(true)}
+              className="lowNavBtn"
+            />
 
             {/* <Link to="chatbot">
               <AcademicCapIcon className="lowNavBtn" />
@@ -81,11 +84,11 @@ const BottomHeader = () => {
           </>
         ) : (
           <>
-            <Link to="signin" className="text-sm font-semibold text-blue-400">
+            <Link to="signin" className="text-sm font-semibold text-indigo-500">
               sign in
             </Link>
             <p className="font-semibold text-gray-400"> | </p>
-            <Link to="signup" className="text-sm font-semibold text-blue-400">
+            <Link to="signup" className="text-sm font-semibold text-indigo-500">
               sign up
             </Link>
           </>

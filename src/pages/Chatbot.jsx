@@ -8,7 +8,7 @@ import { PaperAirplaneIcon } from "@heroicons/react/solid";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { MyContext } from "../context/myContext";
-import { TOKEN_KEY } from "../services/apiService";
+import { TOKEN_KEY, URL } from "../services/apiService";
 
 const Chatbot = () => {
   const { userData } = useContext(MyContext);
@@ -49,7 +49,7 @@ const Chatbot = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:3009/openai/completions",
+        URL + "/openai/completions",
         options.data,
         { headers: options.headers }
       );

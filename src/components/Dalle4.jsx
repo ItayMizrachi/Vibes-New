@@ -34,7 +34,8 @@ const Dalle4 = ({ setShowImgAi }) => {
   return (
     <div
       onClick={handleOverlayClick}
-      className="fixed z-50 inset-0 flex justify-center items-center bg-black bg-opacity-90" s
+      className="fixed z-50 inset-0 flex justify-center items-center bg-black bg-opacity-90"
+      s
     >
       <div className="flex flex-col items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white shadow-xl rounded-xl">
         {" "}

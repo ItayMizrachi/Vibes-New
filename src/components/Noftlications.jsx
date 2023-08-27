@@ -59,13 +59,13 @@ const Noftlications = ({ setShowNoftlications, setIsRead }) => {
   // }, [userData._id, followFlag]);
 
   return (
-    <div className="flex fixed right-0 top-0 z-[10000]">
+    <div className="flex fixed right-0 top-0 z-40">
       {/* sidebar */}
       <div className={`  transition-all transform duration-300 ease-in-out`}>
         <div className="max-2-xs h-[100vh] border-l-2 overflow-x-hidden min-w-[20rem] bg-white custom-scrollbar">
           <div className="flex flex-col h-[100vh] pt-0 p-2">
             {/* Title */}
-            <div className="bg-white p-2 fixed w-full pr-3 top-0 z-[10000]">
+            <div className="bg-white p-2 fixed w-full pr-3 top-0 z-40">
               <div className="bg-white ">
                 <div
                   onClick={() => setShowNoftlications(false)}
