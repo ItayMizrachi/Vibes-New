@@ -8,7 +8,8 @@ import {
 } from "@heroicons/react/outline";
 import { HomeIcon, LogoutIcon } from "@heroicons/react/solid";
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { MyContext } from "../context/myContext";
 import { TOKEN_KEY, URL, doApiGet } from "../services/apiService";
 import Dalle4 from "./Dalle4";
@@ -17,10 +18,11 @@ import Search from "./Search";
 import AddPost from "./post/AddPost";
 
 const Header = () => {
-  const { userSignOut, userData } = useContext(MyContext);
+  const { userSignOut, userData, setUserData, setIsLoading } = useContext(MyContext);
   const [showAddPost, setShowAddPost] = useState(false);
   const [showNoftlications, setShowNoftlications] = useState(false);
   const [showImgAi, setShowImgAi] = useState(false);
+  const nav = useNavigate();
 
   const toggleNoftlications = () => {
     setShowNoftlications(!showNoftlications);
@@ -44,6 +46,24 @@ const Header = () => {
     }
   }, [userData]);
 
+  const logout = async () => {
+    if (window.confirm("Are you sure you want to log out")) {
+      try {
+        setIsLoading(true);
+        await localStorage.removeItem(TOKEN_KEY); // Remove the token from localStorage
+        await localStorage.removeItem("tokenExpiration"); // Remove the token expiration time
+        toast.info("You logged out, see you soon...");
+        setUserData({});
+        nav("/signin")
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error deleting token:", error);
+        setIsLoading(false);
+      }
+    }
+  }
+
+ 
   return (
     <header className="sticky top-0 z-10 md:px-6 bg-white border-b shadow-s px-3">
       <div className="flex justify-between max-w-6xl mx-auto">
@@ -127,7 +147,7 @@ const Header = () => {
                 className="navBtn"
               />
 
-              <LogoutIcon onClick={userSignOut} className="lowNavBtn" />
+              <LogoutIcon onClick={logout} className="lowNavBtn" />
               <Link to={userData.user_name}>
                 <div className="w-10 h-10">
                   <img
