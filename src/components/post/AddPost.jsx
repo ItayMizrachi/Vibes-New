@@ -85,10 +85,10 @@ const AddPost = ({ setShowAddPost }) => {
     }
   };
 
-  function handleOnEnter({}) {
-    // Call the form submission function passed as a prop
+  function handleOnEnter(event) {
+    event.preventDefault();
     onSubForm({ description: text });
-    setText(""); // Clear the InputEmoj after submission
+    setText("");
   }
   return (
     <div
