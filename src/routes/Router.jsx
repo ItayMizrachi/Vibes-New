@@ -6,6 +6,7 @@ import GroupsList from "../admin/GroupsList";
 import HeaderAdmin from "../admin/HeaderAdmin";
 import LoginAdmin from "../admin/LoginAdmin";
 import PostsAdmin from "../admin/PostsAdmin";
+import CommentsAdmin from "../admin/CommentsAdmin";
 import UsersList from "../admin/UsersList";
 import BottomHeader from "../components/BottomHeader";
 import ChatBotNew from "../components/ChatBotNew";
@@ -56,6 +57,7 @@ const Router = () => {
                 <Route path="/groups" element={<GroupsList />} />
                 <Route path="/users/edit/:id" element={<EditUser />} />
                 <Route path="/posts" element={<PostsAdmin />} />
+                <Route path="/comments" element={<CommentsAdmin />} />
                 <Route path="/:dir/*" element={<AuthAdminComp />} />
                 <Route path="/*" element={<Page404 />} />
               </Routes>
