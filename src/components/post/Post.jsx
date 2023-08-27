@@ -153,7 +153,7 @@ const Post = ({
       const response = await doApiMethod(url, "POST", _bodyData);
 
       const commentId = response._id;
-      console.log(response);
+      // console.log(response);
       reset();
 
       // Update the state variable to indicate a new comment has been posted
@@ -230,7 +230,7 @@ const Post = ({
         <div className="flex items-center space-x-3">
           <Link to={"/" + user_name}>
             <img
-              src={profilePic}
+              src={user_id === userData._id ? userData.profilePic : profilePic }
               alt=""
               className="object-contain w-12 h-12 rounded-full border p-[1px] hover:border-gray-400 transition duration-200"
             />

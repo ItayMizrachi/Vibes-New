@@ -61,7 +61,7 @@ const Profile = () => {
       const url = URL + "/userPosts/userInfo/" + user_name;
       const data = await doApiGet(url);
       setPostsInfo(data);
-      console.log(data);
+      // console.log(data);
     } catch (err) {
       console.log(err);
       setUserNotFound(true);
@@ -73,7 +73,7 @@ const Profile = () => {
       const url = URL + "/userPosts/savedposts/" + user_name;
       const data = await doApiGet(url);
       setSavedPostsInfo(data);
-      console.log(data);
+      // console.log(data);
     } catch (err) {
       console.log(err);
       setUserNotFound(true);
@@ -85,7 +85,7 @@ const Profile = () => {
       const url = URL + "/userPosts/likedposts/" + user_name;
       const data = await doApiGet(url);
       setLikedPostsInfo(data);
-      console.log(data);
+      // console.log(data);
     } catch (err) {
       console.log(err);
       setUserNotFound(true);

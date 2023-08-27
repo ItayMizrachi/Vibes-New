@@ -6,19 +6,19 @@ import {
 } from "@heroicons/react/outline";
 import { HomeIcon } from "@heroicons/react/solid";
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { MyContext } from "../context/myContext";
 import { TOKEN_KEY, URL, doApiGet } from "../services/apiService";
-import ImageAi from "./ImageAi";
+import Dalle4 from "./Dalle4";
 import Noftlications from "./Noftlications";
 import AddPost from "./post/AddPost";
-import Dalle4 from "./Dalle4";
 
 const BottomHeader = () => {
   const { userData } = useContext(MyContext);
   const [showAddPost, setShowAddPost] = useState(false);
   const [showNoftlications, setShowNoftlications] = useState(false);
   const [showImgAi, setShowImgAi] = useState(false);
+  const location = useLocation();
 
   const toggleNoftlications = () => {
     setShowNoftlications(!showNoftlications);
@@ -43,7 +43,7 @@ const BottomHeader = () => {
   }, [userData]);
 
   return (
-    <header className="sticky bottom-0 p-5 left-0 right-0 z-20  bg-white border-t shadow-s  lg:hidden md:hidden">
+    <header className={`${location.pathname.includes("chat") ? "sticky" : "fixed"} bottom-0 p-5 left-0 right-0 z-10  bg-white border-t shadow-s  lg:hidden md:hidden`}>
       {showNoftlications && (
         <Noftlications
           setIsRead={setIsRead}

@@ -14,8 +14,8 @@ const Recommanded = () => {
   }, [followFlag, userData]);
 
   const doApiRandom5 = async () => {
-    console.log(userData);
-    console.log(userData.followings);
+    // console.log(userData);
+    // console.log(userData.followings);
     let url;
     try {
       if (userData && userData.followings.length === 0) {
@@ -23,10 +23,10 @@ const Recommanded = () => {
       } else {
         url = URL + "/users/random5";
       }
-      console.log(url);
+      // console.log(url);
       const data = await doApiGet(url);
       setSuggestions(data);
-      console.log(data);
+      // console.log(data);
     } catch (err) {
       console.log(err);
     }
