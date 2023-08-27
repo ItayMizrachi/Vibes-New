@@ -18,7 +18,8 @@ import Search from "./Search";
 import AddPost from "./post/AddPost";
 
 const Header = () => {
-  const { userSignOut, userData, setUserData, setIsLoading } = useContext(MyContext);
+  const { userSignOut, userData, setUserData, setIsLoading } =
+    useContext(MyContext);
   const [showAddPost, setShowAddPost] = useState(false);
   const [showNoftlications, setShowNoftlications] = useState(false);
   const [showImgAi, setShowImgAi] = useState(false);
@@ -54,16 +55,15 @@ const Header = () => {
         await localStorage.removeItem("tokenExpiration"); // Remove the token expiration time
         toast.info("You logged out, see you soon...");
         setUserData({});
-        nav("/signin")
+        nav("/signin");
         setIsLoading(false);
       } catch (error) {
         console.error("Error deleting token:", error);
         setIsLoading(false);
       }
     }
-  }
+  };
 
- 
   return (
     <header className="sticky top-0 z-10 md:px-6 bg-white border-b shadow-s px-3">
       <div className="flex justify-between max-w-6xl mx-auto">
@@ -71,6 +71,7 @@ const Header = () => {
           <Noftlications
             setIsRead={setIsRead}
             setShowNoftlications={setShowNoftlications}
+            showNoftlications={showNoftlications}
           />
         )}
         {showAddPost && <AddPost setShowAddPost={setShowAddPost} />}
