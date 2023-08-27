@@ -42,7 +42,7 @@ const Chat = () => {
     });
     return () => {
       socketRef.current.disconnect();
-    }; 
+    };
   }, [setMessages, activeChatId]);
 
   // UseEffect to start a new chat when otherUser_id is available
@@ -183,7 +183,7 @@ const Chat = () => {
   return (
     <div className="flex">
       {/* sidebar */}
-      <div className=" max-2-xs scrollbar-thin scrollbar-thumb-black h-[87vh] md:h-[91vh] border-r-2 overflow-y-auto md:min-w-[20rem]">
+      <div className=" scrollbar-thin scrollbar-thumb-black h-[87vh] md:h-[91vh] border-r-2 overflow-y-auto min-w-[4rem] md:min-w-[20rem]">
         <div className="flex flex-col  h-[87vh] md:h-[91vh] p-2">
           <div className="flex-1">
             {loading && <LoadingPage />}
@@ -224,9 +224,9 @@ const Chat = () => {
                               participant._id !== userData._id && (
                                 <div
                                   key={participant._id}
-                                  className="flex items-center space-x-2"
+                                  className="flex justify-center md:justify-normal items-center space-x-2"
                                 >
-                                  <div className="w-7 h-7">
+                                  <div className="md:w-7 md:h-7 w-6 h-6">
                                     <img
                                       className="object-cover w-full h-full rounded-full "
                                       src={participant.profilePic}

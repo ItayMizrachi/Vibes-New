@@ -12,6 +12,7 @@ import { TOKEN_KEY, URL, doApiGet } from "../services/apiService";
 import ImageAi from "./ImageAi";
 import Noftlications from "./Noftlications";
 import AddPost from "./post/AddPost";
+import Dalle4 from "./Dalle4";
 
 const BottomHeader = () => {
   const { userData } = useContext(MyContext);
@@ -42,7 +43,7 @@ const BottomHeader = () => {
   }, [userData]);
 
   return (
-    <header className="sticky bottom-0 p-5 left-0 right-0 z-20  bg-white border-t shadow-s  lg:hidden md:hidden">
+    <header className="sticky bottom-0 p-5 left-0 right-0 z-30  bg-white border-t shadow-s  lg:hidden md:hidden">
       {showNoftlications && (
         <Noftlications
           setIsRead={setIsRead}
@@ -50,7 +51,7 @@ const BottomHeader = () => {
         />
       )}
       {showAddPost && <AddPost setShowAddPost={setShowAddPost} />}
-      {showImgAi && <ImageAi setShowImgAi={setShowImgAi} />}
+      {showImgAi && <Dalle4 setShowImgAi={setShowImgAi} />}
       <div className="flex items-center justify-around">
         {localStorage[TOKEN_KEY] && userData ? (
           <>
