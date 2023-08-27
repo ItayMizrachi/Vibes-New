@@ -58,7 +58,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className=" flex justify-center items-center mb-auto min-h-[700px]">
+    <div className="flex justify-center items-center mb-64 mt-10">
       <div className="flex w-[400px] flex-col items-center justify-center px-4 py-8 bg-white shadow-xl rounded-xl">
         <div className="w-full">
           <div className="flex justify-between items-center border-b pb-3 mb-4">
