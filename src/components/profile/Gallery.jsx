@@ -36,7 +36,7 @@ const Gallery = ({ postsInfo, Intersector }) => {
             <div className="overflow-hidden ">
               <>
                 <img
-                  className="object-cover w-full h-96 "
+                  className="object-cover w-full h-96"
                   src={post.img_url}
                   alt="post"
                 />
