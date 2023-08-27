@@ -143,7 +143,7 @@ const Profile = () => {
   };
 
   return (
-    <div className=" p-4 sm:p-10 mx-0 lg:max-w-6xl md:mx-5 xl:mx-auto">
+    <div className="sm:p-10 mx-0 lg:max-w-6xl md:mx-5 xl:mx-auto">
       {/* Profile Info */}
       {showFollowers && (
         <FollowersList
@@ -162,7 +162,7 @@ const Profile = () => {
       {showEditUser && <EditUser setShowEditUser={setShowEditUser} />}
       {userInfo?.user_name ? (
         <>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-4 p-4">
             <div className="justify-center avatar md:col-span-1 relative ">
               <div className="justify-center avatar md:col-span-1  relative w-36 group h-36 mx-auto md:mx-0">
                 <img
