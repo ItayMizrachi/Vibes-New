@@ -34,8 +34,8 @@ const App = () => {
         Intersector,
       }}
     >
-      <Router />
       {loading && <LoadingPage />}
+      <Router />
       <ToastContainer theme="colored" />
     </MyContext.Provider>
   );
