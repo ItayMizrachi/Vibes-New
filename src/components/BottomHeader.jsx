@@ -43,7 +43,7 @@ const BottomHeader = () => {
   }, [userData]);
 
   return (
-    <header className="sticky bottom-0 p-5 left-0 right-0 z-30  bg-white border-t shadow-s  lg:hidden md:hidden">
+    <header className="sticky bottom-0 p-5 left-0 right-0 z-20  bg-white border-t shadow-s  lg:hidden md:hidden">
       {showNoftlications && (
         <Noftlications
           setIsRead={setIsRead}
@@ -85,11 +85,17 @@ const BottomHeader = () => {
           </>
         ) : (
           <>
-            <Link to="signin" className="text-sm font-semibold text-indigo-500">
+            <Link
+              to="signin"
+              className="text-sm font-semibold text-indigo-400 hover:text-indigo-500  transition duration-200 "
+            >
               sign in
             </Link>
             <p className="font-semibold text-gray-400"> | </p>
-            <Link to="signup" className="text-sm font-semibold text-indigo-500">
+            <Link
+              to="signup"
+              className="text-sm font-semibold text-indigo-400 hover:text-indigo-500  transition duration-200 "
+            >
               sign up
             </Link>
           </>

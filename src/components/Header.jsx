@@ -142,7 +142,7 @@ const Header = () => {
             <>
               <Link
                 to="signin"
-                className="text-sm hidden md:inline-flex font-semibold text-blue-400 "
+                className="text-sm hidden md:inline-flex font-semibold text-indigo-400 hover:text-indigo-500  transition duration-200  "
               >
                 sign in
               </Link>
@@ -152,7 +152,7 @@ const Header = () => {
               </p>
               <Link
                 to="signup"
-                className="text-sm hidden md:inline-flex font-semibold text-blue-400"
+                className="text-sm hidden md:inline-flex font-semibold text-indigo-400 hover:text-indigo-500  transition duration-200 "
               >
                 sign up
               </Link>

@@ -28,7 +28,7 @@ const SideProfile = () => {
 
         <button
           onClick={userSignOut}
-          className="text-sm font-semibold text-indigo-400 hover:text-indigo-500 p-1 rounded transition duration-200"
+          className="text-sm font-semibold text-indigo-400 hover:text-indigo-500  transition duration-200 p-1 rounded "
         >
           Sign Out
         </button>

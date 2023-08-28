@@ -93,12 +93,10 @@ const AddPost = ({ setShowAddPost }) => {
   return (
     <div
       onClick={handleOverlayClick}
-      className="fixed inset-0 flex z-50 justify-center items-center bg-black bg-opacity-90" // Made the background slightly darker for better contrast
+      className="fixed inset-0 flex z-50 justify-center items-center bg-black bg-opacity-90"
     >
       <div className="flex flex-col items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white shadow-xl rounded-xl">
-        {" "}
-        {/* Adjusted sizing, added shadow, and increased border radius */}
-        <div className="w-full bg-white">
+        <div className="w-full max-h-[70vh] bg-white overflow-y-auto scrollbar-thin scrollbar-thumb-black">
           <div className="flex justify-between items-center pb-3 mb-4 border-b">
             <h2 className="text-xl font-bold flex items-center">
               Add Post
