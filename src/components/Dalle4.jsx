@@ -9,16 +9,9 @@ const Dalle4 = ({ setShowImgAi }) => {
   const [image, setImage] = useState([]);
   const [value, setValue] = useState("");
 
-  const getImages2 = async () => {
-    try {
-      setLoading(true);
-      const url = URL + "/dalle";
-      const data = await doApiMethod(url, "POST", { prompt: value });
-      console.log(data);
-      setImage(data);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      getImages();
     }
   };
 
@@ -43,14 +36,15 @@ const Dalle4 = ({ setShowImgAi }) => {
   const downloadImg = () => {
     // Convert base64 data to blob for downloading
     const byteCharacters = atob(image);
-    const byteNumbers = Array.prototype.slice.call(byteCharacters).map(char => char.charCodeAt(0));
+    const byteNumbers = Array.prototype.slice
+      .call(byteCharacters)
+      .map((char) => char.charCodeAt(0));
     const byteArray = new Uint8Array(byteNumbers);
     const blob = new Blob([byteArray], { type: "image/png" });
-  
+
     // Use downloadjs library to trigger the download
     download(blob, "generated_image.png");
   };
-  
 
   const handleOverlayClick = (event) => {
     if (event.target.classList.contains("bg-black")) {
@@ -106,6 +100,7 @@ const Dalle4 = ({ setShowImgAi }) => {
             placeholder="type your prompt here..."
             required
             onChange={(e) => setValue(e.target.value)}
+            onKeyDown={handleKeyDown}
             value={value}
           />
         </div>
