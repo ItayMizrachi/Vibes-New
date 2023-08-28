@@ -11,7 +11,7 @@ import Router from "./routes/Router";
 
 const App = () => {
   const { userData, doApiUser, userSignOut, setUserData } = useUserData();
-  const { deletePost, postsInfo, setPostsInfo, addNewPost, Intersector } =
+  const { deletePost, postsInfo, setPostsInfo, addNewPost,isPostLoading, Intersector } =
     usePostInfo();
   const { followUser, followFlag } = useFollow();
   const [loading, setIsLoading] = useState(false);
@@ -32,6 +32,7 @@ const App = () => {
         setPostsInfo,
         addNewPost,
         Intersector,
+        isPostLoading
       }}
     >
       {loading && <LoadingPage />}
