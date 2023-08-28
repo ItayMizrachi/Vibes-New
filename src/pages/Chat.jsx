@@ -265,7 +265,7 @@ const Chat = () => {
         <div className="flex flex-col h-[87vh] md:h-[91vh] overflow-clip">
           {/* messages */}
           {otherParticipant && (
-            <div className="flex items-center border-b p-2 py-4 sticky top-0 z-10 bg-white">
+            <div className="flex items-center border-b p-2 py-4 sticky top-0 bg-white">
               {/* <ArrowLeftIcon className="w-5 h-5 ml-1 cursor-pointer btn"/> */}
               <Link to={"/" + otherParticipant.user_name}>
                 <img

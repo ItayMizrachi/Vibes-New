@@ -148,7 +148,7 @@ const ChatBotNew = () => {
                           <div className="w-10 h-10">
                             <img
                               className="object-cover w-full h-full rounded-full mr-2"
-                              src="http://localhost:5173/images/vibes-logo-responsive.png"
+                              src="/images/vibes-logo-responsive.png"
                               alt={`vibes logo`}
                             />
                           </div>
