@@ -63,25 +63,7 @@ const EditProfilePic = ({ onClose }) => {
       const data = await doApiMethod(url, "PUT", _bodyData);
       if (data.modifiedCount) {
         toast.success("pic changed");
-        // window.location.reload();
-        setShowAddPost(false);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false); // Stop loading after redirecting
-    }
-  };
-
-  const doApiPost2 = async (_bodyData) => {
-    try {
-      const url = URL + "/users/" + userData._id;
-      _bodyData.profilePic = url2;
-      console.log(url2);
-      console.log(_bodyData);
-      const data = await doApiMethod(url, "PUT", _bodyData);
-      if (data.modifiedCount) {
-        toast.success("pic changed");
+        window.location.reload();
         setShowAddPost(false);
       }
     } catch (error) {
@@ -124,7 +106,7 @@ const EditProfilePic = ({ onClose }) => {
               <img
                 src={imagePreview}
                 alt="Image Preview"
-                className="my-2 rounded-md shadow-md"
+                className="my-2 rounded-md shadow-md -z-30"
               />
             )}
             <button

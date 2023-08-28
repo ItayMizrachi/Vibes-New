@@ -20,7 +20,7 @@ const Dalle4 = ({ setShowImgAi }) => {
       setLoading(true);
       const url = URL + "/dalle";
       const data = await doApiMethod(url, "POST", { prompt: value });
-      console.log(data);
+      // console.log(data);
 
       // Assuming data is your array with the b64_json property
       if (data && data.length > 0) {

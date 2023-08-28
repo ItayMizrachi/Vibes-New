@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Post from "../components/post/Post";
 import EditProfilePic from "../components/profile/EditProfilePic";
 import EditRegUser from "../components/profile/EditRegUser";
@@ -166,10 +166,11 @@ const Profile = () => {
             <div className="justify-center avatar md:col-span-1 relative ">
               <div className="justify-center avatar md:col-span-1  relative w-36 group h-36 mx-auto md:mx-0">
                 <img
-                  className={`rounded-full w-full h-full transition-opacity duration-300 ${userInfo._id === userData._id
-                    ? "cursor-pointer hover:opacity-100 "
-                    : ""
-                    }`}
+                  className={`rounded-full w-full h-full transition-opacity duration-300 ${
+                    userInfo._id === userData._id
+                      ? "cursor-pointer hover:opacity-100 "
+                      : ""
+                  }`}
                   src={userInfo.profilePic}
                   alt="profile pic"
                 />
@@ -194,8 +195,9 @@ const Profile = () => {
                   {userInfo.user_name}
                 </span>
 
+                <div className="flex space-x-2">
                 {userData._id !== userInfo._id ? (
-                  <div className="flex space-x-2">
+                    <>
                     <button
                       onClick={() => followUser(userInfo._id)}
                       className="px-4 py-2 text-white font-semibold bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
@@ -212,22 +214,33 @@ const Profile = () => {
                     >
                       Message
                     </button>
-                  </div>
+                    </>
                 ) : (
-
-                  <button onClick={() => setShowEditUser(true)} className="px-4 py-2 text-white font-semibold bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200">
+                  <>
+                  <button
+                    onClick={() => setShowEditUser(true)}
+                    className="px-4 py-2 text-white font-semibold bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
+                  >
                     Edit User
                   </button>
-
+                  {userData?.role == "admin" && (
+                    <Link
+                    to={"/admin/users"}
+                    className="px-4 py-2 text-white font-semibold bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
+                    >
+                      Admin
+                    </Link>
+                  )}
+                  </>
                 )}
+                </div>
+
               </div>
 
               <div className="space-y-4 md:space-y-6">
                 {/* User's Metrics: Posts, Followers, Following */}
                 <div className="flex justify-start space-x-6">
-                  <div
-                    className="group flex flex-col items-center"
-                  >
+                  <div className="group flex flex-col items-center">
                     <span className="text-xl font-semibold">
                       {postsInfo.length}
                     </span>
