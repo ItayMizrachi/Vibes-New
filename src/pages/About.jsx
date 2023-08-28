@@ -29,7 +29,7 @@ const About = () => {
                   name: "Omri Alter",
                   github: "https://github.com/OmriAlter",
                   linkedin: "https://www.linkedin.com/in/omri-alter-b0178922b/",
-                  img: "https://pps.whatsapp.net/v/t61.24694-24/302634240_779993819872399_678024486703720225_n.jpg?ccb=11-4&oh=01_AdRs9UASZxDanMTfzjxtVETTWbJMe6RT2xzzgbNIE3Pe6Q&oe=64F38448&_nc_cat=103",
+                  img: "https://media.licdn.com/dms/image/D4D03AQHGvC6mcSXmAg/profile-displayphoto-shrink_800_800/0/1683106891022?e=1698883200&v=beta&t=AJCc1Th_O-q0yxOGoK8gfgJg2XChvz_PlKXw73FASg4",
                 },
               ].map((profile) => (
                 <div className="text-center" key={profile.name}>

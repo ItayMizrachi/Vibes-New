@@ -52,9 +52,7 @@ const EditUser = () => {
   };
 
   return (
-    <div onClick={() => {
-      nav("/admin/users")
-    }}
+    <div
       className="fixed inset-0 flex z-50 justify-center items-center bg-black bg-opacity-90"
     >
       <div className="flex flex-col items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white shadow-xl rounded-xl">

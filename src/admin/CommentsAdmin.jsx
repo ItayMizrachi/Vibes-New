@@ -33,6 +33,7 @@ const CommentsAdmin = () => {
             console.log(error);
         }
     };
+
     const searchComments = async () => {
         try {
             const url = `${URL}/comments/search/search?s=${searchQuery}`;
@@ -43,7 +44,7 @@ const CommentsAdmin = () => {
         }
     };
 
-    const deletePost = async (_id) => {
+    const deleteComment = async (_id) => {
         if (window.confirm("Are you sure you want to delete?")) {
             try {
                 const url = `${URL}/comments/${_id}`;
@@ -60,7 +61,7 @@ const CommentsAdmin = () => {
 
     return (
         <div className="container mx-auto mt-20">
-            <h1 className="text-center  text-4xl font-bold text-blue-500 m-3">Posts List</h1>
+            <h1 className="text-center  text-4xl font-bold text-blue-500 m-3">Comments List</h1>
             <div className="m-2 my-6 flex items-center">
                 <PagesBtns
                     apiUrl={URL + "/comments/count/count"}
@@ -138,7 +139,7 @@ const CommentsAdmin = () => {
                                         <td className="p-6">
                                             <button
                                                 onClick={() => {
-                                                    deletePost(item._id);
+                                                    deleteComment(item._id);
                                                 }}
                                                 className=" transition-all duration-150 ease-out cursor-pointer bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                                             >
@@ -186,7 +187,7 @@ const CommentsAdmin = () => {
                                         <td className="p-6">
                                             <button
                                                 onClick={() => {
-                                                    deletePost(item._id);
+                                                    deleteComment(item._id);
                                                 }}
                                                 className=" transition-all duration-150 ease-out cursor-pointer bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                                             >
