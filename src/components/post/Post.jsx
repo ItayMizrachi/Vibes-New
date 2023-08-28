@@ -218,22 +218,26 @@ const Post = ({
 
   return (
     <div className="bg-white border rounded-2xl my-7 shadow-sm">
-           {showEdit && (
-              <EditPost3
-                setShowEdit={setShowEdit}
-                post_id={_id}
-                description={description}
-              />
-            )}
+      {showEdit && (
+        <EditPost3
+          setShowEdit={setShowEdit}
+          post_id={_id}
+          description={description}
+        />
+      )}
       {/* Header */}
       <div className="flex items-center justify-between p-5 space-x-3">
         <div className="flex items-center space-x-3">
           <Link to={"/" + user_name}>
-            <img
-              src={user_id === userData._id ? userData.profilePic : profilePic }
-              alt=""
-              className="object-contain w-12 h-12 rounded-full border p-[1px] hover:border-gray-400 transition duration-200"
-            />
+            <div className="w-12 h-12">
+              <img
+                src={
+                  user_id === userData._id ? userData.profilePic : profilePic
+                }
+                alt=""
+                className="object-cover w-full h-full rounded-full border p-[1px] hover:border-gray-400 transition duration-200"
+              />
+            </div>
           </Link>
           <Link
             to={"/" + user_name}
@@ -248,10 +252,9 @@ const Post = ({
               onClick={() => setShowEdit(true)}
               className="h-5 cursor-pointer"
             />
-       
           </>
         )}
-  {/* h-10 w-10 cursor-pointer hover:text-gray-600 transition duration-200 */}
+        {/* h-10 w-10 cursor-pointer hover:text-gray-600 transition duration-200 */}
       </div>
 
       {/* Image */}
