@@ -58,6 +58,27 @@ const Noftlications = ({
     }, 300); // delay for 300ms or adjust based on the duration you think is suitable.
   };
 
+  const [followingState, setFollowingState] = useState({});
+
+  const toggleFollow = (senderId) => {
+    followUser(senderId);  // Call your API function to follow/unfollow
+
+    setFollowingState(prevState => ({
+      ...prevState,
+      [senderId]: !prevState[senderId]
+    }));
+  };
+
+  useEffect(() => {
+    // Initialize the followingState based on the data once it's loaded
+    const newFollowingState = {};
+    data.forEach(item => {
+      newFollowingState[item.sender._id] = item.sender.followers.some(follower_id => follower_id === userData._id);
+    });
+    setFollowingState(newFollowingState);
+  }, [data, userData]);
+  
+  
   return (
     <animated.div style={animation} className="flex fixed right-0 top-0 z-40 ">
       {/* sidebar */}
@@ -116,13 +137,9 @@ const Noftlications = ({
                           <p>Started following you!</p>
                           <button
                             className="p-2 my-2 text-white font-semibold  bg-indigo-500 rounded-md transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
-                            onClick={() => followUser(item.sender?._id)}
+                            onClick={() => toggleFollow(item.sender._id)}
                           >
-                            {item.sender.followers.find((follower_id) => {
-                              return follower_id === userData._id;
-                            })
-                              ? "Unfollow"
-                              : "Follow Back"}
+                            {followingState[item.sender._id] ? "Unfollow" : "Follow Back"}
                           </button>
                         </div>
                       )}
