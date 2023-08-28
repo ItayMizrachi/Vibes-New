@@ -124,7 +124,7 @@ const EditProfilePic = ({ onClose }) => {
               <img
                 src={imagePreview}
                 alt="Image Preview"
-                className="my-2 rounded-md shadow-md"
+                className="my-2 rounded-md shadow-md -z-30"
               />
             )}
             <button

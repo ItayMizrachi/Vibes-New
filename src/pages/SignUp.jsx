@@ -1,6 +1,6 @@
 import { LockClosedIcon, MailIcon, UserIcon } from "@heroicons/react/solid";
 import axios from "axios";
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -13,6 +13,21 @@ const SignUp = () => {
 
   const nav = useNavigate();
   let url2;
+
+  const [imagePreview, setImagePreview] = useState(null);
+
+  const handleImageChange = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    } else {
+      setImagePreview(null);
+    }
+  };
 
   const {
     register,
@@ -90,7 +105,7 @@ const SignUp = () => {
                   <UserIcon className="w-5 h-5 text-gray-500" />
                 </div>
                 <input
-                  {...register("name", { required: true, minLength: 2 })}
+                  {...register("name", { required: true, minLength: 3 })}
                   className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   type="text"
                   placeholder="name"
@@ -99,7 +114,7 @@ const SignUp = () => {
               </div>
               {errors.name && (
                 <div className="text-sm text-red-600">
-                  * Enter valid name(min 2 chars)
+                  * Enter valid name(min 3 chars)
                 </div>
               )}
             </div>
@@ -112,7 +127,7 @@ const SignUp = () => {
                   <UserIcon className="w-5 h-5 text-gray-500" />
                 </div>
                 <input
-                  {...register("user_name", { required: true, minLength: 2 })}
+                  {...register("user_name", { required: true, minLength: 3 })}
                   className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   type="text"
                   placeholder="username"
@@ -121,7 +136,7 @@ const SignUp = () => {
               </div>
               {errors.user_name && (
                 <div className="text-sm text-red-600">
-                  * Enter valid username(min 2 chars)
+                  * Enter valid username(min 3 chars)
                 </div>
               )}
             </div>
@@ -223,9 +238,16 @@ const SignUp = () => {
               <label className="block font-semibold mb-2">
                 Upload a profile picture
               </label>
-              <input ref={uploadRef} type="file" />
+              <input  onChange={handleImageChange} ref={uploadRef} type="file" />
             </div>
 
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="Image Preview"
+                className="my-2 rounded-md shadow-md"
+              />
+            )}
             {/* Description */}
             <div className="mb-6">
               <label className="block font-semibold mb-2">Description</label>
