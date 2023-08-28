@@ -9,11 +9,12 @@ const Dalle4 = ({ setShowImgAi }) => {
   const [image, setImage] = useState([]);
   const [value, setValue] = useState("");
 
-  const getImages = async () => {
+  const getImages2 = async () => {
     try {
       setLoading(true);
       const url = URL + "/dalle";
       const data = await doApiMethod(url, "POST", { prompt: value });
+      console.log(data);
       setImage(data);
       setLoading(false);
     } catch (error) {
@@ -21,9 +22,35 @@ const Dalle4 = ({ setShowImgAi }) => {
     }
   };
 
-  const downloadImg = () => {
-    download(image[0].url);
+  const getImages = async () => {
+    try {
+      setLoading(true);
+      const url = URL + "/dalle";
+      const data = await doApiMethod(url, "POST", { prompt: value });
+      console.log(data);
+
+      // Assuming data is your array with the b64_json property
+      if (data && data.length > 0) {
+        setImage(data[0].b64_json);
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const downloadImg = () => {
+    // Convert base64 data to blob for downloading
+    const byteCharacters = atob(image);
+    const byteNumbers = Array.prototype.slice.call(byteCharacters).map(char => char.charCodeAt(0));
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: "image/png" });
+  
+    // Use downloadjs library to trigger the download
+    download(blob, "generated_image.png");
+  };
+  
 
   const handleOverlayClick = (event) => {
     if (event.target.classList.contains("bg-black")) {
@@ -31,11 +58,37 @@ const Dalle4 = ({ setShowImgAi }) => {
     }
   };
 
+  class TImages {
+    static decodeJsonToFile(path) {
+      let listDecodedImage = this.extractImageMeta();
+      let result = new Array(listDecodedImage.length);
+
+      for (let i = 0; i < listDecodedImage.length; i++) {
+        let decodedImage = listDecodedImage[i];
+        result[i] = path + decodedImage.fileName;
+        this.decodeToFile(decodedImage.b64Json, path + decodedImage.fileName);
+      }
+
+      return result;
+    }
+
+    static extractImageMeta() {
+      // You'll need to implement this function or provide its behavior
+      return [];
+    }
+
+    static decodeToFile(b64Json, fileName) {
+      // You'll need to implement this function or provide its behavior
+    }
+  }
+
+  // Usage
+  let imagesArray = TImages.decodeJsonToFile("/path/to/directory/");
+
   return (
     <div
       onClick={handleOverlayClick}
       className="fixed z-50 inset-0 flex justify-center items-center bg-black bg-opacity-90"
-      
     >
       <div className="flex flex-col items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white shadow-xl rounded-xl">
         {" "}
@@ -66,9 +119,9 @@ const Dalle4 = ({ setShowImgAi }) => {
         {!loading && image.length > 0 && (
           <div className="mb-4">
             <img
-              src={image[0].url}
+              src={`data:image/png;base64,${image}`}
               alt={`generated img`}
-              className="mb-4 rounded shadow-md" // Added shadow and rounded corners
+              className="mb-4 rounded shadow-md"
             />
             <button
               className="w-full py-3 font-semibold text-white bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none" // Same enhanced button style

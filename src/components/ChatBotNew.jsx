@@ -4,7 +4,7 @@ import { animated, useSpring } from "@react-spring/web";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MyContext } from "../context/myContext";
-import { TOKEN_KEY, URL, doApiMethod } from "../services/apiService";
+import { TOKEN_KEY, doApiMethod } from "../services/apiService";
 const ChatBotNew = () => {
   const [showChat, setShowChat] = useState(false);
   const { userData } = useContext(MyContext);
@@ -22,8 +22,12 @@ const ChatBotNew = () => {
   const getMessages = async () => {
     try {
       setLoading(true);
-      const url = URL + "/openai/completions";
+      // const url = URL + "/openai/completions";
+      console.log("shalom 1 ");
+      const url = "https://vibes-server-new.onrender.com/openai/completions";
+      // const url = "http://localhost:3008/openai/completions";
       const data = await doApiMethod(url, "POST", { message: value });
+      console.log("shalom 2 ");
       // console.log(data);
       setMessages((prevMessages) => [
         ...prevMessages,
