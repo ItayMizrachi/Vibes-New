@@ -86,7 +86,7 @@ const UsersList = () => {
           <input
             className="block w-auto pl-12 pr-4 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100" // Enhanced input style
             type="text"
-            placeholder="Search posts"
+            placeholder="Search users"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
