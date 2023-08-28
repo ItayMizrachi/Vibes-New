@@ -33,8 +33,9 @@ const ChatBotNew = () => {
         options.data,
         { headers: options.headers }
       );
+      console.log(response);
       const data = response.data;
-      // console.log(data);
+      console.log(data);
       setMessages((prevMessages) => [
         ...prevMessages,
         { role: "user", content: value },
@@ -46,7 +47,7 @@ const ChatBotNew = () => {
       setValue("");
       setLoading(false);
     } catch (error) {
-      console.error(error);
+      console.log(error);
       setLoading(false);
     }
   };
