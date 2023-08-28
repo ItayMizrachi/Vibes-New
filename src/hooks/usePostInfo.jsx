@@ -38,6 +38,7 @@ export const usePostInfo = () => {
   // );
 
   const [postsInfo, setPostsInfo] = useState([]);
+  const [ isPostLoading, setIsPostLoading] = useState(false);
   const [page, setPage] = useState(1);
 
   // Increment the page whenever the threshold is reached
@@ -56,10 +57,12 @@ export const usePostInfo = () => {
   useEffect(() => {
    const fetchPosts = async () => {
       try {
+        setIsPostLoading(true)
         const url = URL + "/userPosts/allposts?page=" + page;
         const resp = await fetch(url);
         const arr = await resp.json();
         setPostsInfo((prevPosts) => [...prevPosts, ...arr]);
+        setIsPostLoading(false)
       } catch (error) {
         console.log(error);
       }
@@ -96,5 +99,5 @@ export const usePostInfo = () => {
     setPostsInfo((prevPosts) => [newPost, ...prevPosts]);
   };
   
-  return { deletePost, postsInfo, setPostsInfo, Intersector , addNewPost};
+  return { deletePost, postsInfo, setPostsInfo, Intersector , addNewPost, isPostLoading};
 };

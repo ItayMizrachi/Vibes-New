@@ -3,8 +3,9 @@ import { MyContext } from "../../context/myContext";
 import Post from "./Post";
 
 const Posts = () => {
-    const {postsInfo, setPostsInfo,Intersector} = useContext(MyContext);
- 
+  const { postsInfo, setPostsInfo, Intersector, isPostLoading } =
+    useContext(MyContext);
+
   return (
     <div>
       {postsInfo.map((post) => (
@@ -23,6 +24,16 @@ const Posts = () => {
           date_created={post.date_created}
         />
       ))}
+      {isPostLoading && (
+        <div className="w-20 h-20 mx-auto mt-10">
+          <img
+            className="object-contain w-full h-full
+            animate-spin"
+            src="/images/vibes-logo-responsive.png"
+            alt={`vibes logo`}
+          />
+        </div>
+      )}
       <Intersector />
     </div>
   );
