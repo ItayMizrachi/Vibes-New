@@ -99,6 +99,36 @@ const About = () => {
                 <p className="text-lg text-gray-600">{card.description}</p>
               </div>
             ))}
+
+            <div className="text-center mt-8">
+              <h3 className="text-3xl font-bold mb-4">Exclusive Features</h3>
+              <p className="text-lg text-gray-600 mb-4">
+                In addition to our social features, we've equipped Vibes with
+                unique tools, powered by OpenAI, to enhance your
+                experience:
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-gray-100 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+                  <h4 className="text-2xl font-semibold mb-4">Chatbot</h4>
+                  <p>
+                    Our advanced chatbot is available round the clock to assist
+                    you, answer your queries, and provide a seamless experience.
+                  </p>
+                </div>
+
+                <div className="bg-gray-100 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+                  <h4 className="text-2xl font-semibold mb-4">
+                    Image Generator
+                  </h4>
+                  <p>
+                    Ever imagined a picture but couldn't find it? Our image
+                    generator can create any image from your imagination.
+                    Describe it, and we'll bring it to life.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
