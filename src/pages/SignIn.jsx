@@ -76,7 +76,7 @@ const SignIn = () => {
                 </div>
                 <input
                   {...register("user_name", { required: true, minLength: 2 })}
-                  className="block dark:bg-slate-800 w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block dark:bg-slate-800 dark:border-slate-700 w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   type="text"
                   placeholder="username"
                   required
@@ -98,7 +98,7 @@ const SignIn = () => {
                 </div>
                 <input
                   {...register("password", { required: true, minLength: 6 })}
-                  className="block dark:bg-slate-800 w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block dark:bg-slate-800 dark:border-slate-700 w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   type="password"
                   placeholder="password"
                   required
