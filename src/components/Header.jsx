@@ -156,16 +156,26 @@ const Header = () => {
           <Link to="/">
             <HomeIcon className="navBtn " />
           </Link>
-          <button onClick={toggleDarkMode}>
-            {darkMode ? (
-              <SunIcon className="navBtn " />
-            ) : (
-              <MoonIcon className="navBtn " />
-            )}
-          </button>
           <Link to="about">
             <InformationCircleIcon className="navBtn " />
           </Link>
+          {!localStorage[TOKEN_KEY] ? (
+            <button onClick={toggleDarkMode}>
+              {darkMode ? (
+                <SunIcon className="h-6 transition-all duration-150 ease-out cursor-pointer  hover:scale-125" />
+              ) : (
+                <MoonIcon className="h-6 transition-all duration-150 ease-out cursor-pointer hover:scale-125 " />
+              )}
+            </button>
+          ) : (
+            <button onClick={toggleDarkMode}>
+              {darkMode ? (
+                <SunIcon className="navBtn" />
+              ) : (
+                <MoonIcon className="navBtn " />
+              )}
+            </button>
+          )}
 
           {/* <MenuIcon className="w-10 h-6 cursor-pointer md:hidden" /> */}
 
