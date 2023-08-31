@@ -49,7 +49,7 @@ const SearchChat = ({ startNewChat, user_id, setShowSearch }) => {
           backgroundColor: darkMode && "#0f172a",
           color: darkMode && "rgb(229 231 235 / var(--tw-text-opacity))",
           lineColor: darkMode && "#1e293b",
-          border: darkMode ? "#475569 solid 1px" : "#e5e7eb solid 1px",
+          border: darkMode ? "#334155 solid 1px" : "#e5e7eb solid 1px",
           hoverBackgroundColor: "#1e293b",
           placeholderColor: "#1e293",
           outline: "rgb(229 231 235 / var(--tw-text-opacity))",
