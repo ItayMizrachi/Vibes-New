@@ -212,7 +212,9 @@ const Chat = () => {
                     <div
                       key={item._id}
                       className={` chatRow ${
-                        item._id === activeChatId ? "bg-[#f1eded] dark:bg-slate-600" : ""
+                        item._id === activeChatId
+                          ? "bg-[#f1eded] dark:bg-slate-600"
+                          : ""
                       }`}
                       onClick={() => doApiMesssages(item._id)} // Call doApiMessages with the chat ID when clicked
                     >
@@ -363,41 +365,45 @@ const Chat = () => {
           </div>
 
           {/* chat input */}
-          <div className="text-sm bg-[#f1eded] rounded-lg dark:bg-slate-700 chat">
-         <div className="flex p-5 ">
-           <input
-             className="flex-1  lg:hidden md:hidden bg-transparent border-none outline-none focus:ring-transparent disabled:cursor-not-allowed disabled:text-gray-300 "
-             type="text"
-             placeholder="Type a message"
-             value={messageInput}
-             onChange={(e) => setMessageInput(e.target.value)}
-             onKeyDown={onKeyboardClick}
-             disabled={!activeChatId} // Disable the input if there's no active chat
-           />
+          <div className="text-sm bg-gray-100 rounded-lg dark:bg-slate-700 chat">
+    <div className="flex flex-col p-3 md:flex-row md:space-x-4 space-y-2 md:space-y-0">
+        {/* Mobile Input */}
+        <input
+            className="w-full md:hidden bg-transparent border-none outline-none focus:ring-transparent disabled:cursor-not-allowed disabled:text-gray-300"
+            type="text"
+            placeholder="Type a message"
+            value={messageInput}
+            onChange={(e) => setMessageInput(e.target.value)}
+            onKeyDown={onKeyboardClick}
+            disabled={!activeChatId}
+        />
 
-           <div className="search-cont send-message w-full hidden md:inline-flex">
-             <InputEmojiWithRef
-               className="flex-1 chatbox bg-transparent border-none outline-none focus:ring-transparent disabled:cursor-not-allowed disabled:text-gray-300 "
-               type="text"
-               disabled={!activeChatId} // Disable the input if there's no active chat
-               value={text}
-               onChange={setText}
-               cleanOnEnter
-               onEnter={onSendMessage}
-               placeholder="Type a message"
-             />
-           </div>
+        {/* Desktop Input with Emoji */}
+        <div className="hidden w-full md:flex">
+            <InputEmojiWithRef
+                className="w-full bg-transparent border-none outline-none focus:ring-transparent disabled:cursor-not-allowed disabled:text-gray-300"
+                type="text"
+                disabled={!activeChatId}
+                value={text}
+                onChange={setText}
+                cleanOnEnter
+                onEnter={onSendMessage}
+                placeholder="Type a message"
+            />
+        </div>
 
-           <button
-             className="px-4 py-2 font-bold text-white bg-indigo-500 rounded hover:bg-indigo-600 disabled:bg-blue-300 disabled:cursor-not-allowed "
-             type="submit"
-             onClick={onSendMessage}
-             disabled={!activeChatId} // Disable the button if there's no active chat
-           >
-             <PaperAirplaneIcon className="w-4 h-4 rotate-45" />
-           </button>
-         </div>
-          </div>
+        {/* Send Button */}
+        <button
+            className="w-full hidden  md:w-auto md:flex items-center justify-center px-3 py-2 font-bold text-white bg-indigo-500 rounded hover:bg-indigo-600 disabled:bg-blue-300 disabled:cursor-not-allowed"
+            type="submit"
+            onClick={onSendMessage}
+            disabled={!activeChatId}
+        >
+            <PaperAirplaneIcon className="w-4 h-4 transform rotate-45" />
+        </button>
+    </div>
+</div>
+
         </div>
       </div>
     </div>

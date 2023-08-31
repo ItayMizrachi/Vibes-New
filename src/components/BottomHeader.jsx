@@ -46,7 +46,9 @@ const BottomHeader = () => {
     <header
       className={`${
         location.pathname.includes("chat") ? "sticky" : "fixed"
-      } bottom-0 p-5 left-0 right-0 z-10  bg-white dark:bg-slate-900 dark:border-slate-700 border-t shadow-s  lg:hidden md:hidden`}
+      } ${
+        location.pathname.includes("single") ? "sticky mt-[200px]" : "fixed"
+      } bottom-0 p-5 left-0 right-0 z-10   bg-white dark:bg-slate-900 dark:border-slate-700 border-t shadow-s  lg:hidden md:hidden`}
     >
       {showNoftlications && (
         <Noftlications
