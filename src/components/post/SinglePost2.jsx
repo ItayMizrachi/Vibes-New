@@ -23,7 +23,7 @@ const SinglePost2 = () => {
   };
 
   return (
-    <div className="max-w-[800px] mx-auto mt-12">
+    <div className="h-screen max-w-[800px] mx-auto mt-12 mb-12">
       {post.likes && (
         <Post
           _id={post._id}

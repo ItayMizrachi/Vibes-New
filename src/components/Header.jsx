@@ -76,8 +76,8 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-10 md:px-6 border-b shadow-s px-3 bg-white dark:border-slate-800 dark:bg-slate-900">
-      <div className="flex justify-between max-w-6xl mx-auto">
+    <header className="sticky top-0 z-10 md:px-6 p-5 lg:p-0  border-b shadow-s px-3 bg-white dark:border-slate-800 dark:bg-slate-900 ">
+      <div className="flex justify-between w-full mx-auto md:max-w-7xl px-2 md:px-0">
         {showNoftlications && (
           <Noftlications
             setIsRead={setIsRead}
@@ -148,9 +148,10 @@ const Header = () => {
         </div>
 
         {/* middle - Search input field */}
-        <div className="max-w-xs  items-center flex p-5 lg:p-0">
+        <div className="max-w-xs hidden  items-center md:flex ">
           <Search />
         </div>
+
         {/* right */}
         <div className="flex items-center justify-end space-x-2 md:space-x-4">
           <Link to="/">
@@ -223,7 +224,7 @@ const Header = () => {
               <div className="md:hidden">
                 <Menu as="div" className="relative inline-block text-left">
                   <div>
-                    <Menu.Button className="w-10 h-10 align-middle ">
+                    <Menu.Button className="w-10 h-10 align-middle">
                       <img
                         src={userData?.profilePic}
                         alt="profile pic"
@@ -244,9 +245,16 @@ const Header = () => {
                       <div className="px-4 py-2">
                         <Menu.Item>
                           {({ active }) => (
+                          
+                              <Search className="" />
+                          
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
                             <Link
                               to={userData.user_name}
-                              className={`${
+                              className={`mt-1 ${
                                 active
                                   ? "bg-gray-100 dark:bg-slate-700 "
                                   : "dark:text-gray-200"

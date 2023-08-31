@@ -46,11 +46,11 @@ const SearchChat = ({ startNewChat, user_id, setShowSearch }) => {
         resultStringKeyName="user_name"
         inputDebounce={200} // Set debounce time
         styling={{
-          backgroundColor: darkMode && "#0f172a",
+          backgroundColor: darkMode ? "#0f172a" : "#fff",
           color: darkMode && "rgb(229 231 235 / var(--tw-text-opacity))",
           lineColor: darkMode && "#1e293b",
           border: darkMode ? "#334155 solid 1px" : "#e5e7eb solid 1px",
-          hoverBackgroundColor: "#1e293b",
+          hoverBackgroundColor: darkMode ? "#1e293b": "#e5e7eb",
           placeholderColor: "#1e293",
           outline: "rgb(229 231 235 / var(--tw-text-opacity))",
         }}
