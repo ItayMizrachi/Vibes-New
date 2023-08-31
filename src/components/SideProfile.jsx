@@ -12,7 +12,7 @@ const SideProfile = () => {
           <img
             src={userData?.profilePic}
             alt="profile pic"
-            className="rounded-full border p-[1px] w-16 h-16 hover:border-gray-400 transition duration-200" // Reduced padding and added hover effect
+            className="rounded-full border p-[1px] w-16 h-16 hover:border-gray-400 dark:hover:border-slate-600 dark:border-slate-700 transition duration-200" // Reduced padding and added hover effect
           />
         </Link>
 

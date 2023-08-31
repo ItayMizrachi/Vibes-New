@@ -34,7 +34,7 @@ const Recommanded = () => {
   return (
     <div className="mt-4 ml-10 min-w-[400px]">
       <div className="flex justify-between mb-5">
-        <h3 className="text-lg font-semibold text-gray-600">
+        <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-400">
           Suggestions For You
         </h3>
         {/* If you want to use the See All button later, you can uncomment it */}
@@ -51,7 +51,7 @@ const Recommanded = () => {
               <img
                 src={profile?.profilePic}
                 alt="profilepic"
-                className="object-cover w-full h-full rounded-full border p-[1px] hover:border-gray-400 transition duration-200" // Reduced padding and added hover effect
+                className="object-cover w-full h-full rounded-full border p-[1px] dark:hover:border-slate-600 dark:border-slate-700 hover:border-gray-400 transition duration-200" // Reduced padding and added hover effect
               />{" "}
             </Link>
           </div>

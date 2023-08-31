@@ -66,8 +66,8 @@ const App = () => {
           toggleDarkMode,
         }}
       >
-        {loading && <LoadingPage />}
         <Router />
+        {loading && <LoadingPage />}
         <ToastContainer theme="colored" />
       </MyContext.Provider>
     </div>
