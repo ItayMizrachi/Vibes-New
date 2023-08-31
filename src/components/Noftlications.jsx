@@ -83,14 +83,14 @@ const Noftlications = ({
     <animated.div style={animation} className="flex fixed right-0 top-0 z-40 ">
       {/* sidebar */}
       <div>
-        <div className="max-2-xs h-[100vh] border-l-2 overflow-x-hidden min-w-[20rem] bg-white custom-scrollbar">
-          <div className="flex flex-col h-[100vh] pt-0 p-2">
+        <div className="max-2-xs h-[100vh] border-l-2 dark:border-slate-600 overflow-x-hidden min-w-[20rem] bg-white dark:bg-slate-800 custom-scrollbar">
+          <div className="flex flex-col h-[100vh] pt-0 p-2 ">
             {/* Title */}
-            <div className="bg-white p-2 fixed w-full pr-3 top-0 z-40">
-              <div className="bg-white ">
+            <div className="bg-white dark:bg-slate-800 p-2 fixed w-full pr-3 top-0 z-40">
+              <div className="bg-white dark:bg-slate-800">
                 <div
                   onClick={close}
-                  className="border-b-2 border-gray-200 chatRow flex justify-between"
+                  className="border-b-2 border-gray-200 dark:border-slate-600 chatRow flex justify-between dark:bg-slate-800"
                 >
                   <h3 className="text-lg font-semibold">Notifications</h3>
                   <ArrowRightIcon className="w-5 h-5" />

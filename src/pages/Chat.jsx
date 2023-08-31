@@ -183,7 +183,7 @@ const Chat = () => {
   return (
     <div className="flex">
       {/* sidebar */}
-      <div className=" scrollbar-thin scrollbar-thumb-black h-[87vh] md:h-[91vh] border-r-2 overflow-y-auto min-w-[4rem] md:min-w-[20rem]">
+      <div className=" scrollbar-thin scrollbar-thumb-black h-[87vh] md:h-[91vh] border-r-2 dark:border-slate-700 overflow-y-auto min-w-[4rem] md:min-w-[20rem]">
         <div className="flex flex-col  h-[87vh] md:h-[91vh] p-2">
           <div className="flex-1">
             {loading && <LoadingPage />}
@@ -212,7 +212,7 @@ const Chat = () => {
                     <div
                       key={item._id}
                       className={` chatRow ${
-                        item._id === activeChatId ? "bg-[#f1eded]" : ""
+                        item._id === activeChatId ? "bg-[#f1eded] dark:bg-slate-600" : ""
                       }`}
                       onClick={() => doApiMesssages(item._id)} // Call doApiMessages with the chat ID when clicked
                     >
@@ -261,11 +261,10 @@ const Chat = () => {
       </div>
 
       <div className="flex-1">
-        {/* chatbot messages */}
         <div className="flex flex-col h-[87vh] md:h-[91vh] overflow-clip">
           {/* messages */}
           {otherParticipant && (
-            <div className="flex items-center border-b p-2 py-4 sticky top-0 bg-white">
+            <div className="flex items-center border-b p-2 py-4 sticky top-0 bg-white dark:bg-slate-900 dark:border-slate-700">
               {/* <ArrowLeftIcon className="w-5 h-5 ml-1 cursor-pointer btn"/> */}
               <Link to={"/" + otherParticipant.user_name}>
                 <img
@@ -332,7 +331,7 @@ const Chat = () => {
                       className={`${
                         message?.sender?._id === userData._id
                           ? "bg-indigo-500  hover:bg-indigo-600 p-3 text-white rounded-l-lg rounded-br-lg"
-                          : "bg-[#f1eded] hover:bg-[#ebe5e5] p-3 rounded-r-lg rounded-bl-lg"
+                          : "bg-[#f1eded] dark:bg-slate-600 dark:hover:bg-slate-700 hover:bg-[#ebe5e5] p-3 rounded-r-lg rounded-bl-lg"
                       } ml-2`}
                     >
                       <p className="text-sm">{message?.content}</p>
@@ -364,7 +363,7 @@ const Chat = () => {
           </div>
 
           {/* chat input */}
-          <div className="text-sm bg-[#f1eded] rounded-lg">
+          <div className="text-sm bg-[#f1eded] rounded-lg dark:bg-slate-700 chat">
             <div className="flex p-5 space-x-5">
               <input
                 className="flex-1  lg:hidden md:hidden bg-transparent border-none outline-none focus:ring-transparent disabled:cursor-not-allowed disabled:text-gray-300 "

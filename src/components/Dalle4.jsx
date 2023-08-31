@@ -84,7 +84,7 @@ const Dalle4 = ({ setShowImgAi }) => {
       onClick={handleOverlayClick}
       className="fixed z-50 inset-0 flex justify-center items-center bg-black bg-opacity-90"
     >
-      <div className="flex flex-col items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white shadow-xl rounded-xl">
+      <div className="flex flex-col dark:bg-slate-900 items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white shadow-xl rounded-xl">
         {" "}
         <h1 className="text-center font-bold text-2xl mb-6">
           Vibes AI Image Generator
@@ -94,7 +94,7 @@ const Dalle4 = ({ setShowImgAi }) => {
             <CameraIcon className="w-5 h-5 text-gray-500" />
           </div>
           <input
-            className="block w-full pl-12 pr-4 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-100" // Enhanced input
+            className="block w-full pl-12 pr-4 py-2 border dark:bg-slate-900 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-100" // Enhanced input
             type="text"
             name="input"
             placeholder="type your prompt here..."
@@ -119,7 +119,7 @@ const Dalle4 = ({ setShowImgAi }) => {
               className="mb-4 rounded shadow-md"
             />
             <button
-              className="w-full py-3 font-semibold text-white bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none" // Same enhanced button style
+              className="w-full py-3 font-semibold bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none" // Same enhanced button style
               onClick={downloadImg}
             >
               Download Image

@@ -5,19 +5,19 @@ const About = () => {
     <div className=" min-h-screen">
       <div className="container px-4 py-12 mx-auto">
         <div className="flex justify-center">
-          <div className="p-8 bg-white border rounded-lg shadow-xl lg:w-8/12 ">
+          <div className="p-8  border dark:border-slate-700 rounded-lg shadow-xl lg:w-8/12 ">
             <div className="text-center mb-8">
-              <h2 className="mb-6 text-4xl font-bold text-gray-800">
+              <h2 className="mb-6 text-4xl font-bold ">
                 Welcome to Vibes!
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl ">
                 Vibes is a social media platform where you can share your
                 favorite moments, memories, and experiences with your family,
                 friends, and the world.
               </p>
             </div>
 
-            <div className="flex justify-around items-center border-t border-b py-8 space-x-4">
+            <div className="flex justify-around items-center dark:border-slate-700 border-t border-b py-8 space-x-4">
               {[
                 {
                   name: "Itay Mizrachi",
@@ -46,7 +46,7 @@ const About = () => {
                       href={profile.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline"
+                      className="text-indigo-500 hover:underline"
                     >
                       GitHub
                     </a>{" "}
@@ -55,7 +55,7 @@ const About = () => {
                       href={profile.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline"
+                      className="text-indigo-500 hover:underline"
                     >
                       LinkedIn
                     </a>
@@ -65,7 +65,7 @@ const About = () => {
             </div>
 
             <div className="text-center mt-8">
-              <p className="text-lg text-gray-600">
+              <p className="text-lg ">
                 We've utilized the power of tools and technologies such as
                 Node.js, React, MongoDB, TailwindCSS, WebSockets, OpenAI API,
                 Cloudinary, and more to bring you "Vibes". Our platform offers
@@ -92,13 +92,43 @@ const About = () => {
               },
             ].map((card) => (
               <div
-                className="mt-6 p-4 bg-gray-100 rounded-lg shadow hover:shadow-xl transition-shadow duration-300"
+                className="mt-6 p-4 bg-gray-100 dark:bg-slate-800  rounded-lg shadow hover:shadow-xl transition-shadow duration-300"
                 key={card.title}
               >
                 <h5 className="text-2xl font-bold mb-4">{card.title}</h5>
-                <p className="text-lg text-gray-600">{card.description}</p>
+                <p className="text-lg text-gray-600 dark:text-gray-300">{card.description}</p>
               </div>
             ))}
+
+            <div className="text-center mt-8">
+              <h3 className="text-3xl font-bold mb-4">Exclusive Features</h3>
+              <p className="text-lg text-gray-600 dark:text-gray-100 mb-4">
+                In addition to our social features, we've equipped Vibes with
+                unique tools, powered by OpenAI, to enhance your
+                experience:
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
+                <div className="bg-gray-100 dark:bg-slate-800  p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+                  <h4 className="text-2xl font-semibold mb-4">Chatbot</h4>
+                  <p>
+                    Our advanced chatbot is available round the clock to assist
+                    you, answer your queries, and provide a seamless experience.
+                  </p>
+                </div>
+
+                <div className="bg-gray-100 dark:bg-slate-800  p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+                  <h4 className="text-2xl font-semibold mb-4">
+                    Image Generator
+                  </h4>
+                  <p>
+                    Ever imagined a picture but couldn't find it? Our image
+                    generator can create any image from your imagination.
+                    Describe it, and we'll bring it to life.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

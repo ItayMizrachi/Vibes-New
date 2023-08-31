@@ -88,12 +88,17 @@ const ChatBotNew = () => {
         >
           <button
             onClick={() => setShowChat(!showChat)}
-            className="md:w-14 md:h-14 w-11 h-11 cursor-pointer border-2 border-gray-200 bg-white p-1 rounded-md shadow-lg hover:shadow-xl hover:border-indigo-100 transition-all duration-300"
+            className="md:w-14 md:h-14 w-11 h-11 cursor-pointer border-2 border-gray-200 bg-white dark:bg-slate-800 dark:border-slate-700 p-1 rounded-md shadow-lg hover:shadow-xl hover:border-indigo-100 transition-all duration-300"
             aria-label="Open chat"
           >
             <img
-              className="w-full h-full rounded-full object-cover transform hover:scale-105 transition-transform duration-300"
+              className="w-full h-full rounded-full object-cover transform hover:scale-105 transition-transform duration-300 dark:hidden"
               src="/images/vibes-logo-responsive.png"
+              alt="vibes logo"
+            />
+              <img
+              className="w-full h-full rounded-full object-cover transform hover:scale-105 transition-transform duration-300 hidden dark:block"
+              src="/images/dark-responsive-logo.png"
               alt="vibes logo"
             />
           </button>
@@ -103,7 +108,7 @@ const ChatBotNew = () => {
       {showChat && (
         <animated.div
         style={chatWindowSpring}
-          className={`fixed md:bottom-3 bottom-20 right-3 bg-white border rounded-lg shadow-lg h-[400px] w-[360px] md:w-[400px] md:h-[500px] z-10  ${
+          className={`fixed md:bottom-3 bottom-20 right-3  bg-white dark:border-slate-700 dark:bg-slate-900 border rounded-lg shadow-lg h-[400px] w-[360px] md:w-[400px] md:h-[500px] z-10  ${
             location.pathname.includes("chat") && "hidden"
           } `}
         >
@@ -111,12 +116,17 @@ const ChatBotNew = () => {
             <div className="flex-1">
               <div className="flex flex-col md:h-[500px] h-[400px] overflow-clip">
                 {/* chat header */}
-                <div className="flex items-center border-b rounded-lg p-2 px-3 py-4 sticky top-0 z-10 bg-white">
+                <div className="flex items-center border-b dark:border-slate-700 rounded-lg p-2 px-3 py-4 sticky top-0 z-10 dark:bg-slate-900 bg-white">
                   {/* <ArrowLeftIcon className="w-5 h-5 ml-1 cursor-pointer btn"/> */}
                   <div className="flex-shrink-0 w-10 mr-1">
                     <img
-                      className={`object-contain w-full h-full ${loading && "animate-spin"}`}
+                      className={`object-contain dark:hidden w-full h-full ${loading && "animate-spin"}`}
                       src="/images/vibes-logo-responsive.png"
+                      alt={`vibes logo`}
+                    />
+                     <img
+                      className={`object-contain hidden dark:block w-full h-full ${loading && "animate-spin"}`}
+                      src="/images/dark-responsive-logo.png"
                       alt={`vibes logo`}
                     />
                   </div>
@@ -147,8 +157,13 @@ const ChatBotNew = () => {
                         {message.role === "assistant" && (
                           <div className="w-10 h-10">
                             <img
-                              className="object-cover w-full h-full rounded-full mr-2"
+                              className="object-cover w-full h-full rounded-full mr-2 dark:hidden"
                               src="/images/vibes-logo-responsive.png"
+                              alt={`vibes logo`}
+                            />
+                            <img
+                              className="object-cover w-full h-full rounded-full mr-2 dark:block hidden"
+                              src="/images/dark-responsive-logo.png"
                               alt={`vibes logo`}
                             />
                           </div>
@@ -163,7 +178,7 @@ const ChatBotNew = () => {
                             className={`${
                               message.role !== "assistant"
                                 ? "bg-indigo-500 hover:bg-indigo-600 p-3 text-white rounded-l-lg rounded-br-lg"
-                                : "bg-[#f1eded] hover:bg-[#ebe5e5]  p-3 rounded-r-lg rounded-bl-lg"
+                                : "bg-[#f1eded] dark:bg-slate-600 dark:hover:bg-slate-700 hover:bg-[#ebe5e5]  p-3 rounded-r-lg rounded-bl-lg"
                             } ml-2`}
                           >
                             <p className="text-sm start">{message.content}</p>
@@ -190,7 +205,7 @@ const ChatBotNew = () => {
 
                 <div className="flex p-5 space-x-1">
                   <input
-                    className="flex-1 border rounded-lg p-2 outline-none disabled:cursor-not-allowed disabled:text-gray-300 "
+                    className="flex-1 border rounded-lg p-2 outline-none disabled:cursor-not-allowed disabled:text-gray-300 dark:bg-slate-900 focus:ring-indigo-500 focus:border-indigo-500"
                     type="text"
                     placeholder="Ask me a question.."
                     disabled={!localStorage[TOKEN_KEY]}
@@ -199,7 +214,7 @@ const ChatBotNew = () => {
                     onKeyDown={onKeyboardClick}
                   />
                   <button
-                    className="px-4 py-2 font-bold text-white transition duration-200 bg-indigo-500 rounded hover:bg-indigo-600 disabled:bg-indigo-300 disabled:cursor-not-allowed "
+                    className="px-4 py-2 font-bold text-white transition duration-200 bg-indigo-500 rounded hover:bg-indigo-600 disabled:bg-indigo-300 disabled:cursor-not-allowed dark:disabled:bg-indigo-400 "
                     disabled={
                       !localStorage[TOKEN_KEY] || loading || value == ""
                     }

@@ -46,16 +46,16 @@ const EditRegUser = ({ setShowEditUser }) => {
     if (event.target.classList.contains("bg-black")) {
       setShowEditUser(false);
     }
-  };
-
+  }; 
+  
   return (
     <div
       onClick={handleOverlayClick}
       className="fixed inset-0 flex z-50 justify-center items-center bg-black bg-opacity-90"
     >
-      <div className="flex flex-col items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white shadow-xl rounded-xl">
-        <div className="w-full bg-white">
-          <div className="flex justify-between items-center border-b pb-3 mb-4">
+      <div className="flex flex-col items-center dark:bg-slate-900 justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white shadow-xl rounded-xl">
+        <div className="w-full bg-white dark:bg-slate-900">
+          <div className="flex justify-between items-center border-b dark:border-slate-700 pb-3 mb-4">
             <h2 className="text-xl font-bold">Edit User</h2>
             <XIcon
               onClick={() => setShowEditUser(false)}
@@ -72,7 +72,7 @@ const EditRegUser = ({ setShowEditUser }) => {
                   <UserIcon className="w-5 h-5 text-gray-500" />
                 </div>
                 <input
-                  className="block w-full pl-12 pr-4 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block w-full pl-12 pr-4 py-2 border dark:bg-slate-900 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   type="text"
                   placeholder={userData.name}
                   {...register("name", { required: true, minLength: 2 })}
@@ -92,7 +92,7 @@ const EditRegUser = ({ setShowEditUser }) => {
                   <UserIcon className="w-5 h-5 text-gray-500" />
                 </div>
                 <select
-                  className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block w-full pl-12 p-2 border rounded-md dark:bg-slate-900 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   {...register("gender", { required: true })}
                 >
                   <option value="">Select gender</option>
@@ -115,7 +115,7 @@ const EditRegUser = ({ setShowEditUser }) => {
                   <PencilIcon className="w-5 h-5 text-gray-500" />
                 </div>
                 <textarea
-                  className="block w-full pl-12 pr-4 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block w-full pl-12 pr-4 py-2 border dark:bg-slate-900 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   rows="3"
                   placeholder={userData.desc}
                   {...register("desc", { required: true, minLength: 6 })}

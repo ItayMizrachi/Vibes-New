@@ -191,7 +191,7 @@ const Profile = () => {
             <div className="md:col-span-3 space-y-4">
               {/* User Info and Action Buttons */}
               <div className="flex items-center justify-between space-x-4">
-                <span className="text-2xl font-semibold text-gray-700">
+                <span className="text-2xl font-semibold text-gray-700 dark:text-gray-200">
                   {userInfo.user_name}
                 </span>
 
@@ -244,7 +244,7 @@ const Profile = () => {
                     <span className="text-xl font-semibold">
                       {postsInfo.length}
                     </span>
-                    <span className=" hover:text-gray-600 transition-colors duration-200">
+                    <span className=" hover:text-gray-600 dark:hover:text-gray-400 transition-colors duration-200">
                       Posts
                     </span>
                   </div>
@@ -255,7 +255,7 @@ const Profile = () => {
                     <span className="text-xl font-semibold">
                       {userInfo.followers?.length}
                     </span>
-                    <span className=" hover:text-gray-600 transition-colors duration-200">
+                    <span className=" hover:text-gray-600 dark:hover:text-gray-400 transition-colors duration-200">
                       Followers
                     </span>
                   </div>
@@ -267,7 +267,7 @@ const Profile = () => {
                     <span className="text-xl font-semibold">
                       {userInfo.followings?.length}
                     </span>
-                    <span className=" hover:text-gray-600 transition-colors duration-200">
+                    <span className=" hover:text-gray-600 dark:hover:text-gray-400 transition-colors duration-200">
                       Following
                     </span>
                   </div>
@@ -275,7 +275,7 @@ const Profile = () => {
 
                 {/* User's Name and Description */}
                 <div>
-                  <h2 className="text-lg md:text-xl font-semibold text-gray-700">
+                  <h2 className="text-lg md:text-xl font-semibold text-gray-700 dark:text-gray-200">
                     {userInfo.name}
                   </h2>
                   <p className="text-base text-indigo-400 mt-1">
@@ -287,7 +287,7 @@ const Profile = () => {
           </div>
 
           {/* Buttons */}
-          <hr className="my-6 border-t border-gray-200" />
+          <hr className="my-6 border-t dark:border-slate-700 border-gray-200" />
 
           {/* Tabs for Posts, Liked, Saved, Gallery */}
           <div className="flex justify-center gap-4 pb-2">

@@ -6,7 +6,7 @@ const SideProfile = () => {
   const { userSignOut, userData } = useContext(MyContext);
 
   return (
-    <div className="ml-10 mt-14 bg-white p-4 border rounded-lg shadow-sm hover:shadow-md transition duration-100">
+    <div className="ml-10 mt-14 dark:bg-slate-800  p-4 dark:border-none border rounded-lg shadow-sm hover:shadow-md transition duration-100">
       <div className="flex items-center justify-between">
         <Link to={userData.user_name}>
           <img
@@ -18,11 +18,11 @@ const SideProfile = () => {
 
         <div className="flex-1 ml-4">
           <Link to={userData.user_name}>
-            <h2 className="font-bold hover:text-gray-800 transition duration-200">
+            <h2 className="font-bold hover:text-gray-800 dark:hover:text-gray-400 transition duration-200">
               {userData.user_name}
             </h2>{" "}
           </Link>
-          <h3 className="text-sm text-gray-500">{userData.name}</h3>{" "}
+          <h3 className="text-sm text-gray-500 dark:text-gray-300">{userData.name}</h3>{" "}
           {/* Darkened text */}
         </div>
 
