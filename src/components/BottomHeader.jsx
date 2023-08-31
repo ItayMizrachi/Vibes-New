@@ -2,9 +2,7 @@ import {
   BellIcon,
   CameraIcon,
   ChatIcon,
-  MoonIcon,
   PlusCircleIcon,
-  SunIcon,
 } from "@heroicons/react/outline";
 import { HomeIcon } from "@heroicons/react/solid";
 import React, { useContext, useEffect, useState } from "react";
@@ -16,7 +14,7 @@ import Noftlications from "./Noftlications";
 import AddPost from "./post/AddPost";
 
 const BottomHeader = () => {
-  const { userData,toggleDarkMode,darkMode } = useContext(MyContext);
+  const { userData } = useContext(MyContext);
   const [showAddPost, setShowAddPost] = useState(false);
   const [showNoftlications, setShowNoftlications] = useState(false);
   const [showImgAi, setShowImgAi] = useState(false);
@@ -45,7 +43,11 @@ const BottomHeader = () => {
   }, [userData]);
 
   return (
-    <header className={`${location.pathname.includes("chat") ? "sticky" : "fixed"} bottom-0 p-5 left-0 right-0 z-10  bg-white dark:bg-slate-900 dark:border-slate-700 border-t shadow-s  lg:hidden md:hidden`}>
+    <header
+      className={`${
+        location.pathname.includes("chat") ? "sticky" : "fixed"
+      } bottom-0 p-5 left-0 right-0 z-10  bg-white dark:bg-slate-900 dark:border-slate-700 border-t shadow-s  lg:hidden md:hidden`}
+    >
       {showNoftlications && (
         <Noftlications
           setIsRead={setIsRead}
@@ -61,13 +63,6 @@ const BottomHeader = () => {
             <Link to="/">
               <HomeIcon className="lowNavBtn" />
             </Link>
-            <button onClick={toggleDarkMode}>
-            {darkMode ? (
-              <SunIcon className="lowNavBtn " />
-            ) : (
-              <MoonIcon className="lowNavBtn " />
-            )}
-          </button>
             <div className="relative lowNavBtn">
               <BellIcon onClick={toggleNoftlications} className="lowNavBtn" />
               {isRead.unreadCount > 0 && (

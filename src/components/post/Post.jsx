@@ -235,13 +235,13 @@ const Post = ({
                   user_id === userData._id ? userData.profilePic : profilePic
                 }
                 alt=""
-                className="object-cover w-full h-full rounded-full border p-[1px] hover:border-gray-400 transition duration-200"
+                className="object-cover w-full h-full rounded-full border p-[1px] hover:border-gray-400 transition duration-200 dark:hover:border-slate-600 dark:border-slate-700"
               />
             </div>
           </Link>
           <Link
             to={"/" + user_name}
-            className="font-semibold text-lg hover:text-gray-600 dark:hover:text-gray-400"
+            className="font-semibold text-lg hover:text-gray-600 dark:hover:text-gray-400 transition duration-200"
           >
             {user_name}
           </Link>

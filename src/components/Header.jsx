@@ -18,7 +18,8 @@ import Dalle4 from "./Dalle4";
 import Noftlications from "./Noftlications";
 import Search from "./Search";
 import AddPost from "./post/AddPost";
-import DarkModeButton from "./DarkModeButton";
+import { Menu, Transition } from "@headlessui/react";
+import { Fragment } from "react";
 
 const Header = () => {
   const {
@@ -87,72 +88,72 @@ const Header = () => {
         {showImgAi && <Dalle4 setShowImgAi={setShowImgAi} />}
         {/* {showImgAi && <ImageAi setShowImgAi={setShowImgAi} />} */}
         {/* left */}
-  {/* Light mode logo for large screens */}
-<div
-  className={`relative w-24 h-24 cursor-pointer ${darkMode ? 'hidden' : 'hidden lg:block'}`}
->
-  <Link to="/">
-    <img
-      src="/images/vibes-logo.png"
-      className="object-contain w-full h-full "
-      alt="logo"
-    />
-  </Link>
-</div>
-{/* Light mode logo for small screens */}
-<div
-  className={`relative flex-shrink-0 w-10 cursor-pointer ${darkMode ? 'hidden' : 'lg:hidden'}`}
->
-  <Link to="/">
-    <img
-      src="/images/vibes-logo-responsive.png"
-      className="object-contain w-full h-full"
-      alt="responsive logo"
-    />
-  </Link>
-</div>
+        {/* Light mode logo for large screens */}
+        <div
+          className={`relative w-24 h-24 cursor-pointer ${
+            darkMode ? "hidden" : "hidden lg:block"
+          }`}
+        >
+          <Link to="/">
+            <img
+              src="/images/vibes-logo.png"
+              className="object-contain w-full h-full "
+              alt="logo"
+            />
+          </Link>
+        </div>
+        {/* Light mode logo for small screens */}
+        <div
+          className={`relative flex-shrink-0 w-10 cursor-pointer ${
+            darkMode ? "hidden" : "lg:hidden"
+          }`}
+        >
+          <Link to="/">
+            <img
+              src="/images/vibes-logo-responsive.png"
+              className="object-contain w-full h-full"
+              alt="responsive logo"
+            />
+          </Link>
+        </div>
 
-{/* Dark mode logo for large screens */}
-<div
-  className={`relative w-24 h-24 cursor-pointer ${darkMode ? 'hidden lg:block' : 'hidden'}`}
->
-  <Link to="/">
-    <img
-      src="/images/dark-logo.png"
-      className="object-contain w-full h-full "
-      alt="logo"
-    />
-  </Link>
-</div>
-{/* Dark mode logo for small screens */}
-<div
-  className={`relative flex-shrink-0 w-10 cursor-pointer ${darkMode ? 'lg:hidden' : 'hidden'}`}
->
-  <Link to="/">
-    <img
-      src="/images/dark-responsive-logo.png"
-      alt="logo"
-      className="object-contain w-full h-full "
-    />
-  </Link>
-</div>
+        {/* Dark mode logo for large screens */}
+        <div
+          className={`relative w-24 h-24 cursor-pointer ${
+            darkMode ? "hidden lg:block" : "hidden"
+          }`}
+        >
+          <Link to="/">
+            <img
+              src="/images/dark-logo.png"
+              className="object-contain w-full h-full "
+              alt="logo"
+            />
+          </Link>
+        </div>
+        {/* Dark mode logo for small screens */}
+        <div
+          className={`relative flex-shrink-0 w-10 cursor-pointer ${
+            darkMode ? "lg:hidden" : "hidden"
+          }`}
+        >
+          <Link to="/">
+            <img
+              src="/images/dark-responsive-logo.png"
+              alt="logo"
+              className="object-contain w-full h-full "
+            />
+          </Link>
+        </div>
 
         {/* middle - Search input field */}
-        <div className="max-w-xs">
-          <div className="relative p-3 mt-1 rounded-md md:mt-4">
-            <div className="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
-              {/* <SearchIcon className="w-5 h-5 text-gray-500" /> */}
-            </div>
+        <div className="max-w-xs  items-center flex p-5 lg:p-0">
             <Search />
-          </div>
         </div>
         {/* right */}
         <div className="flex items-center justify-end space-x-2 md:space-x-4">
           <Link to="/">
             <HomeIcon className="navBtn " />
-          </Link>
-          <Link to="about">
-            <InformationCircleIcon className="navBtn " />
           </Link>
           <button onClick={toggleDarkMode}>
             {darkMode ? (
@@ -161,14 +162,15 @@ const Header = () => {
               <MoonIcon className="navBtn " />
             )}
           </button>
+          <Link to="about">
+            <InformationCircleIcon className="navBtn " />
+          </Link>
+       
           {/* <MenuIcon className="w-10 h-6 cursor-pointer md:hidden" /> */}
 
           {localStorage[TOKEN_KEY] && userData ? (
             <>
-              <div
-                onClick={toggleNoftlications}
-                className="relative navBtn "
-              >
+              <div onClick={toggleNoftlications} className="relative navBtn ">
                 <BellIcon className="navBtn " />
                 {isRead.unreadCount > 0 && (
                   <div className="absolute flex items-center justify-center w-5 h-5 text-xs text-white bg-red-500 dark:bg-red-400 rounded-full -top-1 -right-2 animate-pulse">
@@ -197,19 +199,77 @@ const Header = () => {
                 className="navBtn "
               />
 
-              <LogoutIcon
-                onClick={logout}
-                className="lowNavBtn "
-              />
+              <LogoutIcon onClick={logout} className="navBtn " />
               <Link to={userData.user_name}>
-                <div className="w-10 h-10">
+                <div className="w-10 h-10 hidden md:block">
                   <img
                     src={userData?.profilePic}
                     alt="profile pic"
-                    className="object-cover w-full h-full rounded-full border p-[1px] hover:border-gray-400 transition duration-200"
+                    className="dark:hover:border-slate-600 dark:border-slate-700 object-cover w-full h-full rounded-full border p-[1px] hover:border-gray-400 transition duration-200"
                   />
                 </div>
               </Link>
+              <div className="md:hidden">
+                <Menu as="div" className="relative inline-block text-left">
+                  <div>
+                    <Menu.Button className="w-10 h-10 align-middle ">
+                      <img
+                        src={userData?.profilePic}
+                        alt="profile pic"
+                        className="dark:hover:border-slate-600 dark:border-slate-700 object-cover w-full h-full rounded-full border p-[1px] hover:border-gray-400 transition duration-200"
+                      />
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white dark:bg-slate-800 dark:text-gray-200 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <div className="px-4 py-2">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              onClick={toggleDarkMode}
+                              className={`${
+                                active
+                                  ? "bg-gray-100 dark:bg-slate-700 "
+                                  : "dark:text-gray-200"
+                              } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                            >
+                              {darkMode ? (
+                                <SunIcon className="h-5 w-5 mr-2" />
+                              ) : (
+                                <MoonIcon className="h-5 w-5 mr-2" />
+                              )}
+                              {darkMode ? "Light Mode" : "Dark Mode"}
+                            </button>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              onClick={logout}
+                              className={`${
+                                active
+                                  ? "bg-gray-100 dark:bg-slate-700"
+                                  : "dark:text-gray-200"
+                              } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                            >
+                              <LogoutIcon className="h-5 w-5 mr-2" />
+                              Logout
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </div>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              </div>
             </>
           ) : (
             <>

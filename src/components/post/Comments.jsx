@@ -39,7 +39,7 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
               >
                 <div className="w-10 h-10 mr-1">
                   <img
-                    className="object-cover w-full h-full rounded-full border p-[1px] hover:border-gray-400 transition duration-200"
+                    className="object-cover dark:hover:border-slate-600 dark:border-slate-700 w-full h-full rounded-full border p-[1px] hover:border-gray-400 transition duration-200"
                     src={
                       comment.user === userData._id
                         ? userData?.profilePic

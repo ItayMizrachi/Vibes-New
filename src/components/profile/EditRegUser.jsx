@@ -72,7 +72,7 @@ const EditRegUser = ({ setShowEditUser }) => {
                   <UserIcon className="w-5 h-5 text-gray-500" />
                 </div>
                 <input
-                  className="block w-full pl-12 pr-4 py-2 border dark:bg-slate-900 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block w-full pl-12 pr-4 py-2 border dark:bg-slate-900 dark:border-slate-700 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   type="text"
                   placeholder={userData.name}
                   {...register("name", { required: true, minLength: 2 })}
@@ -92,7 +92,7 @@ const EditRegUser = ({ setShowEditUser }) => {
                   <UserIcon className="w-5 h-5 text-gray-500" />
                 </div>
                 <select
-                  className="block w-full pl-12 p-2 border rounded-md dark:bg-slate-900 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block w-full pl-12 p-2 border rounded-md dark:border-slate-700 dark:bg-slate-900 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   {...register("gender", { required: true })}
                 >
                   <option value="">Select gender</option>
@@ -115,7 +115,7 @@ const EditRegUser = ({ setShowEditUser }) => {
                   <PencilIcon className="w-5 h-5 text-gray-500" />
                 </div>
                 <textarea
-                  className="block w-full pl-12 pr-4 py-2 border dark:bg-slate-900 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block w-full pl-12 pr-4 py-2 border dark:border-slate-700 dark:bg-slate-900 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   rows="3"
                   placeholder={userData.desc}
                   {...register("desc", { required: true, minLength: 6 })}

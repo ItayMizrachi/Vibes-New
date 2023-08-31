@@ -94,7 +94,7 @@ const Dalle4 = ({ setShowImgAi }) => {
             <CameraIcon className="w-5 h-5 text-gray-500" />
           </div>
           <input
-            className="block w-full pl-12 pr-4 py-2 border dark:bg-slate-900 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-100" // Enhanced input
+            className="block w-full pl-12 pr-4 py-2 border dark:border-slate-700 dark:bg-slate-900 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-100" // Enhanced input
             type="text"
             name="input"
             placeholder="type your prompt here..."
