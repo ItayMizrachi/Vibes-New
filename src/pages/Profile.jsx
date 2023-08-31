@@ -143,7 +143,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="sm:p-10 mx-0 lg:max-w-6xl md:mx-5 xl:mx-auto p-1">
+    <div className="sm:p-10 mx-0 lg:max-w-6xl md:mx-5 xl:mx-auto p-1 min-h-screen">
       {/* Profile Info */}
       {showFollowers && (
         <FollowersList

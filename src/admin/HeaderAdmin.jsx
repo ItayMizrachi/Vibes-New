@@ -1,11 +1,13 @@
-import { LogoutIcon } from "@heroicons/react/solid";
-import React from "react";
+import { HomeIcon, LogoutIcon } from "@heroicons/react/solid";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { TOKEN_KEY } from "../services/apiService";
+import { MyContext } from "../context/myContext";
 
 const HeaderAdmin = () => {
   const nav = useNavigate();
+  const { userData } = useContext(MyContext);
 
   const onLogOut = () => {
     if (
@@ -41,25 +43,37 @@ const HeaderAdmin = () => {
         </nav>
 
         <nav className="flex justify-end items-center flex-grow">
-          {localStorage[TOKEN_KEY] && (
+          {localStorage[TOKEN_KEY] && userData.role == "admin" && (
             <ul className="flex space-x-4">
               <li>
-                <Link className="hover:underline font-semibold text-lg" to="/admin/users">
+                <Link
+                  className="hover:underline font-semibold text-lg"
+                  to="/admin/users"
+                >
                   Users List
                 </Link>
               </li>
               <li>
-                <Link className="hover:underline font-semibold text-lg" to="/admin/comments">
+                <Link
+                  className="hover:underline font-semibold text-lg"
+                  to="/admin/comments"
+                >
                   Comments List
                 </Link>
               </li>
               <li>
-                <Link className="hover:underline font-semibold text-lg" to="/admin/posts">
+                <Link
+                  className="hover:underline font-semibold text-lg"
+                  to="/admin/posts"
+                >
                   Posts List
                 </Link>
               </li>
             </ul>
           )}
+            <Link to={"/"}>
+              <HomeIcon className="btn ml-4" />
+            </Link>
           <div>
             {localStorage[TOKEN_KEY] && (
               <LogoutIcon onClick={onLogOut} className="btn ml-4" />
