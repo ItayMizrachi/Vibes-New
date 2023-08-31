@@ -59,10 +59,10 @@ const SignIn = () => {
   };
 
   return (
-    <div className="flex justify-center items-center mb-64 mt-10">
-      <div className="flex w-[400px] flex-col items-center justify-center px-4 py-8 bg-white shadow-xl rounded-xl">
+    <div className="flex h-screen justify-center items-center mt-10">
+    <div className="flex w-[400px] flex-col items-center justify-center px-4 py-8 dark:bg-slate-800 bg-white shadow-xl rounded-xl">
         <div className="w-full">
-          <div className="flex justify-between items-center border-b pb-3 mb-4">
+          <div className="flex justify-between items-center border-b dark:border-slate-700 pb-3 mb-4">
             <h2 className="text-xl font-bold">Sign In</h2>
           </div>
 
@@ -76,7 +76,7 @@ const SignIn = () => {
                 </div>
                 <input
                   {...register("user_name", { required: true, minLength: 2 })}
-                  className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block dark:bg-slate-800 w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   type="text"
                   placeholder="username"
                   required
@@ -98,7 +98,7 @@ const SignIn = () => {
                 </div>
                 <input
                   {...register("password", { required: true, minLength: 6 })}
-                  className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block dark:bg-slate-800 w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   type="password"
                   placeholder="password"
                   required
@@ -120,7 +120,7 @@ const SignIn = () => {
             </button>
           </form>
 
-          <div className="mt-6 text-gray-700">
+          <div className="mt-6 text-gray-700 dark:text-gray-400">
             <p className="inline">Don't have an account? </p>
             <Link
               to="/signup"

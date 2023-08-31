@@ -90,10 +90,10 @@ const SignUp = () => {
   };
 
   return (
-    <div className="mt-10 flex justify-center items-center">
-      <div className="flex w-[400px] flex-col items-center justify-center px-4 py-8 bg-white shadow-xl rounded-xl">
+    <div className="mt-20 flex justify-center items-center h-screen">
+      <div className="flex w-[400px] flex-col items-center justify-center px-4 py-8 bg-white dark:bg-slate-800 shadow-xl rounded-xl">
         <div className="w-full">
-          <div className="flex justify-between items-center border-b pb-3 mb-4">
+          <div className="flex justify-between items-center border-b dark:border-slate-700 pb-3 mb-4">
             <h2 className="text-xl font-bold">Sign Up</h2>
           </div>
           <form onSubmit={handleSubmit(onSub)}>
@@ -106,7 +106,7 @@ const SignUp = () => {
                 </div>
                 <input
                   {...register("name", { required: true, minLength: 3 })}
-                  className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block dark:bg-slate-800 w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   type="text"
                   placeholder="name"
                   required
@@ -128,7 +128,7 @@ const SignUp = () => {
                 </div>
                 <input
                   {...register("user_name", { required: true, minLength: 3 })}
-                  className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block dark:bg-slate-800 w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   type="text"
                   placeholder="username"
                   required
@@ -153,7 +153,7 @@ const SignUp = () => {
                     required: true,
                     validate: validateEmail,
                   })}
-                  className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block dark:bg-slate-800 w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   type="text"
                   placeholder="email"
                   required
@@ -175,7 +175,7 @@ const SignUp = () => {
                 </div>
                 <input
                   {...register("password", { required: true, minLength: 6 })}
-                  className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block dark:bg-slate-800 w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   type="password"
                   placeholder="password"
                   required
@@ -199,7 +199,7 @@ const SignUp = () => {
                 </div>
                 <input
                   {...register("password", { required: true, minLength: 6 })}
-                  className="block w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block dark:bg-slate-800 w-full pl-12 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   type="password"
                   placeholder="confirm password"
                   required
@@ -218,7 +218,7 @@ const SignUp = () => {
               <div className="relative mt-1">
                 <select
                   {...register("gender", { required: true })}
-                  className="block w-full pl-4 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block dark:bg-slate-800 w-full pl-4 p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                 >
                   <option value="">Select gender</option>
                   <option value="male"> Male</option>
@@ -238,7 +238,7 @@ const SignUp = () => {
               <label className="block font-semibold mb-2">
                 Upload a profile picture
               </label>
-              <input  onChange={handleImageChange} ref={uploadRef} type="file" />
+              <input className="dark:bg-slate-800 "  onChange={handleImageChange} ref={uploadRef} type="file" />
             </div>
 
             {imagePreview && (
@@ -254,7 +254,7 @@ const SignUp = () => {
               <div className="relative mt-1">
                 <textarea
                   {...register("desc", { maxLength: 255 })}
-                  className="block w-full p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
+                  className="block dark:bg-slate-800 w-full p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                   placeholder="Write about yourself..."
                 ></textarea>
               </div>
