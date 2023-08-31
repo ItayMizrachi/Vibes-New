@@ -114,6 +114,28 @@ input .upload #file-upload-button{
     border: 2px solid gray;
   }
 
+  .dark .react-input-emoji--container {
+    
+    background: #334155 !important;
+    border: #475569 solid 1px !important;
+    --tw-text-opacity: 1;
+    color: rgb(229 231 235 / var(--tw-text-opacity));
+  }
+  
+  
+  .dark .chat .react-input-emoji--container {
+    --tw-text-opacity: 1;
+    color: rgb(229 231 235 / var(--tw-text-opacity));
+    border: none !important;
+  }
+
+  .dark input {
+    /* background: #334155 !important; */
+    /* border: #475569 solid 1px !important; */
+    --tw-text-opacity: 1;
+    color: rgb(229 231 235 / var(--tw-text-opacity));
+  }
+
   @media (max-width: 639px) {
     .small-screen .react-input-emoji--button--icon {
         display: none !important;

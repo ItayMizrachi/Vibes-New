@@ -43,7 +43,7 @@ const BottomHeader = () => {
   }, [userData]);
 
   return (
-    <header className={`${location.pathname.includes("chat") ? "sticky" : "fixed"} bottom-0 p-5 left-0 right-0 z-10  bg-white border-t shadow-s  lg:hidden md:hidden`}>
+    <header className={`${location.pathname.includes("chat") ? "sticky" : "fixed"} bottom-0 p-5 left-0 right-0 z-10  bg-white dark:bg-slate-900 dark:border-slate-700 border-t shadow-s  lg:hidden md:hidden`}>
       {showNoftlications && (
         <Noftlications
           setIsRead={setIsRead}
@@ -62,7 +62,7 @@ const BottomHeader = () => {
             <div className="relative lowNavBtn">
               <BellIcon onClick={toggleNoftlications} className="lowNavBtn" />
               {isRead.unreadCount > 0 && (
-                <div className="absolute flex items-center justify-center w-5 h-5 text-xs text-white bg-red-500 rounded-full -top-1 -right-2 animate-pulse">
+                <div className="absolute flex items-center justify-center w-5 h-5 text-xs text-white bg-red-500 dark:bg-red-400 rounded-full -top-1 -right-2 animate-pulse">
                   {isRead.unreadCount}
                 </div>
               )}

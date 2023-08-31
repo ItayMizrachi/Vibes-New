@@ -55,7 +55,7 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
                   {" "}
                   <span className="text-sm font-bold mr-2">
                     <Link
-                    className="hover:text-gray-600"
+                    className="hover:text-gray-600 dark:hover:text-gray-400"
                       to={
                         "/" +
                         (comment.user === userData._id
@@ -78,7 +78,7 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
               <div className="flex mt-3 items-center ml-auto pr-5 text-xs text-gray-500">
                 <DotsHorizontalIcon
                   onClick={() => toggleShowDelete(index)}
-                  className="w-5 h-5 ml-1 cursor-pointer hover:text-gray-600"
+                  className="w-5 h-5 ml-1 cursor-pointer hover:text-gray-600 dark:hover:text-gray-400"
                 />
               </div>
               {showDeleteList[index] && (

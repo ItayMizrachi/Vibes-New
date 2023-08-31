@@ -44,7 +44,7 @@ const Recommanded = () => {
       {suggestions.map((profile) => (
         <div
           key={profile._id + Math.random()}
-          className="flex items-center justify-between p-4  border-b border-gray-200 hover:bg-gray-50 transition duration-100" // Added padding and hover effect
+          className="flex items-center justify-between p-4  border-b border-gray-200 hover:bg-gray-50 dark:hover:bg-slate-700 dark:border-slate-600 transition duration-100 rounded-md" // Added padding and hover effect
         >
           <div className="w-10 h-10">
             <Link to={"/" + profile.user_name}>
@@ -59,7 +59,7 @@ const Recommanded = () => {
           <div className="flex-1 ml-4">
             <Link
               to={"/" + profile.user_name}
-              className="text-base font-medium hover:text-gray-800 transition duration-200" // Increased font size and added hover effect
+              className="text-base font-medium hover:text-gray-800 dark:hover:text-gray-400 transition duration-200" // Increased font size and added hover effect
             >
               {profile.user_name}
             </Link>

@@ -131,11 +131,11 @@ const Chatbot = () => {
         </div>
       </div>
 
-      <div className="flex-1">
+      <div className="flex-1 ">
         {/* chatbot messages */}
-        <div className="flex flex-col h-[90vh] md:h-[93vh] overflow-clip">
+        <div className="flex flex-col h-[90vh] md:h-[93vh] overflow-clip ">
           {/* messages */}
-          <div className="flex-1 overflow-x-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-black">
+          <div className="flex-1 overflow-x-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-black ">
             {/* if theres no messages  */}
             {currentChat?.length === 0 && (
               <>

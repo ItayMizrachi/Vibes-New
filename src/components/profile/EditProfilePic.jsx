@@ -84,8 +84,8 @@ const EditProfilePic = ({ onClose }) => {
       onClick={handleOverlayClick}
       className="fixed inset-0 flex z-50 justify-center items-center bg-black bg-opacity-90 transition-opacity duration-300"
     >
-      <div className="bg-white rounded-lg shadow-lg max-w-sm px-4 py-5 space-y-4 max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-black">
-        <div className="flex justify-between items-start">
+      <div className="bg-white dark:bg-slate-900 rounded-lg shadow-lg max-w-sm px-4 py-5 space-y-4 max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-black">
+        <div className="flex justify-between items-start border-b dark:border-slate-700 p-1">
           <h2 className="text-xl font-semibold">Edit Profile pic</h2>
           <XIcon
             onClick={onClose}
@@ -100,7 +100,7 @@ const EditProfilePic = ({ onClose }) => {
               ref={uploadRef}
               onChange={handleImageChange}
               type="file"
-              className="w-full p-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition-border duration-200"
+              className="w-full p-2 border dark:border-slate-700 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition-border duration-200"
             />
             {imagePreview && (
               <img

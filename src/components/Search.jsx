@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { URL, doApiGet } from "../services/apiService";
+import { useContext } from "react";
+import { MyContext } from "../context/myContext";
 
 const Search = () => {
   const [userNames, setUserNames] = useState([]);
   const nav = useNavigate();
+  const { darkMode } = useContext(MyContext);
 
   const handleOnSelect = (item) => {
     // the item selected
@@ -46,13 +49,15 @@ const Search = () => {
         onSelect={handleOnSelect}
         fuseOptions={{ keys: ["user_name"], maxPatternLength: 3, distance: 1 }}
         resultStringKeyName="user_name"
-        // styling={{
-        //   backgroundColor: "gray",
-        //   color: "#eee",
-        //   lineColor: "rgb(205 20 20)",
-        //   border: "10px solid #fff",
-        //   outline: "none",
-        // }}
+        styling={{
+          backgroundColor: darkMode && "#0f172a",
+          color: darkMode && "rgb(229 231 235 / var(--tw-text-opacity))",
+          lineColor: darkMode && "#1e293b",
+          border: darkMode ? "#475569 solid 1px" : "#e5e7eb solid 1px",
+          hoverBackgroundColor: "#1e293b",
+          placeholderColor: "#1e293",
+          outline: "rgb(229 231 235 / var(--tw-text-opacity))",
+        }}
       />
     </div>
   );

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { URL, doApiGet } from "../../services/apiService";
+import { MyContext } from "../../context/myContext";
+import { useContext } from "react";
 
 const SearchChat = ({ startNewChat, user_id, setShowSearch }) => {
+  const { darkMode } = useContext(MyContext);
   const [userNames, setUserNames] = useState([]);
-
   const handleOnSelect = (item) => {
     // Set the selected item and start new chat
     startNewChat([item.id, user_id]);
@@ -43,6 +45,15 @@ const SearchChat = ({ startNewChat, user_id, setShowSearch }) => {
         fuseOptions={{ keys: ["user_name"], maxPatternLength: 3, distance: 1 }}
         resultStringKeyName="user_name"
         inputDebounce={200} // Set debounce time
+        styling={{
+          backgroundColor: darkMode && "#0f172a",
+          color: darkMode && "rgb(229 231 235 / var(--tw-text-opacity))",
+          lineColor: darkMode && "#1e293b",
+          border: darkMode ? "#475569 solid 1px" : "#e5e7eb solid 1px",
+          hoverBackgroundColor: "#1e293b",
+          placeholderColor: "#1e293",
+          outline: "rgb(229 231 235 / var(--tw-text-opacity))",
+        }}
       />
     </div>
   );

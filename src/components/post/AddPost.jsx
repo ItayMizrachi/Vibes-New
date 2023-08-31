@@ -95,10 +95,10 @@ const AddPost = ({ setShowAddPost }) => {
       onClick={handleOverlayClick}
       className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-90 z-50"
     >
-    <div className="flex flex-col items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white shadow-xl rounded-xl overflow-y-auto scrollbar-thin overflow-x-hidden scrollbar-thumb-black">
+    <div className="flex flex-col items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white dark:bg-slate-900 shadow-xl rounded-xl overflow-y-auto scrollbar-thin overflow-x-hidden scrollbar-thumb-black">
 
         <div className="w-full max-h-[70vh]">
-          <div className="flex justify-between items-center pb-3 mb-4 border-b">
+          <div className="flex justify-between items-center pb-3 mb-4 border-b dark:border-slate-700">
             <h2 className="text-xl font-bold flex items-center">
               Add Post
               <CameraIcon className="w-5 h-5 ml-2" />
@@ -119,7 +119,7 @@ const AddPost = ({ setShowAddPost }) => {
                   <PencilIcon className="w-5 h-5 text-gray-500" />
                 </div>
                 <input
-                  className="block w-full pl-12 pr-4 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100" // Enhanced input style
+                  className="block w-full pl-12 pr-4 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100 dark:bg-slate-900" // Enhanced input style
                   type="text"
                   placeholder="description"
                   required
@@ -151,7 +151,7 @@ const AddPost = ({ setShowAddPost }) => {
                 ref={uploadRef}
                 onChange={handleImageChange}
                 type="file"
-                className="w-full p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 hover:bg-gray-50 transition duration-200" // Enhanced input style
+                className="w-full p-2 border dark:bg-slate-900 rounded-md focus:ring-blue-500 focus:border-blue-500 hover:bg-gray-50 transition duration-200" // Enhanced input style
               />
             </div>
 

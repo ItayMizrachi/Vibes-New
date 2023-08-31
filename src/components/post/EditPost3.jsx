@@ -71,11 +71,11 @@ const EditPost3 = ({ post_id, description, setShowEdit }) => {
       onClick={handleOverlayClick}
       className="fixed inset-0 flex z-50 justify-center items-center bg-black bg-opacity-90" // Made the background slightly darker
     >
-      <div className="flex flex-col items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white shadow-xl rounded-xl">
+      <div className="flex flex-col items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white dark:bg-slate-900 shadow-xl rounded-xl">
         {" "}
         {/* Adjusted sizing, added shadow and increased border radius */}
         <div className="w-full">
-          <div className="flex justify-between items-center pb-3 mb-4 border-b">
+          <div className="flex justify-between items-center pb-3 mb-4 border-b dark:border-slate-700">
             <h2 className="text-xl font-bold flex items-center">
               Edit Post
               <PencilIcon className="w-5 h-5 ml-2" />

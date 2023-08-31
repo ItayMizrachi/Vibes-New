@@ -217,7 +217,7 @@ const Post = ({
   const [showEdit, setShowEdit] = useState(false);
 
   return (
-    <div className="bg-white border rounded-2xl my-7 shadow-sm">
+    <div className=" border rounded-2xl my-7 shadow-sm dark:bg-slate-800 dark:border-none">
       {showEdit && (
         <EditPost3
           setShowEdit={setShowEdit}
@@ -241,7 +241,7 @@ const Post = ({
           </Link>
           <Link
             to={"/" + user_name}
-            className="font-semibold text-lg hover:text-gray-600"
+            className="font-semibold text-lg hover:text-gray-600 dark:hover:text-gray-400"
           >
             {user_name}
           </Link>
@@ -250,7 +250,7 @@ const Post = ({
           <>
             <DotsHorizontalIcon
               onClick={() => setShowEdit(true)}
-              className="h-5 cursor-pointer"
+              className="h-5 cursor-pointer dark:hover:text-gray-400"
             />
           </>
         )}
@@ -269,7 +269,7 @@ const Post = ({
             {isLiked ? (
               <FullHeart
                 onClick={() => likePost(_id)}
-                className="post-btn text-red-500"
+                className="post-btn text-red-500 dark:text-red-400"
               />
             ) : (
               <HeartIcon onClick={() => likePost(_id)} className="post-btn" />
@@ -281,7 +281,7 @@ const Post = ({
           {user_name === userData.user_name ? (
             <TrashIcon
               onClick={() => deletePost(_id)}
-              className="post-btn hover:text-red-500"
+              className="post-btn hover:text-red-500 dark:hover:text-red-400"
             />
           ) : (
             <>
@@ -305,7 +305,7 @@ const Post = ({
       <div className="p-5 pt-3">
         <div
           onClick={() => setShowLikes(true)}
-          className="mb-3 font-semibold cursor-pointer hover:text-gray-600 transition duration-200"
+          className="mb-3 font-semibold cursor-pointer hover:text-gray-600 dark:hover:text-gray-400 transition duration-200"
         >
           {likesCount} likes
         </div>
@@ -314,7 +314,7 @@ const Post = ({
           <div className="flex space-x-2">
             <Link
               to={"/" + user_name}
-              className="font-semibold hover:text-gray-600"
+              className="font-semibold hover:text-gray-600 dark:hover:text-gray-400"
             >
               {user_name}
             </Link>
