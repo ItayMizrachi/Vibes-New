@@ -7,6 +7,7 @@ import {
   PlusCircleIcon,
   SearchIcon,
   SunIcon,
+  UserIcon,
 } from "@heroicons/react/outline";
 import { HomeIcon, LogoutIcon } from "@heroicons/react/solid";
 import React, { useContext, useEffect, useState } from "react";
@@ -148,7 +149,7 @@ const Header = () => {
 
         {/* middle - Search input field */}
         <div className="max-w-xs  items-center flex p-5 lg:p-0">
-            <Search />
+          <Search />
         </div>
         {/* right */}
         <div className="flex items-center justify-end space-x-2 md:space-x-4">
@@ -165,7 +166,7 @@ const Header = () => {
           <Link to="about">
             <InformationCircleIcon className="navBtn " />
           </Link>
-       
+
           {/* <MenuIcon className="w-10 h-6 cursor-pointer md:hidden" /> */}
 
           {localStorage[TOKEN_KEY] && userData ? (
@@ -231,6 +232,21 @@ const Header = () => {
                   >
                     <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white dark:bg-slate-800 dark:text-gray-200 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="px-4 py-2">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              to={userData.user_name}
+                              className={`${
+                                active
+                                  ? "bg-gray-100 dark:bg-slate-700 "
+                                  : "dark:text-gray-200"
+                              } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                            >
+                              <UserIcon className="h-5 w-5 mr-2" />
+                              Profile
+                            </Link>
+                          )}
+                        </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
                             <button
