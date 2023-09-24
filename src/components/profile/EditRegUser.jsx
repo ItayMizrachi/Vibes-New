@@ -125,7 +125,7 @@ const EditRegUser = ({ setShowEditUser }) => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full py-3 font-semibold text-white bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+              className="w-full py-3 font-semibold text-white active:scale-95 transform bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
             >
               {loading ? "Loading..." : "Edit User"}
             </button>

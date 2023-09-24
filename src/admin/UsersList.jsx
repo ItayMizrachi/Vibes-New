@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { URL, doApiGet, doApiMethod } from "../services/apiService";
 import PagesBtns from "./PagesBtns";
+import EditUser from "./EditUser";
 
 const UsersList = () => {
   const [searchQuery, setSearchQuery] = useState(""); // State to hold the search query
@@ -80,11 +81,11 @@ const UsersList = () => {
           apiUrl={URL + "/users/count"}
           linkTo={"/admin/users?page="} />
         <div className="relative mt-1 mx-3">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3 ">
             <SearchIcon className="w-5 h-5 text-gray-500" />
           </div>
           <input
-            className="block w-auto pl-12 pr-4 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100" // Enhanced input style
+            className="block w-auto pl-12 pr-4 py-2 border rounded-md bg-transparent shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100" // Enhanced input style
             type="text"
             placeholder="Search users"
             value={searchQuery}
@@ -92,13 +93,12 @@ const UsersList = () => {
           />
         </div>
       </div>
-      <hr></hr>
-      <Card className="h-full w-full overflow-y-auto scrollbar-thin scrollbar-thumb-black">
+      <Card className="h-full w-full overflow-y-auto scrollbar-thin scrollbar-thumb-black  dark:bg-slate-900 dark:text-gray-200">
         <table className="w-full min-w-max table-auto text-left  ">
-          <thead className="shadow-md">
+          <thead className="shadow-md ">
             <tr>
               {HEAD.map((head) => (
-                <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                <th key={head} className="border-b border-blue-gray-100 dark:border-gray-700 bg-blue-gray-50 p-4">
                   <Typography
                     variant="h5"
                     color="blue-gray"
@@ -116,7 +116,7 @@ const UsersList = () => {
                 ? searchResults.map((item, i) => {
                   const page = query.get("page") || 1;
                   return (
-                    <tr key={i + 1} className="even:bg-blue-gray-50/50 hover:bg-gray-100">
+                    <tr key={i + 1} className="even:bg-blue-gray-50/50 hover:bg-gray-100 dark:hover:bg-red-900">
                       <td className="p-6">
                         <Typography variant="h5" color="blue-gray" className="font-normal">
                           {(page - 1) * 8 + i + 1}
@@ -187,7 +187,7 @@ const UsersList = () => {
                 ar.map((item, i) => {
                   const page = query.get("page") || 1;
                   return (
-                    <tr key={i + 1} className="even:bg-blue-gray-50/50 hover:bg-gray-100">
+                    <tr key={i + 1} className="even:bg-blue-gray-50/50 hover:bg-gray-100 dark:hover:bg-slate-800">
                       <td className="p-6">
                         <Typography variant="h5" color="blue-gray" className="font-normal">
                           {(page - 1) * 8 + i + 1}

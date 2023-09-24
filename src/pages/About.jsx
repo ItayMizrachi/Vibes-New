@@ -6,6 +6,7 @@ const profiles = [
     github: "https://github.com/ItayMizrachi",
     linkedin: "https://www.linkedin.com/in/itay-mizrachi/",
     img: "https://res.cloudinary.com/djjrdahz0/image/upload/v1693178463/isl8lodswu4psts5emgd.jpg",
+    portfolio: "https://itay-mizrachi-portfolio.netlify.app/",
   },
   {
     name: "Omri Alter",
@@ -60,7 +61,21 @@ const Profile = ({ profile }) => (
         className="text-indigo-500 hover:underline"
       >
         LinkedIn
-      </a>
+      </a>{" "}
+      {profile.portfolio && (
+        <>
+          {" "}
+          <span> | </span>
+          <a
+            href={profile.portfolio}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-500 hover:underline"
+          >
+            Portfolio
+          </a>
+        </>
+      )}
     </div>
   </div>
 );
@@ -71,7 +86,9 @@ const Card = ({ card }) => (
     key={card.title}
   >
     <h5 className="text-2xl font-bold mb-4">{card.title}</h5>
-    <p className="text-lg text-gray-600 dark:text-gray-300">{card.description}</p>
+    <p className="text-lg text-gray-600 dark:text-gray-300">
+      {card.description}
+    </p>
   </div>
 );
 
@@ -80,11 +97,9 @@ const About = () => {
     <div className=" min-h-screen">
       <div className="container px-4 py-12 mx-auto">
         <div className="flex justify-center">
-          <div className="p-8  border dark:border-slate-700 rounded-lg shadow-xl lg:w-8/12 ">
+          <div className="p-8  border dark:border-slate-700 rounded-lg  shadow-xl lg:w-8/12 ">
             <div className="text-center mb-8">
-              <h2 className="mb-6 text-4xl font-bold ">
-                Welcome to Vibes!
-              </h2>
+              <h2 className="mb-6 text-4xl font-bold ">Welcome to Vibes!</h2>
               <p className="text-xl ">
                 Vibes is a social media platform where you can share your
                 favorite moments, memories, and experiences with your family,
@@ -112,7 +127,6 @@ const About = () => {
               <Card card={card} />
             ))}
 
-            {/* Rest of your component */}
           </div>
         </div>
       </div>

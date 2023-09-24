@@ -83,14 +83,14 @@ const Noftlications = ({
     <animated.div style={animation} className="flex fixed right-0 top-0 z-40 ">
       {/* sidebar */}
       <div>
-        <div className="max-2-xs h-[100vh] border-l-2 dark:border-slate-600 overflow-x-hidden min-w-[20rem] bg-white dark:bg-slate-800 custom-scrollbar">
+        <div className="max-2-xs h-[100vh] border-l-2 dark:border-slate-600 overflow-x-hidden min-w-[20rem] bg-white dark:bg-slate-900 custom-scrollbar">
           <div className="flex flex-col h-[100vh] pt-0 p-2 ">
             {/* Title */}
-            <div className="bg-white dark:bg-slate-800 p-2 fixed w-full pr-3 top-0 z-40">
-              <div className="bg-white dark:bg-slate-800">
+            <div className="bg-white dark:bg-slate-900 p-2 fixed w-full pr-3 top-0 z-40">
+              <div className="bg-white dark:bg-slate-900">
                 <div
                   onClick={close}
-                  className="border-b-2 border-gray-200 dark:border-slate-600 chatRow flex justify-between dark:bg-slate-800"
+                  className="border-b-2 border-gray-200 dark:border-slate-600 chatRow transition ease-out duration-300 flex justify-between dark:bg-slate-900 dark:hover:bg-slate-800"
                 >
                   <h3 className="text-lg font-semibold">Notifications</h3>
                   <ArrowRightIcon className="w-5 h-5" />
@@ -100,7 +100,7 @@ const Noftlications = ({
 
             <div className="mt-16">
               {data.length === 0 && flag ? (
-                <div className="justify-center chatRow">
+                <div className="justify-center chatRow dark:hover:bg-slate-800">
                   <div className="flex-1 truncate md:inline-flex flex-col">
                     <h2 className="text-lg">
                       You have no notifications yet ! :)
@@ -109,7 +109,7 @@ const Noftlications = ({
                 </div>
               ) : (
                 data.map((item, index) => (
-                  <div key={index} className="justify-center chatRow">
+                  <div key={index} className="justify-center chatRow dark:hover:bg-slate-800 transition ease-out duration-300">
                     <div className="w-10 h-10">
                       <Link
                         onClick={() => setShowNoftlications(false)}

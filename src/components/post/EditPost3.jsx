@@ -90,7 +90,6 @@ const EditPost3 = ({ post_id, description, setShowEdit }) => {
             <div className="relative mt-1 mb-6">
               <label className="block font-semibold mb-2">Description:</label>
 
-          
               <div className="w-full small-screen">
                 <InputEmoji
                   value={text}
@@ -103,7 +102,7 @@ const EditPost3 = ({ post_id, description, setShowEdit }) => {
               </div>
               <button
                 onClick={handleOnEnter}
-                className="w-full py-3 mt-4 font-semibold text-white bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none" // Enhanced the button style
+                className="w-full py-3 mt-4 font-semibold text-white bg-indigo-500 active:scale-95 transsform rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none" // Enhanced the button style
               >
                 {loading ? "Loading..." : "Confirm Changes"}
               </button>

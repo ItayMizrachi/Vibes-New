@@ -7,7 +7,7 @@ import { MyContext } from "../context/myContext";
 
 const HeaderAdmin = () => {
   const nav = useNavigate();
-  const { userData } = useContext(MyContext);
+  const { userData, darkMode } = useContext(MyContext);
 
   const onLogOut = () => {
     if (
@@ -20,22 +20,64 @@ const HeaderAdmin = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 px-6 bg-white border-b shadow-sm p-10 sm:p-10 md:p-10 lg:p-2">
+    <header className="sticky top-0 z-10 md:px-6 p-5 lg:p-0  border-b shadow-s px-3 bg-white dark:border-slate-800 dark:bg-slate-900">
       <div className="flex justify-between max-w-6xl mx-5 lg:mx-auto">
         {/* left */}
-        <div className="relative hidden w-24 h-24 lg:inline-grid">
-          <img
-            src="/images/vibes-logo.png"
-            className="object-contain w-full h-full"
-            alt="logo"
-          />
+        <div
+          className={`relative w-24 h-24 cursor-pointer ${
+            darkMode ? "hidden" : "hidden lg:block"
+          }`}
+        >
+          <Link to="/">
+            <img
+              src="/images/vibes-logo.png"
+              className="object-contain w-full h-full "
+              alt="logo"
+            />
+          </Link>
         </div>
-        <div className="relative flex-shrink-0 w-10 lg:hidden">
-          <img
-            src="/images/vibes-logo-responsive.png"
-            className="object-contain w-full h-full"
-            alt="responsive logo"
-          />
+        {/* Light mode logo for small screens */}
+        <div
+          className={`relative flex-shrink-0 w-10 cursor-pointer ${
+            darkMode ? "hidden" : "lg:hidden"
+          }`}
+        >
+          <Link to="/">
+            <img
+              src="/images/vibes-logo-responsive.png"
+              className="object-contain w-full h-full"
+              alt="responsive logo"
+            />
+          </Link>
+        </div>
+
+        {/* Dark mode logo for large screens */}
+        <div
+          className={`relative w-24 h-24 cursor-pointer ${
+            darkMode ? "hidden lg:block" : "hidden"
+          }`}
+        >
+          <Link to="/">
+            <img
+              src="/images/dark-logo.png"
+              className="object-contain w-full h-full "
+              alt="logo"
+            />
+          </Link>
+        </div>
+        {/* Dark mode logo for small screens */}
+        <div
+          className={`relative flex-shrink-0 w-10 cursor-pointer ${
+            darkMode ? "lg:hidden" : "hidden"
+          }`}
+        >
+          <Link to="/">
+            <img
+              src="/images/dark-responsive-logo.png"
+              alt="logo"
+              className="object-contain w-full h-full "
+            />
+          </Link>
         </div>
 
         <nav className="flex justify-start items-center flex-grow">
@@ -71,9 +113,9 @@ const HeaderAdmin = () => {
               </li>
             </ul>
           )}
-            <Link to={"/"}>
-              <HomeIcon className="btn ml-4" />
-            </Link>
+          <Link to={"/"}>
+            <HomeIcon className="btn ml-4" />
+          </Link>
           <div>
             {localStorage[TOKEN_KEY] && (
               <LogoutIcon onClick={onLogOut} className="btn ml-4" />

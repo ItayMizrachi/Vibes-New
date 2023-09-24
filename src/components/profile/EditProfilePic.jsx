@@ -111,7 +111,7 @@ const EditProfilePic = ({ onClose }) => {
             )}
             <button
               type="submit"
-              className={`w-full py-2 font-medium text-white bg-indigo-500 rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-60 transition-all duration-200 ${
+              className={`w-full py-2 font-medium text-white bg-indigo-500 active:scale-95 transform rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-60 transition-all duration-200 ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
               disabled={isLoading}

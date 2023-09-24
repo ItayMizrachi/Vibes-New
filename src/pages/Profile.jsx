@@ -160,15 +160,16 @@ const Profile = () => {
         />
       )}
       {showEditUser && <EditRegUser setShowEditUser={setShowEditUser} />}
+      {isPop && <EditProfilePic onClose={closeWindow} />}
       {userInfo?.user_name ? (
         <>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-4 p-3 pt-10">
             <div className="justify-center avatar md:col-span-1 relative ">
-              <div className="justify-center avatar md:col-span-1  relative w-36 group h-36 mx-auto md:mx-0">
+              <div className="justify-center avatar md:col-span-1 hover:opacity-90 relative w-36 group h-36 mx-auto md:mx-0">
                 <img
-                  className={`rounded-full w-full h-full transition-opacity duration-300 ${
+                  className={`rounded-full w-full h-full opacity-100 transition-opacity duration-300 ${
                     userInfo._id === userData._id
-                      ? "cursor-pointer hover:opacity-100 "
+                      ? "cursor-pointer hover:text-black backdrop-filter bg-black "
                       : ""
                   }`}
                   src={userInfo.profilePic}
@@ -177,14 +178,13 @@ const Profile = () => {
                 {userInfo.profilePic === userData.profilePic && (
                   <div
                     onClick={openWindow}
-                    className="absolute cursor-pointer inset-0 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300"
+                    className="absolute cursor-pointer inset-0 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 ease-out"
                   >
-                    <span className="text-white font-semibold ">
+                    <span className="text-white font-semibold relative">
                       Change Profile Pic
                     </span>
                   </div>
                 )}
-                {isPop && <EditProfilePic onClose={closeWindow} />}
               </div>
             </div>
 
@@ -200,7 +200,7 @@ const Profile = () => {
                     <>
                     <button
                       onClick={() => followUser(userInfo._id)}
-                      className="px-4 py-2 text-white font-semibold bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
+                      className="px-4 py-2 text-white font-semibold active:scale-95 transform bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
                     >
                       {userInfo.followers.some(
                         (follower) => follower._id === userData._id
@@ -210,7 +210,7 @@ const Profile = () => {
                     </button>
                     <button
                       onClick={() => handleSendMessage(userInfo._id)}
-                      className="px-4 py-2 text-white font-semibold bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
+                      className="px-4 py-2 text-white font-semibold active:scale-95 transform bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
                     >
                       Message
                     </button>
@@ -219,14 +219,14 @@ const Profile = () => {
                   <>
                   <button
                     onClick={() => setShowEditUser(true)}
-                    className="px-4 py-2 text-white font-semibold bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
+                    className="px-4 py-2 text-white font-semibold active:scale-95 transform bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
                   >
                     Edit User
                   </button>
                   {userData?.role == "admin" && (
                     <Link
                     to={"/admin/users"}
-                    className="px-4 py-2 text-white font-semibold bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
+                    className="px-4 py-2 text-white font-semibold active:scale-95 transform bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
                     >
                       Admin
                     </Link>

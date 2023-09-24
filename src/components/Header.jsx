@@ -226,11 +226,11 @@ const Header = () => {
                   >
                     <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white dark:bg-slate-800 dark:text-gray-200 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="px-4 py-2">
-                        <Menu.Item className="md:hidden">
+                        <Menu.Item className="md:hidden ">
                           {({ active }) => (
-                            // <div className="md:hidden">
+                            <div className="md:hidden">
                               <Search  />
-                            // </div>
+                             </div>
                           )}
                         </Menu.Item>
                         <Menu.Item>
