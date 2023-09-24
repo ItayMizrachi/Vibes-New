@@ -38,6 +38,7 @@ const Search = () => {
     );
   };
 
+ 
   return (
     <div className="md:w-[300px] w-[190px]">
       <ReactSearchAutocomplete
@@ -54,7 +55,7 @@ const Search = () => {
           color: darkMode && "rgb(229 231 235 / var(--tw-text-opacity))",
           lineColor: darkMode && "#1e293b",
           border: darkMode ? "#334155 solid 1px" : "#e5e7eb solid 1px",
-          hoverBackgroundColor: darkMode ? "#1e293b": "#e5e7eb",
+          hoverBackgroundColor: darkMode ? "#1e293b" : "#e5e7eb",
           placeholderColor: "#1e293",
           outline: "rgb(229 231 235 / var(--tw-text-opacity))",
         }}
@@ -64,5 +65,3 @@ const Search = () => {
 };
 
 export default Search;
-
-

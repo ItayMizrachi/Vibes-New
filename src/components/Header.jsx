@@ -178,7 +178,6 @@ const Header = () => {
             </button>
           )}
 
-          {/* <MenuIcon className="w-10 h-6 cursor-pointer md:hidden" /> */}
 
           {localStorage[TOKEN_KEY] && userData ? (
             <>
@@ -196,12 +195,6 @@ const Header = () => {
                 className="navBtn "
               />
 
-              {/* <Link to="groups">
-                <UserGroupIcon className="navBtn" />
-              </Link> */}
-              {/* <Link to="chatbot">
-                <AcademicCapIcon className="navBtn" />
-              </Link> */}
               <Link to="chat">
                 <ChatIcon className="navBtn " />
               </Link>
@@ -211,17 +204,7 @@ const Header = () => {
                 className="navBtn "
               />
 
-              <LogoutIcon onClick={logout} className="navBtn " />
-              <Link to={userData.user_name}>
-                <div className="w-10 h-10 hidden md:block">
-                  <img
-                    src={userData?.profilePic}
-                    alt="profile pic"
-                    className="dark:hover:border-slate-600 dark:border-slate-700 object-cover w-full h-full rounded-full border p-[1px] hover:border-gray-400 transition duration-200"
-                  />
-                </div>
-              </Link>
-              <div className="md:hidden">
+              <div>
                 <Menu as="div" className="relative inline-block text-left">
                   <div>
                     <Menu.Button className="w-10 h-10 align-middle">
@@ -243,14 +226,20 @@ const Header = () => {
                   >
                     <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white dark:bg-slate-800 dark:text-gray-200 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="px-4 py-2">
-                        <Menu.Item>{({ active }) => <Search />}</Menu.Item>
+                        <Menu.Item className="md:hidden">
+                          {({ active }) => (
+                            // <div className="md:hidden">
+                              <Search  />
+                            // </div>
+                          )}
+                        </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
                             <Link
                               to={userData.user_name}
                               className={`mt-1 ${
                                 active
-                                  ? "bg-gray-100 dark:bg-slate-700 "
+                                  ? "bg-gray-200 dark:bg-slate-700 "
                                   : "dark:text-gray-200"
                               } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                             >
@@ -263,9 +252,9 @@ const Header = () => {
                           {({ active }) => (
                             <button
                               onClick={toggleDarkMode}
-                              className={`${
+                              className={`md:hidden ${
                                 active
-                                  ? "bg-gray-100 dark:bg-slate-700 "
+                                  ? "bg-gray-200 dark:bg-slate-700 "
                                   : "dark:text-gray-200"
                               } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                             >
@@ -284,7 +273,7 @@ const Header = () => {
                               onClick={logout}
                               className={`${
                                 active
-                                  ? "bg-gray-100 dark:bg-slate-700"
+                                  ? "bg-gray-200 dark:bg-slate-700"
                                   : "dark:text-gray-200"
                               } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                             >

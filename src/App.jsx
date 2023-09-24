@@ -24,7 +24,7 @@ const App = () => {
   const [loading, setIsLoading] = useState(false);
 
   const [darkMode, setDarkMode] = useState(
-    () => JSON.parse(localStorage.getItem("darkMode")) || false
+    () => true || JSON.parse(localStorage.getItem("darkMode")) 
   );
 
   // On component mount, check if dark mode is already enabled
@@ -39,9 +39,8 @@ const App = () => {
     document.body.classList.toggle("dark", darkMode);
   }, [darkMode]);
 
-  // Toggle dark mode
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
+    setDarkMode((prevDarkMode) => !prevDarkMode);
   };
 
   return (

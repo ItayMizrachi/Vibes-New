@@ -181,7 +181,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex ">
       {/* sidebar */}
       <div className=" scrollbar-thin scrollbar-thumb-black h-[87vh] md:h-[91vh] border-r-2 dark:border-slate-700 overflow-y-auto min-w-[4rem] md:min-w-[20rem]">
         <div className="flex flex-col  h-[87vh] md:h-[91vh] p-2">
