@@ -72,7 +72,7 @@ const PostsAdmin = () => {
             <SearchIcon className="w-5 h-5 text-gray-500" />
           </div>
           <input
-            className="block w-full pl-12 pr-4 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100" // Enhanced input style
+            className="block w-full pl-12 pr-4 py-2 border rounded-md bg-transparent shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100" // Enhanced input style
             type="text"
             placeholder="Search (By Description)"
             value={searchQuery}
@@ -81,13 +81,12 @@ const PostsAdmin = () => {
         </div>
 
       </div>
-      <hr></hr>
-      <Card className="h-full w-full overflow-y-auto scrollbar-thin scrollbar-thumb-black">
+      <Card className="h-full w-full overflow-y-auto scrollbar-thin scrollbar-thumb-black dark:bg-slate-900 dark:text-gray-200">
         <table className="w-full min-w-max table-auto text-left">
           <thead className="shadow-md">
             <tr>
               {HEAD.map((head) => (
-                <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 dark:border-gray-700">
                   <Typography
                     variant="h5"
                     color="blue-gray"
@@ -149,7 +148,7 @@ const PostsAdmin = () => {
                 ar.map((item, i) => {
                   const page = query.get("page") || 1;
                   return (
-                    <tr key={i + 1} className="even:bg-blue-gray-50/50 hover:bg-gray-100">
+                    <tr key={i + 1} className="even:bg-blue-gray-50/50 hover:bg-gray-100 dark:hover:bg-slate-800">
                       <td className="p-6">
                         <Typography variant="h5" color="blue-gray" className="font-normal">
                           {(page - 1) * 10 + i + 1}

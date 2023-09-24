@@ -24,14 +24,12 @@ const App = () => {
   const [loading, setIsLoading] = useState(false);
 
   const [darkMode, setDarkMode] = useState(
-    () => true || JSON.parse(localStorage.getItem("darkMode")) 
+    localStorage.getItem("darkMode") || ""
   );
 
-  // On component mount, check if dark mode is already enabled
   useEffect(() => {
-    const isDark = document.body.classList.contains("dark");
-    setDarkMode(isDark);
-  }, []);
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
 
   // When darkMode state changes, store it in localStorage and update body class
   useEffect(() => {
@@ -44,7 +42,7 @@ const App = () => {
   };
 
   return (
-    <div className="dark:bg-slate-900 dark:text-gray-200">
+    <div className="dark:bg-slate-900 dark:text-gray-200 min-h-screen">
       <MyContext.Provider
         value={{
           userData,

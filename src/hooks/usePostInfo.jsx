@@ -38,7 +38,7 @@ export const usePostInfo = () => {
   // );
 
   const [postsInfo, setPostsInfo] = useState([]);
-  const [ isPostLoading, setIsPostLoading] = useState(false);
+  const [ isPostLoading, setIsPostLoading] = useState(true);
   const [page, setPage] = useState(1);
 
   // Increment the page whenever the threshold is reached

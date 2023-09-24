@@ -85,6 +85,8 @@ const AddPost = ({ setShowAddPost }) => {
     }
   };
 
+
+
   function handleOnEnter(event) {
     event.preventDefault();
     onSubForm({ description: text });
@@ -95,8 +97,7 @@ const AddPost = ({ setShowAddPost }) => {
       onClick={handleOverlayClick}
       className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-90 z-50"
     >
-    <div className="flex flex-col items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white dark:bg-slate-900 shadow-xl rounded-xl overflow-y-auto scrollbar-thin overflow-x-hidden scrollbar-thumb-black">
-
+      <div className="flex flex-col items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white dark:bg-slate-900 shadow-xl rounded-xl overflow-y-auto scrollbar-thin overflow-x-hidden scrollbar-thumb-black">
         <div className="w-full max-h-[70vh]">
           <div className="flex justify-between items-center pb-3 mb-4 border-b dark:border-slate-700">
             <h2 className="text-xl font-bold flex items-center">
@@ -111,7 +112,6 @@ const AddPost = ({ setShowAddPost }) => {
 
           <form>
             <div className="mb-6 relative">
-
               {/* For small screens */}
               <label className="block font-semibold mb-2">Description</label>
               <div className="relative mt-1">
@@ -155,10 +155,12 @@ const AddPost = ({ setShowAddPost }) => {
               />
             </div>
 
+           
             <button
               onClick={handleOnEnter}
               type="submit"
-              className={`w-full py-3 font-semibold text-white bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none ${
+              disabled={imagePreview === null || text === "" }
+              className={`disabled:dark:bg-gray-800 disabled:bg-gray-400/60 disabled:cursor-not-allowed w-full py-3 font-semibold text-white active:scale-95 transform bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >

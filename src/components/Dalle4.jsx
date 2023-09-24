@@ -105,8 +105,9 @@ const Dalle4 = ({ setShowImgAi }) => {
           />
         </div>
         <button
+         disabled={value === "" }
           onClick={getImages}
-          className="w-full py-3 mb-6 font-semibold text-white bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none" // Enhanced button with transition
+          className="w-full py-3 mb-6 font-semibold text-white disabled:dark:bg-gray-800 disabled:bg-gray-400/60 disabled:cursor-not-allowed bg-indigo-500 active:scale-95 transform rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none" // Enhanced button with transition
           type="submit"
         >
           {loading ? "Loading..." : "Generate"}
@@ -119,7 +120,7 @@ const Dalle4 = ({ setShowImgAi }) => {
               className="mb-4 rounded shadow-md"
             />
             <button
-              className="w-full py-3 font-semibold bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none" // Same enhanced button style
+              className="w-full py-3 font-semibold bg-indigo-500 active:scale-95 transform rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none" // Same enhanced button style
               onClick={downloadImg}
             >
               Download Image

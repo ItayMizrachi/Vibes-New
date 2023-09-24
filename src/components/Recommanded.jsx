@@ -44,14 +44,14 @@ const Recommanded = () => {
       {suggestions.map((profile) => (
         <div
           key={profile._id + Math.random()}
-          className="flex items-center justify-between p-4  border-b border-gray-200 hover:bg-gray-50 dark:hover:bg-slate-700 dark:border-slate-600 transition duration-100 rounded-md" // Added padding and hover effect
+          className="flex items-center justify-between p-4  border-b transition ease-out duration-300 border-gray-200 hover:bg-gray-200 dark:hover:bg-slate-800 dark:border-slate-600 transition duration-100 rounded-md" // Added padding and hover effect
         >
           <div className="w-10 h-10">
             <Link to={"/" + profile.user_name}>
               <img
                 src={profile?.profilePic}
                 alt="profilepic"
-                className="object-cover w-full h-full rounded-full border p-[1px] dark:hover:border-slate-600 dark:border-slate-700 hover:border-gray-400 transition duration-200" // Reduced padding and added hover effect
+                className="object-cover w-full h-full rounded-full border p-[1px] dark:hover:border-slate-600 dark:border-slate-800 hover:border-gray-400 transition duration-200" // Reduced padding and added hover effect
               />{" "}
             </Link>
           </div>
