@@ -1,8 +1,9 @@
 import axios from "axios";
 
 
-export const URL = "http://localhost:3008";
+// export const URL = "http://localhost:3008";
 // export const URL = "https://vibes-server-new.onrender.com";
+export const URL = "https://vibes-new-server.vercel.app/";
 
 // export const URL = "https://vibes-9qjm.onrender.com";
 export const TOKEN_KEY = "posts_token";
