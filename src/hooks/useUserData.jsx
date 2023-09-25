@@ -4,11 +4,19 @@ import { TOKEN_KEY, URL, doApiGet } from "../services/apiService";
 
 export const useUserData = () => {
   // const {setIsLoading} = useContext(MyContext);
+  const [userDataLoading, setIsUserDataLoading] = useState(false);
   const [userData, setUserData] = useState({});
   const doApiUser = async () => {
-    const url = URL + "/users/userInfo";
-    const data = await doApiGet(url);
-    setUserData(data);
+    try {
+      setIsUserDataLoading(true);
+      const url = URL + "/users/userInfo";
+      const data = await doApiGet(url);
+      setUserData(data);
+      setIsUserDataLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsUserDataLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -59,5 +67,5 @@ export const useUserData = () => {
     }
   };
 
-  return { userData, doApiUser, userSignOut, setUserData };
+  return { userData, doApiUser, userSignOut, setUserData , userDataLoading};
 };

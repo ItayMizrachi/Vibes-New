@@ -11,7 +11,7 @@ import Router from "./routes/Router";
 import { useEffect } from "react";
 
 const App = () => {
-  const { userData, doApiUser, userSignOut, setUserData } = useUserData();
+  const { userData, doApiUser, userSignOut, setUserData, userDataLoading } = useUserData();
   const {
     deletePost,
     postsInfo,
@@ -61,6 +61,7 @@ const App = () => {
           isPostLoading,
           darkMode,
           toggleDarkMode,
+          userDataLoading
         }}
       >
         <Router />

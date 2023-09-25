@@ -8,8 +8,10 @@ import Gallery from "../components/profile/Gallery";
 import UserNotFound from "../components/profile/UserNotFound";
 import { MyContext } from "../context/myContext";
 import { URL, doApiGet } from "../services/apiService";
+import LoadingGallery from "../components/profile/LoadingGallery";
 
 const Profile = () => {
+  const { userData, followUser, followFlag } = useContext(MyContext);
   const [postsInfo, setPostsInfo] = useState([]);
   const [savedPostsInfo, setSavedPostsInfo] = useState([]);
   const [likedPostsInfo, setLikedPostsInfo] = useState([]);
@@ -20,12 +22,13 @@ const Profile = () => {
   const [showUserSaves, setShowUserSaves] = useState(false);
   const [showUserLikes, setShowUserLikes] = useState(false);
   const [userNotFound, setUserNotFound] = useState(false);
-  const { userData, followUser, followFlag } = useContext(MyContext);
   const [isPop, setIsPop] = useState(false);
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
   const [showEditUser, setShowEditUser] = useState(false);
   const nav = useNavigate(); // Get the navigation function from react-router-dom
+  const [loading, setIsLoading] = useState(false);
+  const [loadingUserInfo, setLoadingUserInfo] = useState(false);
 
   const handleSendMessage = (userId) => {
     // Navigate to the chat page with the selected user's ID
@@ -58,13 +61,16 @@ const Profile = () => {
 
   const doApiUserPosts = async (user_name) => {
     try {
+      setIsLoading(true);
       const url = URL + "/userPosts/userInfo/" + user_name;
       const data = await doApiGet(url);
       setPostsInfo(data);
+      setIsLoading(false);
       // console.log(data);
     } catch (err) {
       console.log(err);
       setUserNotFound(true);
+      setIsLoading(false);
     }
   };
 
@@ -117,12 +123,15 @@ const Profile = () => {
 
   const doApiUserInfo = async (user_name) => {
     try {
+      setLoadingUserInfo(true);
       const url = URL + "/users/userInfo/pop/" + user_name;
       const data = await doApiGet(url);
       setUserInfo(data);
+      setLoadingUserInfo(false);
     } catch (err) {
       console.log(err);
       setUserNotFound(true);
+      setLoadingUserInfo(false);
     }
   };
 
@@ -173,15 +182,28 @@ const Profile = () => {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-4 p-3 pt-10">
             <div className="justify-center avatar md:col-span-1 relative ">
               <div className="justify-center avatar md:col-span-1 hover:opacity-90 relative w-36 group h-36 mx-auto md:mx-0">
-                <img
-                  className={`rounded-full w-full h-full opacity-100 transition-opacity duration-300 ${
-                    userInfo._id === userData._id
-                      ? "cursor-pointer hover:text-black backdrop-filter bg-black "
-                      : ""
-                  }`}
-                  src={userInfo.profilePic}
-                  alt="profile pic"
-                />
+                {loadingUserInfo ? (
+                  <svg
+                    class="w-full h-full text-gray-200 dark:text-gray-700 animate-pulse"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z" />
+                  </svg>
+                ) : (
+                  <img
+                    className={`rounded-full w-full h-full opacity-100 transition-opacity duration-300 ${
+                      userInfo._id === userData._id
+                        ? "cursor-pointer hover:text-black backdrop-filter bg-black "
+                        : ""
+                    }`}
+                    src={userInfo.profilePic}
+                    alt="profile pic"
+                  />
+                )}
+
                 {userInfo.profilePic === userData.profilePic && (
                   <div
                     onClick={openWindow}
@@ -327,9 +349,11 @@ const Profile = () => {
               Gallery
             </button>
           </div>
+          {loading && <LoadingGallery />}
 
           {/* Gallery */}
-          {showGallery &&
+          {!loading &&
+            showGallery &&
             (postsInfo.length === 0 ? (
               <h1 className="text-center mt-5 font-semibold">
                 no posts posted yet 😕

@@ -1,4 +1,4 @@
-import { CameraIcon } from "@heroicons/react/solid";
+import { CameraIcon, XIcon } from "@heroicons/react/solid";
 
 import download from "downloadjs";
 import React, { useState } from "react";
@@ -85,10 +85,14 @@ const Dalle4 = ({ setShowImgAi }) => {
       className="fixed z-50 inset-0 flex justify-center items-center bg-black bg-opacity-90"
     >
       <div className="flex flex-col dark:bg-slate-900 items-center justify-center flex-1 max-w-md px-4 py-8 mx-auto bg-white shadow-xl rounded-xl">
+          <XIcon
+            onClick={() => setShowImgAi(false)}
+            className="h-6 w-6 ml-auto flex-inline md:hidden -top-3 relative text-end cursor-pointer hover:text-gray-600 transition-colors duration-200"
+          />
         {" "}
-        <h1 className="text-center font-bold text-2xl mb-6">
-          Vibes AI Image Generator
-        </h1>
+          <h1 className="text-center mb-6 font-bold text-2xl ">
+            Vibes AI Image Generator
+          </h1>
         <div className="relative mb-4">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3">
             <CameraIcon className="w-5 h-5 text-gray-500" />
@@ -105,7 +109,7 @@ const Dalle4 = ({ setShowImgAi }) => {
           />
         </div>
         <button
-         disabled={value === "" }
+          disabled={value === ""}
           onClick={getImages}
           className="w-full py-3 mb-6 font-semibold text-white disabled:dark:bg-gray-800 disabled:bg-gray-400/60 disabled:cursor-not-allowed bg-indigo-500 active:scale-95 transform rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none" // Enhanced button with transition
           type="submit"
