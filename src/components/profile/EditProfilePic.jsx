@@ -98,7 +98,14 @@ const EditProfilePic = ({ onClose }) => {
             <input
               required
               ref={uploadRef}
-              onChange={handleImageChange}
+              onChange={(e) => {
+                if (
+                  e.target.files &&
+                  e.target.files[0].type.startsWith("image/")
+                ) {
+                  handleImageChange(e);
+                }
+              }}
               type="file"
               className="w-full p-2 border dark:border-slate-700 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition-border duration-200"
             />
@@ -111,10 +118,10 @@ const EditProfilePic = ({ onClose }) => {
             )}
             <button
               type="submit"
-              className={`w-full py-2 font-medium text-white bg-indigo-500 active:scale-95 transform rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-60 transition-all duration-200 ${
+              className={`disabled:dark:bg-gray-800 disabled:bg-gray-400/60 disabled:cursor-not-allowed w-full py-2 font-medium text-white bg-indigo-500 active:scale-95 transform rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-60 transition-all duration-200 ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
-              disabled={isLoading}
+              disabled={imagePreview === null || isLoading}
             >
               {isLoading ? "Loading..." : "Change Profile Pic"}
             </button>

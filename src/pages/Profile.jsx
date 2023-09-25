@@ -142,6 +142,13 @@ const Profile = () => {
     setIsPop(true);
   };
 
+  useEffect(() => {
+    if (user_name) {
+      show("gallery");
+      window.scrollTo(0, 0);
+    }
+  }, [user_name]);
+
   return (
     <div className="sm:p-10 mx-0 lg:max-w-6xl md:mx-5 xl:mx-auto p-1 min-h-screen">
       {/* Profile Info */}
@@ -196,45 +203,44 @@ const Profile = () => {
                 </span>
 
                 <div className="flex space-x-2">
-                {userData._id !== userInfo._id ? (
+                  {userData._id !== userInfo._id ? (
                     <>
-                    <button
-                      onClick={() => followUser(userInfo._id)}
-                      className="px-4 py-2 text-white font-semibold active:scale-95 transform bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
-                    >
-                      {userInfo.followers.some(
-                        (follower) => follower._id === userData._id
-                      )
-                        ? "Unfollow"
-                        : "Follow"}
-                    </button>
-                    <button
-                      onClick={() => handleSendMessage(userInfo._id)}
-                      className="px-4 py-2 text-white font-semibold active:scale-95 transform bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
-                    >
-                      Message
-                    </button>
+                      <button
+                        onClick={() => followUser(userInfo._id)}
+                        className="px-4 py-2 text-white font-semibold active:scale-95 transform bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
+                      >
+                        {userInfo.followers.some(
+                          (follower) => follower._id === userData._id
+                        )
+                          ? "Unfollow"
+                          : "Follow"}
+                      </button>
+                      <button
+                        onClick={() => handleSendMessage(userInfo._id)}
+                        className="px-4 py-2 text-white font-semibold active:scale-95 transform bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
+                      >
+                        Message
+                      </button>
                     </>
-                ) : (
-                  <>
-                  <button
-                    onClick={() => setShowEditUser(true)}
-                    className="px-4 py-2 text-white font-semibold active:scale-95 transform bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
-                  >
-                    Edit User
-                  </button>
-                  {userData?.role == "admin" && (
-                    <Link
-                    to={"/admin/users"}
-                    className="px-4 py-2 text-white font-semibold active:scale-95 transform bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
-                    >
-                      Admin
-                    </Link>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => setShowEditUser(true)}
+                        className="px-4 py-2 text-white font-semibold active:scale-95 transform bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
+                      >
+                        Edit User
+                      </button>
+                      {userData?.role == "admin" && (
+                        <Link
+                          to={"/admin/users"}
+                          className="px-4 py-2 text-white font-semibold active:scale-95 transform bg-indigo-500 rounded hover:bg-indigo-600 transition duration-200"
+                        >
+                          Admin
+                        </Link>
+                      )}
+                    </>
                   )}
-                  </>
-                )}
                 </div>
-
               </div>
 
               <div className="space-y-4 md:space-y-6">

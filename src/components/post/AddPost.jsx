@@ -85,8 +85,6 @@ const AddPost = ({ setShowAddPost }) => {
     }
   };
 
-
-
   function handleOnEnter(event) {
     event.preventDefault();
     onSubForm({ description: text });
@@ -149,17 +147,23 @@ const AddPost = ({ setShowAddPost }) => {
               <input
                 required
                 ref={uploadRef}
-                onChange={handleImageChange}
+                onChange={(e) => {
+                  if (
+                    e.target.files &&
+                    e.target.files[0].type.startsWith("image/")
+                  ) {
+                    handleImageChange(e);
+                  }
+                }}
                 type="file"
                 className="w-full p-2 border dark:border-slate-700 dark:bg-slate-900 rounded-md focus:ring-blue-500 focus:border-blue-500 hover:bg-gray-50 transition duration-200" // Enhanced input style
               />
             </div>
 
-           
             <button
               onClick={handleOnEnter}
               type="submit"
-              disabled={imagePreview === null || text === "" }
+              disabled={imagePreview === null || text === ""}
               className={`disabled:dark:bg-gray-800 disabled:bg-gray-400/60 disabled:cursor-not-allowed w-full py-3 font-semibold text-white active:scale-95 transform bg-indigo-500 rounded-lg transition duration-300 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}

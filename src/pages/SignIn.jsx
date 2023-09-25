@@ -51,7 +51,7 @@ const SignIn = () => {
     } catch (err) {
       // Log any errors to the console
       console.log(err);
-      
+
       // Display an error message to the user
       toast.error("User or password is wrong!");
       setIsLoading(false);
@@ -60,7 +60,7 @@ const SignIn = () => {
 
   return (
     <div className="flex h-screen justify-center items-center mt-10">
-    <div className="flex w-[400px] flex-col items-center justify-center px-4 py-8 dark:bg-slate-800 bg-white shadow-xl rounded-xl">
+      <div className="flex w-[400px] flex-col items-center justify-center px-4 py-8 dark:bg-slate-800 bg-white shadow-xl rounded-xl">
         <div className="w-full">
           <div className="flex justify-between items-center border-b dark:border-slate-700 pb-3 mb-4">
             <h2 className="text-xl font-bold">Sign In</h2>

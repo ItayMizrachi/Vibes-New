@@ -60,14 +60,13 @@ const SignUp = () => {
   const onSub = async (_bodyData) => {
     setIsLoading(true);
     // console.log(_bodyData);
-      if (uploadRef.current.files[0]) { // Check if there's a file to upload
+    if (uploadRef.current.files[0]) {
+      // Check if there's a file to upload
       await doApiCloudUpload(); // Wait until the image is uploaded
     }
-      doApiProfilePic(_bodyData);
+    doApiProfilePic(_bodyData);
     setIsLoading(false);
   };
-  
-
 
   const doApiCloudUpload = async () => {
     try {
@@ -238,7 +237,19 @@ const SignUp = () => {
               <label className="block font-semibold mb-2">
                 Upload a profile picture
               </label>
-              <input className="dark:bg-slate-800 dark:border-slate-700"  onChange={handleImageChange} ref={uploadRef} type="file" />
+              <input
+                className="dark:bg-slate-800 dark:border-slate-700"
+                onChange={(e) => {
+                  if (
+                    e.target.files &&
+                    e.target.files[0].type.startsWith("image/")
+                  ) {
+                    handleImageChange(e);
+                  }
+                }}
+                ref={uploadRef}
+                type="file"
+              />
             </div>
 
             {imagePreview && (
