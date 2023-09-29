@@ -77,7 +77,7 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-10 md:px-6 p-5 lg:p-0  border-b shadow-s px-3 bg-white dark:border-slate-800 dark:bg-slate-900 ">
+    <header className="sticky top-0 z-10 px-3 md:px-6 p-5 lg:px-5 lg:py-0  border-b shadow-s  bg-white dark:border-slate-800 dark:bg-slate-900 ">
       <div className="flex justify-between w-full mx-auto md:max-w-7xl px-2 md:px-0">
         {showNoftlications && (
           <Noftlications
@@ -92,8 +92,8 @@ const Header = () => {
         {/* left */}
         {/* Light mode logo for large screens */}
         <div
-          className={`relative w-24 h-24 cursor-pointer ${
-            darkMode ? "hidden" : "hidden lg:block"
+          className={`relative w-24 md:h-24 h-12  cursor-pointer ${
+            darkMode ? "hidden" : " md:hidden lg:block"
           }`}
         >
           <Link to="/">
@@ -107,7 +107,7 @@ const Header = () => {
         {/* Light mode logo for small screens */}
         <div
           className={`relative flex-shrink-0 w-10 cursor-pointer ${
-            darkMode ? "hidden" : "lg:hidden"
+            darkMode ? "hidden" : "hidden md:block lg:hidden"
           }`}
         >
           <Link to="/">
@@ -121,8 +121,8 @@ const Header = () => {
 
         {/* Dark mode logo for large screens */}
         <div
-          className={`relative w-24 h-24 cursor-pointer ${
-            darkMode ? "hidden lg:block" : "hidden"
+          className={`relative  w-24 md:h-24 h-12 cursor-pointer ${
+            darkMode ? "md:hidden lg:block" : "hidden"
           }`}
         >
           <Link to="/">
@@ -136,7 +136,7 @@ const Header = () => {
         {/* Dark mode logo for small screens */}
         <div
           className={`relative flex-shrink-0 w-10 cursor-pointer ${
-            darkMode ? "lg:hidden" : "hidden"
+            darkMode ? "hidden md:block lg:hidden" : "hidden"
           }`}
         >
           <Link to="/">

@@ -25,7 +25,7 @@ const HeaderAdmin = () => {
         {/* left */}
         <div
           className={`relative w-24 h-24 cursor-pointer ${
-            darkMode ? "hidden" : "hidden lg:block"
+            darkMode ? "hidden" : ""
           }`}
         >
           <Link to="/">
@@ -36,25 +36,12 @@ const HeaderAdmin = () => {
             />
           </Link>
         </div>
-        {/* Light mode logo for small screens */}
-        <div
-          className={`relative flex-shrink-0 w-10 cursor-pointer ${
-            darkMode ? "hidden" : "lg:hidden"
-          }`}
-        >
-          <Link to="/">
-            <img
-              src="/images/vibes-logo-responsive.png"
-              className="object-contain w-full h-full"
-              alt="responsive logo"
-            />
-          </Link>
-        </div>
+     
 
         {/* Dark mode logo for large screens */}
         <div
           className={`relative w-24 h-24 cursor-pointer ${
-            darkMode ? "hidden lg:block" : "hidden"
+            darkMode ? "" : "hidden"
           }`}
         >
           <Link to="/">
@@ -65,21 +52,7 @@ const HeaderAdmin = () => {
             />
           </Link>
         </div>
-        {/* Dark mode logo for small screens */}
-        <div
-          className={`relative flex-shrink-0 w-10 cursor-pointer ${
-            darkMode ? "lg:hidden" : "hidden"
-          }`}
-        >
-          <Link to="/">
-            <img
-              src="/images/dark-responsive-logo.png"
-              alt="logo"
-              className="object-contain w-full h-full "
-            />
-          </Link>
-        </div>
-
+   
         <nav className="flex justify-start items-center flex-grow">
           <div className="text-xl font-bold">- Admin</div>
         </nav>

@@ -23,13 +23,8 @@ const App = () => {
   const { followUser, followFlag } = useFollow();
   const [loading, setIsLoading] = useState(false);
 
-  const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("darkMode") || ""
-  );
-
-  useEffect(() => {
-    localStorage.setItem("darkMode", darkMode);
-  }, [darkMode]);
+  const savedDarkMode = JSON.parse(localStorage.getItem("darkMode")) || false;
+  const [darkMode, setDarkMode] = useState(savedDarkMode);
 
   // When darkMode state changes, store it in localStorage and update body class
   useEffect(() => {
@@ -38,7 +33,7 @@ const App = () => {
   }, [darkMode]);
 
   const toggleDarkMode = () => {
-    setDarkMode((prevDarkMode) => !prevDarkMode);
+    setDarkMode(!darkMode);
   };
 
   return (
