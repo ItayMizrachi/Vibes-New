@@ -6,7 +6,7 @@ import { MyContext } from "../../context/myContext";
 import DeleteComment from "./DeleteComment";
 
 const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
-  const { userData} = useContext(MyContext);
+  const { userData } = useContext(MyContext);
   const [showDeleteList, setShowDeleteList] = useState(
     new Array(commentsInfo.length).fill(false)
   );
@@ -24,7 +24,7 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
         <div
           className={`${
             commentsInfo.length > 0 ? "h-20" : ""
-          } ml-10 overflow-y-scroll scrollbar-thumb-black scrollbar-thin`}
+          } ml-10 overflow-y-auto  scrollbar-thin`}
         >
           {commentsInfo.map((comment, index) => (
             <div key={comment._id} className="flex items-start mb-3">
@@ -55,7 +55,7 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
                   {" "}
                   <span className="text-sm font-bold mr-2">
                     <Link
-                    className="hover:text-gray-600 dark:hover:text-gray-400"
+                      className="hover:text-gray-600 dark:hover:text-gray-400"
                       to={
                         "/" +
                         (comment.user === userData._id
@@ -100,4 +100,3 @@ const Comments = ({ commentsInfo, deleteComment, Intersector, user_id }) => {
 };
 
 export default Comments;
-

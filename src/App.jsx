@@ -11,7 +11,8 @@ import Router from "./routes/Router";
 import { useEffect } from "react";
 
 const App = () => {
-  const { userData, doApiUser, userSignOut, setUserData, userDataLoading } = useUserData();
+  const { userData, doApiUser, userSignOut, setUserData, userDataLoading } =
+    useUserData();
   const {
     deletePost,
     postsInfo,
@@ -37,7 +38,7 @@ const App = () => {
   };
 
   return (
-    <div className="dark:bg-slate-900 dark:text-gray-200 min-h-screen">
+    <div className="dark:bg-slate-900 dark:text-gray-200 min-h-screen scrollbar-thumb-gray-900 scrollbar-track-transparent ">
       <MyContext.Provider
         value={{
           userData,
@@ -56,7 +57,7 @@ const App = () => {
           isPostLoading,
           darkMode,
           toggleDarkMode,
-          userDataLoading
+          userDataLoading,
         }}
       >
         <Router />

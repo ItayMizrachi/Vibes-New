@@ -5,12 +5,14 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MyContext } from "../context/myContext";
 import { TOKEN_KEY, doApiMethod } from "../services/apiService";
+
 const ChatBotNew = () => {
   const [showChat, setShowChat] = useState(false);
   const { userData } = useContext(MyContext);
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(""); // State for error message
   const location = useLocation();
 
   const onKeyboardClick = (e) => {
@@ -23,12 +25,10 @@ const ChatBotNew = () => {
     try {
       setLoading(true);
       const url = "https://toys-itay.cyclic.app/openai/completions";
-      // console.log("shalom 1 ");
       // const url = "https://vibes-server-new.onrender.com/openai/completions";
       // const url = "http://localhost:3008/openai/completions";
+      setError(""); // Clear previous errors
       const data = await doApiMethod(url, "POST", { message: value });
-      console.log("shalom 2 ");
-      // console.log(data);
       setMessages((prevMessages) => [
         ...prevMessages,
         { role: "user", content: value },
@@ -38,9 +38,9 @@ const ChatBotNew = () => {
         },
       ]);
       setValue("");
-      setLoading(false);
     } catch (error) {
-      console.log(error);
+      setError("An error occurred. Please try again later."); // Set error message
+    } finally {
       setLoading(false);
     }
   };
@@ -62,25 +62,25 @@ const ChatBotNew = () => {
 
   const chatButtonSpring = useSpring({
     to: {
-      opacity: showChat ? 0 : 1
+      opacity: showChat ? 0 : 1,
     },
     config: { tension: 260, friction: 60 },
   });
-  
-  
+
   const chatWindowSpring = useSpring({
     to: {
       opacity: showChat ? 1 : 0,
-      transform: showChat ? 'scale(1)' : 'scale(0)'
+      transform: showChat ? "scale(1)" : "scale(0)",
     },
     config: { tension: 360, friction: 60 },
   });
-  
+
   return (
     <>
       {/* button */}
       {localStorage[TOKEN_KEY] && !showChat && (
-        <animated.div style={chatButtonSpring} 
+        <animated.div
+          style={chatButtonSpring}
           className={`fixed transform transition-transform duration-300 md:bottom-3 bottom-20 right-3 z-[1] ${
             location.pathname.includes("chat") && "hidden"
           }`}
@@ -96,7 +96,7 @@ const ChatBotNew = () => {
               src="/images/vibes-logo-responsive.png"
               alt="vibes logo"
             />
-              <img
+            <img
               className="w-full h-full rounded-full object-cover transform hover:scale-105 transition-transform duration-300 hidden dark:block"
               src="/images/dark-responsive-logo.png"
               alt="vibes logo"
@@ -107,7 +107,7 @@ const ChatBotNew = () => {
       {/* button */}
       {showChat && (
         <animated.div
-        style={chatWindowSpring}
+          style={chatWindowSpring}
           className={`fixed md:bottom-3 bottom-20 right-3  bg-white dark:border-slate-700 dark:bg-slate-900 border rounded-lg shadow-lg h-[400px] w-[360px] md:w-[400px] md:h-[500px] z-10  ${
             location.pathname.includes("chat") && "hidden"
           } `}
@@ -120,12 +120,16 @@ const ChatBotNew = () => {
                   {/* <ArrowLeftIcon className="w-5 h-5 ml-1 cursor-pointer btn"/> */}
                   <div className="flex-shrink-0 w-10 mr-1">
                     <img
-                      className={`object-contain dark:hidden w-full h-full ${loading && "animate-spin"}`}
+                      className={`object-contain dark:hidden w-full h-full ${
+                        loading && "animate-spin"
+                      }`}
                       src="/images/vibes-logo-responsive.png"
                       alt={`vibes logo`}
                     />
-                     <img
-                      className={`object-contain hidden dark:block w-full h-full ${loading && "animate-spin"}`}
+                    <img
+                      className={`object-contain hidden dark:block w-full h-full ${
+                        loading && "animate-spin"
+                      }`}
                       src="/images/dark-responsive-logo.png"
                       alt={`vibes logo`}
                     />
@@ -137,7 +141,6 @@ const ChatBotNew = () => {
                   />
                 </div>
                 {/* chat header */}
-
                 <div className="flex-1 p-4 overflow-x-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-black">
                   {/* if there are no messages */}
                   {messages?.length === 0 ? (
@@ -200,9 +203,9 @@ const ChatBotNew = () => {
                   )}
                   <div ref={messagesEndRef}></div>
                 </div>
-
                 {/* chat input */}
-
+                {error && <div className="text-red-500 p-4">{error}</div>}{" "}
+                {/* Error message */}
                 <div className="flex p-5 space-x-1">
                   <input
                     className="flex-1 border rounded-lg p-2 outline-none disabled:cursor-not-allowed disabled:text-gray-300 dark:bg-slate-900 focus:ring-indigo-500 focus:border-indigo-500"
